@@ -7,7 +7,7 @@ spec:
   interval: 1m0s
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: data-hub-team-deployment
     namespace: flux-system
   path: ./kustomizations/apps/data-hub-configs
   prune: true
