@@ -8,6 +8,7 @@ spec:
   confMgmt:
     smartScaler: true
   general:
+    image: public.ecr.aws/opensearchproject/opensearch:2.9.0
     serviceName: opensearch-prod
     serviceAccount: opensearch-prod
     version: 2.9.0
@@ -28,6 +29,7 @@ spec:
     - name: aws-iam-token
       path: /usr/share/opensearch/config/aws-iam-token
   dashboards:
+    image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.9.0
     version: 2.9.0
     enable: true
     replicas: 1
