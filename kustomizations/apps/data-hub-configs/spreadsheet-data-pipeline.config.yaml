@@ -26,6 +26,14 @@ spreadsheets:
           - metadataSchemaFieldName: 'editor_role'
             fixedSheetValue: "senior editor"
 
+      - sheetName: 'Editor on Leave Periods'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'editor_on_leave_period'
+        tableWriteAppend: False
+
   - spreadsheetId: '1nQcLBO_yIumkXousRg_-l9Kx1HmiG7NcvDg1vkrdK-0'
     sheets:
       - sheetName: 'BRE distribution_current'
