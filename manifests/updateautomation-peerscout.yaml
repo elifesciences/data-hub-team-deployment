@@ -1,0 +1,36 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: data-hub-team-deployment
+  namespace: peerscout
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: data-hub-team-deployment
+    namespace: flux-system
+  update:
+    strategy: Setters
+    path: ./manifests
+  git:
+    commit:
+      author:
+        name: Fluxbot
+        email: flux@elifesciences.org
+      messageTemplate: |
+        release({{ .AutomationObject }}): Automatic release
+
+        Files:
+        {{ range $filename, $_ := .Updated.Files -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $_ := .Updated.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ end -}}
+
+        Images:
+        {{ range .Updated.Images -}}
+        - {{.}}
+        {{ end -}}
