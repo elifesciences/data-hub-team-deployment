@@ -2,7 +2,7 @@ apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
 metadata:
   name: data-hub-team-deployment
-  namespace: data-hub
+  namespace: flux-system
 spec:
   interval: 5m
   sourceRef:
@@ -11,7 +11,7 @@ spec:
     namespace: flux-system
   update:
     strategy: Setters
-    path: ./manifests/deployments/data-hub
+    path: ./manifests
   git:
     commit:
       author:
