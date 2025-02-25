@@ -7,11 +7,11 @@ spec:
   interval: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: data-hub-team-deployment
     namespace: flux-system
   update:
     strategy: Setters
-    path: ./deployments/peerscout
+    path: ./manifests/deployments/peerscout
   git:
     commit:
       author:
