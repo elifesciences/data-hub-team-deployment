@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-ai-bot--prod
+  labels:
+    app: data-ai-bot--prod
+  namespace: data-ai-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-ai-bot--prod
+  template:
+    metadata:
+      labels:
+        app: data-ai-bot--prod
+    spec:
+      containers:
+      - name: data-ai-bot
+        image: ghcr.io/de-code/data-ai-bot:0.0.1
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: OPENAI_BASE_URL
+          value: "https://api.openai.com/v1"
+        - name: OPENAI_MODEL_ID
+          value: "gpt-4o-mini"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100m
+          limits:
+            cpu: 1500m
+            memory: 500m
