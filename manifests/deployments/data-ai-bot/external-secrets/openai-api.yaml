@@ -13,4 +13,4 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: data-team/data-hub/openai-api
+      key: data-team/data-ai-bot/openai-api
