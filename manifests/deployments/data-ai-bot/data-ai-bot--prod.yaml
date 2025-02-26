@@ -29,6 +29,21 @@ spec:
             secretKeyRef:
               name: openai-api
               key: openai_api_key
+        - name: SLACK_SIGNING_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: slack-app
+              key: signing_secret
+        - name: SLACK_APP_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-app
+              key: signing_secret
+        - name: app_token
+          valueFrom:
+            secretKeyRef:
+              name: slack-app
+              key: bot_user_oauth_token
         resources:
           requests:
             cpu: 100m
