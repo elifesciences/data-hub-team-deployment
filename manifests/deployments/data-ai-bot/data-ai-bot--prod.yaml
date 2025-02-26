@@ -38,8 +38,8 @@ spec:
           valueFrom:
             secretKeyRef:
               name: slack-app
-              key: signing_secret
-        - name: app_token
+              key: app_token
+        - name: SLACK_BOT_TOKEN
           valueFrom:
             secretKeyRef:
               name: slack-app
