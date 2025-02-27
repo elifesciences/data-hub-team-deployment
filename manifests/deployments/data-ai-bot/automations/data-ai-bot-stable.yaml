@@ -1,0 +1,21 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: data-ai-bot-stable
+  namespace: data-ai-bot
+spec:
+  interval: 5m
+  image: ghcr.io/de-code/data-ai-bot
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: data-ai-bot-stable
+  namespace: data-ai-bot
+spec:
+  imageRepositoryRef:
+    name: data-ai-bot-stable
+    namespace: data-ai-bot
+  policy:
+    semver:
+      range: '*'
