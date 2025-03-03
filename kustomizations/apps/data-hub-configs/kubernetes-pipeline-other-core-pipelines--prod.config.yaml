@@ -140,3 +140,16 @@ kubernetesPipelines:
         value: "elife-data-pipeline"
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
         value: prod
+
+  - dataPipelineId: 'Scheduled_Queries_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 4 * * 1-5' # Daily at 3am, Monday through Friday.
+
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.scheduled_queries.cli'
+    env:
+      - name: SCHEDULED_QUERIES_PIPELINE_CONFIG_FILE_PATH
+        value: /dag_config_files/scheduled-queries.config.yaml
