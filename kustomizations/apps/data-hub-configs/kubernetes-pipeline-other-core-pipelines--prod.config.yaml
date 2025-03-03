@@ -152,4 +152,4 @@ kubernetesPipelines:
       - 'data_pipeline.scheduled_queries.cli'
     env:
       - name: SCHEDULED_QUERIES_PIPELINE_CONFIG_FILE_PATH
-        value: /dag_config_files/scheduled-queries.config.yaml
+        value: /dag_config_files/scheduled-queries--prod.config.yaml
