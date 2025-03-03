@@ -21,3 +21,26 @@ scheduledQueries:
           WHERE TO_JSON_STRING((SELECT AS STRUCT t_delete.* EXCEPT(provenance, modified_timestamp, stages, emails, abstract))) = t_source.key
             AND t_delete.provenance.imported_timestamp < t_source.latest_imported_timestamp
         )
+
+  - dataPipelineId: remove_old_person_all_records
+    bigQuery:
+      projectName: 'elife-data-pipeline'
+      sqlQuery: |-
+        DELETE FROM `elife-data-pipeline.{ENV}.person_all` AS t_delete
+        WHERE EXISTS (
+          SELECT 1
+          FROM (
+            SELECT
+              key,
+              MAX(imported_timestamp) AS latest_imported_timestamp
+            FROM (
+              SELECT
+                TO_JSON_STRING((SELECT AS STRUCT t_data.* EXCEPT(provenance, modified_timestamp))) AS key,
+                provenance.imported_timestamp,
+              FROM `elife-data-pipeline.{ENV}.person_all` AS t_data
+            )
+            GROUP BY key
+          ) AS t_source
+          WHERE TO_JSON_STRING((SELECT AS STRUCT t_delete.* EXCEPT(provenance, modified_timestamp))) = t_source.key
+            AND t_delete.provenance.imported_timestamp < t_source.latest_imported_timestamp
+        )
