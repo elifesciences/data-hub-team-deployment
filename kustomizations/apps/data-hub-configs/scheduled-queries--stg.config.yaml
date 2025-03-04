@@ -67,3 +67,26 @@ scheduledQueries:
           WHERE TO_JSON_STRING((SELECT AS STRUCT t_delete.* EXCEPT(provenance, imported_timestamp, date_generated, date_generated_info))) = t_source.key
             AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
         )
+
+  - dataPipelineId: remove_old_gmail_thread_details_records
+    bigQuery:
+      projectName: 'elife-data-pipeline'
+      sqlQuery: |-
+        DELETE FROM `elife-data-pipeline.{ENV}.gmail_thread_details` AS t_delete
+        WHERE EXISTS (
+          SELECT 1
+          FROM (
+            SELECT
+              key,
+              MAX(imported_timestamp) AS latest_imported_timestamp
+            FROM (
+              SELECT
+                threadId AS key,
+                imported_timestamp,
+              FROM `elife-data-pipeline.development.gmail_thread_details` AS t_data
+            )
+            GROUP BY key
+          ) AS t_source
+          WHERE t_delete.threadId = t_source.key
+            AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
+        )
