@@ -81,12 +81,12 @@ scheduledQueries:
               MAX(imported_timestamp) AS latest_imported_timestamp
             FROM (
               SELECT
-                threadId AS key,
+                TO_JSON_STRING(STRUCT(user_id, threadId)) AS key,
                 imported_timestamp,
               FROM `elife-data-pipeline.{ENV}.gmail_thread_details` AS t_data
             )
             GROUP BY key
           ) AS t_source
-          WHERE t_delete.threadId = t_source.key
+          WHERE TO_JSON_STRING(STRUCT(t_delete.user_id, t_delete.threadId)) = t_source.key
             AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
         )
