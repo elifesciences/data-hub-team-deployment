@@ -83,7 +83,7 @@ scheduledQueries:
               SELECT
                 threadId AS key,
                 imported_timestamp,
-              FROM `elife-data-pipeline.development.gmail_thread_details` AS t_data
+              FROM `elife-data-pipeline.{ENV}.gmail_thread_details` AS t_data
             )
             GROUP BY key
           ) AS t_source
