@@ -10,7 +10,7 @@ spreadsheets:
         dataValuesStartLineIndex: 1
         datasetName: "{ENV}"
         tableName: 'public_editor_profile'
-        tableWriteAppend: False
+        tableWriteAppend: True
         fixedSheetRecordMetadata:
           - metadataSchemaFieldName: 'editor_role'
             fixedSheetValue: "bre"
@@ -21,7 +21,7 @@ spreadsheets:
         dataValuesStartLineIndex: 1
         datasetName: "{ENV}"
         tableName: 'public_editor_profile'
-        tableWriteAppend: False
+        tableWriteAppend: True
         fixedSheetRecordMetadata:
           - metadataSchemaFieldName: 'editor_role'
             fixedSheetValue: "senior editor"
