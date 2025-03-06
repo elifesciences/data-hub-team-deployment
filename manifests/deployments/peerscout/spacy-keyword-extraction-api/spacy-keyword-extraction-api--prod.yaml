@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: spacy-keyword-extraction-api
-        image: ghcr.io/elifesciences/spacy-keyword-extraction-api:0.0.10 # {"$imagepolicy": "peerscout:spacy-keyword-extraction-api-stable"}
+        image: ghcr.io/elifesciences/spacy-keyword-extraction-api:0.0.11 # {"$imagepolicy": "peerscout:spacy-keyword-extraction-api-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -81,6 +81,6 @@ spec:
                 port:
                   number: 8000
   tls:
-  - hosts:
-    - spacy-keyword-extraction-api.elifesciences.org
-    secretName: spacy-keyword-extraction-api-prod-tls
+    - hosts:
+        - spacy-keyword-extraction-api.elifesciences.org
+      secretName: spacy-keyword-extraction-api-prod-tls
