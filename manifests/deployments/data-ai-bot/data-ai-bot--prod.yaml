@@ -20,6 +20,8 @@ spec:
         image: ghcr.io/de-code/data-ai-bot:0.0.7 # {"$imagepolicy": "data-ai-bot:data-ai-bot-stable"}
         imagePullPolicy: IfNotPresent
         env:
+        - name: OTLP_ENDPOINT
+          value: "http://phoenix--prod:6006/v1/traces"
         - name: OPENAI_BASE_URL
           value: "https://api.openai.com/v1"
         - name: OPENAI_MODEL_ID
