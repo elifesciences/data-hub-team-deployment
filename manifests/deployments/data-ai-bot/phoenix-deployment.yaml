@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: phoenix
+  name: phoenix
+  namespace: data-ai-bot
+spec:
+  ports:
+  - port: 6006
+    protocol: TCP
+    targetPort: 6006
+  selector:
+    app: phoenix
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: phoenix
+  namespace: data-ai-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phoenix
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
+      labels:
+        app: phoenix
+    spec:
+      containers:
+      - args:
+        - -m
+        - phoenix.server.main
+        - serve
+        command:
+        - python
+        env:
+        - name: PHOENIX_WORKING_DIR
+          value: /mnt/data
+        image: docker.io/arizephoenix/phoenix:version-4.0.0
+        ports:
+        - containerPort: 6006
+        - containerPort: 4317
+        - containerPort: 9090
+        volumeMounts:
+        - mountPath: /mnt/data
+          name: phoenix
+  volumeClaimTemplates:
+  - metadata:
+      name: phoenix
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: data-hub-gp3
+      resources:
+        requests:
+          storage: 1Gi
