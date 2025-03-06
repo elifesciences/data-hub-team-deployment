@@ -42,7 +42,7 @@ spec:
         command: ['sh', '-c', 'chmod -R 777 /mnt/data']
         volumeMounts:
         - mountPath: /mnt/data
-          name: phoenix
+          name: phoenix--stg
       containers:
       - name: phoenix
         args:
