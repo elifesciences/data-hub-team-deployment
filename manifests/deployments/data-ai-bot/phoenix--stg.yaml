@@ -64,7 +64,7 @@ spec:
           name: phoenix
   volumeClaimTemplates:
   - metadata:
-      name: phoenix
+      name: phoenix--stg
     spec:
       accessModes:
         - ReadWriteOnce
