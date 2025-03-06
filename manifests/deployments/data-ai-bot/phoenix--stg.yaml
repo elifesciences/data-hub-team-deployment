@@ -61,7 +61,7 @@ spec:
         - containerPort: 9090
         volumeMounts:
         - mountPath: /mnt/data
-          name: phoenix
+          name: phoenix--stg
   volumeClaimTemplates:
   - metadata:
       name: phoenix--stg
