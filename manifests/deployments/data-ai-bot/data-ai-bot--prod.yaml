@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: data-ai-bot--prod
   labels:
     app: data-ai-bot--prod
   namespace: data-ai-bot
 spec:
+  serviceName: "data-ai-bot"  # Required for StatefulSet
   replicas: 1
   selector:
     matchLabels:
