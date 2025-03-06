@@ -37,7 +37,8 @@ spec:
         env: prod
     spec:
       containers:
-      - args:
+      - name: phoenix
+        args:
         - -m
         - phoenix.server.main
         - serve
