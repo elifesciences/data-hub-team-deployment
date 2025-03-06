@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: phoenix
+    env: prod
+  name: phoenix--stg
+  namespace: data-ai-bot
+spec:
+  ports:
+  - port: 6006
+    protocol: TCP
+    targetPort: 6006
+  selector:
+    app: phoenix
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: phoenix--stg
+  namespace: data-ai-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phoenix
+      env: prod
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9090"
+        prometheus.io/scrape: "true"
+      labels:
+        app: phoenix
+        env: prod
+    spec:
+      initContainers:
+      - name: init-data-permissions
+        image: busybox
+        command: ['sh', '-c', 'chmod -R 777 /mnt/data']
+        volumeMounts:
+        - mountPath: /mnt/data
+          name: phoenix
+      containers:
+      - name: phoenix
+        args:
+        - -m
+        - phoenix.server.main
+        - serve
+        command:
+        - python
+        env:
+        - name: PHOENIX_WORKING_DIR
+          value: /mnt/data
+        image: docker.io/arizephoenix/phoenix:version-4.0.0
+        ports:
+        - containerPort: 6006
+        - containerPort: 4317
+        - containerPort: 9090
+        volumeMounts:
+        - mountPath: /mnt/data
+          name: phoenix
+  volumeClaimTemplates:
+  - metadata:
+      name: phoenix
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: data-hub-gp3
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phoenix--stg
+  namespace: data-ai-bot
+  labels:
+    app: phoenix
+    env: prod
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  rules:
+    - host: data-ai-bot-phoenix--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: phoenix--stg
+                port:
+                  number: 6006
+  tls:
+    - hosts:
+        - data-ai-bot-phoenix--stg.elifesciences.org
+      secretName: data-ai-bot-phoenix--stg.elifesciences.org-tls
