@@ -72,3 +72,32 @@ spec:
       resources:
         requests:
           storage: 1Gi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phoenix--prod
+  namespace: data-ai-bot
+  labels:
+    app: phoenix
+    env: prod
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  rules:
+    - host: data-ai-bot-phoenix--prod.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: phoenix--prod
+                port:
+                  number: 6006
+  tls:
+    - hosts:
+        - data-ai-bot-phoenix--prod.elifesciences.org
+      secretName: data-ai-bot-phoenix--prod.elifesciences.org-tls
