@@ -36,6 +36,13 @@ spec:
         app: phoenix
         env: prod
     spec:
+      initContainers:
+      - name: init-data-permissions
+        image: busybox
+        command: ['sh', '-c', 'chmod -R 777 /mnt/data']
+        volumeMounts:
+        - mountPath: /mnt/data
+          name: phoenix
       containers:
       - name: phoenix
         args:
@@ -52,8 +59,6 @@ spec:
         - containerPort: 6006
         - containerPort: 4317
         - containerPort: 9090
-        securityContext:
-          fsGroup: 1000
         volumeMounts:
         - mountPath: /mnt/data
           name: phoenix
