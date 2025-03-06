@@ -23,6 +23,8 @@ spec:
         env:
         - name: OTLP_ENDPOINT
           value: "http://phoenix--prod:6006/v1/traces"
+        - name: USER_AGENT
+          value: "Data-AI-Bot--prod/1.0"
         - name: OPENAI_BASE_URL
           value: "https://api.openai.com/v1"
         - name: OPENAI_MODEL_ID
