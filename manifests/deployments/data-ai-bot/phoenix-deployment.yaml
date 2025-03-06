@@ -3,7 +3,8 @@ kind: Service
 metadata:
   labels:
     app: phoenix
-  name: phoenix
+    env: prod
+  name: phoenix--prod
   namespace: data-ai-bot
 spec:
   ports:
@@ -17,13 +18,14 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: phoenix
+  name: phoenix--prod
   namespace: data-ai-bot
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: phoenix
+      env: prod
   template:
     metadata:
       annotations:
@@ -32,6 +34,7 @@ spec:
         prometheus.io/scrape: "true"
       labels:
         app: phoenix
+        env: prod
     spec:
       containers:
       - args:
