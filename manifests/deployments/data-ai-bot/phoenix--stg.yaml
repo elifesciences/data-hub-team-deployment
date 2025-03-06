@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: phoenix
-    env: prod
+    env: stg
   name: phoenix--stg
   namespace: data-ai-bot
 spec:
@@ -25,7 +25,7 @@ spec:
   selector:
     matchLabels:
       app: phoenix
-      env: prod
+      env: stg
   template:
     metadata:
       annotations:
@@ -34,7 +34,7 @@ spec:
         prometheus.io/scrape: "true"
       labels:
         app: phoenix
-        env: prod
+        env: stg
     spec:
       initContainers:
       - name: init-data-permissions
@@ -80,7 +80,7 @@ metadata:
   namespace: data-ai-bot
   labels:
     app: phoenix
-    env: prod
+    env: stg
   annotations:
     nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
     nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
