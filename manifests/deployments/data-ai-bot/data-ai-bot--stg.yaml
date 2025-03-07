@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: data-ai-bot
-        image: ghcr.io/de-code/data-ai-bot:0.0.7 # {"$imagepolicy": "data-ai-bot:data-ai-bot-stable"}
+        image: ghcr.io/de-code/data-ai-bot:0.0.7 # {"$imagepolicy": "data-ai-bot:data-ai-bot-unstable"}
         imagePullPolicy: IfNotPresent
         env:
         - name: OTLP_ENDPOINT
