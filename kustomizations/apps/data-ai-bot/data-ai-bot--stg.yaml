@@ -1,0 +1,4 @@
+agent:
+  tools:
+    - get_joke
+    - get_docmap_by_manuscript_id
