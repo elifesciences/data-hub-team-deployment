@@ -13,6 +13,7 @@ spec:
     targetPort: 6006
   selector:
     app: phoenix
+    env: stg
   type: ClusterIP
 ---
 apiVersion: apps/v1
