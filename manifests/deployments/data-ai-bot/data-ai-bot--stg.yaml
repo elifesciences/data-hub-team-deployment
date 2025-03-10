@@ -49,6 +49,14 @@ spec:
             secretKeyRef:
               name: slack-app--stg
               key: bot_user_oauth_token
+        volumeMounts:
+        - name: data-ai-bot-configs-volume
+          mountPath: /config/
+          readOnly: true
+        volumes:
+        - name: data-ai-bot-configs-volume
+          configMap:
+            name: data-ai-bot-configs
         resources:
           requests:
             cpu: 100m
