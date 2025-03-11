@@ -33,6 +33,7 @@ spec:
     version: 2.9.0
     enable: true
     replicas: 1
+
   nodePools:
   - component: cluster-managers
     replicas: 3
@@ -71,6 +72,7 @@ spec:
         storageClass: data-hub-gp3
         accessModes:
           - ReadWriteOnce
+
   - component: data-nodes
     replicas: 3
     additionalConfig:
@@ -82,6 +84,13 @@ spec:
         cpu: "1000m"
       limits:
         memory: "6Gi"
+    tolerations:
+    - key: workload
+      operator: Equal
+      value: "services"
+      effect: NoSchedule
+    nodeSelector:
+      data-hub-workload: "services"
     probes:
       startup:
         initialDelaySeconds: 30
@@ -104,6 +113,7 @@ spec:
         storageClass: data-hub-gp3
         accessModes:
           - ReadWriteOnce
+
   - component: ingest
     replicas: 1
     additionalConfig:
