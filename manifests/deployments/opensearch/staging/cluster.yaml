@@ -125,6 +125,13 @@ spec:
         cpu: "100m"
       limits:
         memory: "3Gi"
+    tolerations:
+    - key: workload
+      operator: Equal
+      value: "services"
+      effect: NoSchedule
+    nodeSelector:
+      data-hub-workload: "services"
     roles:
     - "ingest"
     diskSize: 10Gi
