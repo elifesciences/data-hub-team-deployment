@@ -111,7 +111,7 @@ spec:
           volumeClaimTemplate:
             spec:
               accessModes: [ "ReadWriteOnce" ]
-              storageClassName: data-hub-gp3
+              storageClassName: sciety-gp3
               resources:
                 requests:
                   storage: 5500Mi
