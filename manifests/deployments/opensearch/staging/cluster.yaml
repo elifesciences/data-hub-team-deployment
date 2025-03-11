@@ -45,6 +45,13 @@ spec:
         cpu: "200m"
       limits:
         memory: "3Gi"
+    tolerations:
+    - key: workload
+      operator: Equal
+      value: "services"
+      effect: NoSchedule
+    nodeSelector:
+      data-hub-workload: "services"
     roles:
     - "cluster_manager"
     diskSize: 10Gi
