@@ -50,7 +50,6 @@ spec:
           requests:
             cpu: 250m
             memory: 2048Mi
-            ephemeral-storage: 5500Mi
         env:
         - name: SCIETY_LABS_COOKIEBOT_IDENTIFIER
           value: "56f22051-f915-4cf1-9552-7d8f64d81152"
@@ -93,6 +92,8 @@ spec:
         - name: opensearch-secret-volume
           mountPath: /root/.secrets/opensearch/
           readOnly: true
+        - name: cache-storage
+          mountPath: /app/sciety-labs/.cache
       volumes:
       - name: gcp-credentials-sealed-secret-volume
         secret:
@@ -106,6 +107,15 @@ spec:
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
+      - name: cache-storage
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: data-hub-gp3
+              resources:
+                requests:
+                  storage: 5500Mi
 ---
 apiVersion: v1
 kind: Service
