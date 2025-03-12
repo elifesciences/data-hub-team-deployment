@@ -21,6 +21,8 @@ spec:
         image: ghcr.io/de-code/data-ai-bot:0.0.8 # {"$imagepolicy": "data-ai-bot:data-ai-bot-stable"}
         imagePullPolicy: IfNotPresent
         env:
+        - name: CONFIG_FILE
+          value: "/config/data-ai-bot--prod.yaml"
         - name: OTLP_ENDPOINT
           value: "http://phoenix--prod:6006/v1/traces"
         - name: USER_AGENT
@@ -49,6 +51,10 @@ spec:
             secretKeyRef:
               name: slack-app
               key: bot_user_oauth_token
+        volumeMounts:
+        - name: data-ai-bot-configs-volume
+          mountPath: /config/
+          readOnly: true
         resources:
           requests:
             cpu: 100m
@@ -56,3 +62,7 @@ spec:
           limits:
             cpu: 1500m
             memory: 500Mi
+      volumes:
+      - name: data-ai-bot-configs-volume
+        configMap:
+          name: data-ai-bot-configs

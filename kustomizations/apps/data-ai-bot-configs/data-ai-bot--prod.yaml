@@ -1,0 +1,82 @@
+toolDefinitions:
+  fromPythonToolInstance:
+    - name: get_joke
+      module: data_ai_bot.tools.example.joke
+      key: get_joke
+      description: |-
+        Fetches a random programming joke.
+
+  fromPythonToolClass:
+    - name: how_to_use_this_tool
+      description: |-
+        Explain to the user how to use this AI tool.
+        This also summarised what this tool knows.
+        Also provides some example prompts.
+      module: data_ai_bot.tools.sources.static
+      className: StaticContentTool
+      initParameters:
+        content: |-
+          You can for example ask questions relating to individual DocMap by a manuscript id.
+
+          Example prompts:
+            - From the DocMap, who are the editors of 101859?
+            - How many reviews does the DocMap of 101859 have?
+
+    - name: get_zen_quote
+      module: data_ai_bot.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        description: |-
+          Retrieve a random inspirational zen quote as JSON.
+        url: https://zenquotes.io/api/random
+
+    - name: get_docmap_by_manuscript_id
+      description: |-
+        Fetches a DocMap as JSON from the Data Hub DocMaps API.
+      module: data_ai_bot.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        inputs:
+          manuscript_id:
+            type: string
+            description: 'The 5 or 6 digit eLife manuscript id'
+            regex: '\d{5,6}'
+        url: 'https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id'
+        query_parameters:
+          manuscript_id: '{{ manuscript_id }}'
+
+    - name: search_elife_papers
+      description: |-
+        Search eLife papers and returns JSON. This also returns the total count.
+      module: data_ai_bot.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        inputs:
+          query:
+            type: string
+            description: 'The search query. Can be empty.'
+          significance:
+            type: string
+            description: |-
+              The minimum significance filter criteria or empty.
+              Only use if specified by user.
+              One of: landmark,fundamental,important,valuable,useful
+          strength:
+            type: string
+            description: |-
+              The minimum strength filter criteria or empty.
+              Only use if specified by user.
+              One of: exceptional,compelling,convincing,solid,incomplete,inadequate
+        url: 'https://api.elifesciences.org/search'
+        query_parameters:
+          for: '{{ query }}'
+          elifeAssessmentSignificance[]: '{{ significance }}'
+          elifeAssessmentStrength[]: '{{ strength }}'
+
+agent:
+  tools:
+    - get_joke
+    - get_docmap_by_manuscript_id
+    - how_to_use_this_tool
+    - get_zen_quote
+    - search_elife_papers

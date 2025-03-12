@@ -5,6 +5,7 @@ namespace: data-ai-bot
 configMapGenerator:
 - name: data-ai-bot-configs
   files:
+  - data-ai-bot--prod.yaml
   - data-ai-bot--stg.yaml
 generatorOptions:
   disableNameSuffixHash: true
