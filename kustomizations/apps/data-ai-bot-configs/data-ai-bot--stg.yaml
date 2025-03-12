@@ -77,3 +77,6 @@ agent:
   tools:
     - get_joke
     - get_docmap_by_manuscript_id
+    - how_to_use_this_tool
+    - get_zen_quote
+    - search_elife_papers
