@@ -73,6 +73,27 @@ toolDefinitions:
           elifeAssessmentSignificance[]: '{{ significance }}'
           elifeAssessmentStrength[]: '{{ strength }}'
 
+    - name: get_senior_editors
+      description: |-
+        Retrieves a list of senior editors along with their expertise.
+        Returns JSON.
+      module: data_ai_bot.tools.sources.bigquery
+      className: BigQueryTool
+      initParameters:
+        project_name: elife-data-pipeline
+        sql_query: |-
+          SELECT
+            Name,
+            Keywords,
+            Techniques,
+            Subject_Areas,
+            Research_Interests,
+            Website_URL,
+            Current_Availability,
+            Role_Name
+          FROM `elife-data-pipeline.prod.mv_Editorial_Public_Editor_Profile`
+          WHERE Role_Name = 'Senior Editor'
+
 agent:
   tools:
     - get_joke
@@ -80,3 +101,4 @@ agent:
     - how_to_use_this_tool
     - get_zen_quote
     - search_elife_papers
+    - get_senior_editors
