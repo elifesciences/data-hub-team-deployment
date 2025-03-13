@@ -51,9 +51,14 @@ spec:
             secretKeyRef:
               name: slack-app--stg
               key: bot_user_oauth_token
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /.secrets/gcp/service_account
         volumeMounts:
         - name: data-ai-bot-configs-volume
           mountPath: /config/
+          readOnly: true
+        - name: gcp-secret-volume
+          mountPath: /.secrets/gcp/
           readOnly: true
         resources:
           requests:
@@ -66,3 +71,6 @@ spec:
       - name: data-ai-bot-configs-volume
         configMap:
           name: data-ai-bot-configs
+      - name: gcp-secret-volume
+        secret:
+          secretName: gcp
