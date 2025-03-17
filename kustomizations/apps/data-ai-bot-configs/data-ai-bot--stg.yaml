@@ -94,6 +94,42 @@ toolDefinitions:
           FROM `elife-data-pipeline.prod.mv_Editorial_Public_Editor_Profile`
           WHERE Role_Name = 'Senior Editor'
 
+    - name: get_data_hub_bigquery_views_pipeline_log
+      description: |-
+        Retrieves a the latest list of BigQuery materialized views log.
+        This includes the number of bytes billed that are used to calcuate the cost.
+      module: data_ai_bot.tools.sources.bigquery
+      className: BigQueryTool
+      initParameters:
+        project_name: elife-data-pipeline
+        sql_query: |-
+          SELECT
+            source_view_name,
+            destination_table_name,
+            (slot_millis / 1000) AS slot_time_secs,
+            total_bytes_billed,
+            (total_bytes_billed * 6.25 / (1024 * 1024 * 1024 * 1024)) AS cost_in_usd,  -- $6.25 per TiB,
+            (
+              SELECT AS STRUCT
+                COUNT(*) AS runs,
+                SUM(total_bytes_billed) AS total_bytes_billed,
+                (SUM(total_bytes_billed) * 6.25 / (1024 * 1024 * 1024 * 1024)) AS cost_in_usd
+              FROM `elife-data-pipeline.prod.data_hub_bigquery_views_pipeline_log` AS count_log
+              WHERE count_log.destination_dataset = log.destination_dataset
+                AND count_log.source_view_name = log.source_view_name
+                AND count_log.destination_table_name = log.destination_table_name
+                AND DATE(count_log.data_hub_imported_timestamp) < CURRENT_DATE()
+                AND DATE(count_log.data_hub_imported_timestamp) >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+            ) AS previous_7days
+          FROM `elife-data-pipeline.prod.data_hub_bigquery_views_pipeline_log` AS log
+          WHERE destination_dataset = 'prod'
+            AND data_hub_imported_timestamp = (
+              SELECT MAX(data_hub_imported_timestamp)
+              FROM `elife-data-pipeline.prod.data_hub_bigquery_views_pipeline_log`
+              WHERE destination_dataset = 'prod'
+            )
+          ORDER BY total_bytes_billed DESC
+
 agent:
   tools:
     - get_joke
@@ -102,3 +138,4 @@ agent:
     - get_zen_quote
     - search_elife_papers
     - get_senior_editors
+    - get_data_hub_bigquery_views_pipeline_log
