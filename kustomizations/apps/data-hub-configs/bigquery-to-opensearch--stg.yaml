@@ -603,11 +603,18 @@ bigQueryToOpenSearch:
             ) AS crossref
 
           FROM `elife-data-pipeline.{ENV}.v_latest_crossref_metadata_api_response` AS crossref_response
-          WHERE NOT STARTS_WITH(crossref_response.doi, '10.1101/')
-            OR EXISTS(
-              SELECT 1
-              FROM UNNEST(crossref_response.institution) AS _institution
-              WHERE _institution.name IN ('bioRxiv', 'medRxiv')
+          WHERE (
+              -- exclude eLife papers
+              NOT STARTS_WITH(crossref_response.doi, '10.7554/')
+            )
+            AND (
+              -- exclude papers with same prefix which are not 'bioRxiv' or 'medRxiv'
+              NOT STARTS_WITH(crossref_response.doi, '10.1101/')
+              OR EXISTS(
+                SELECT 1
+                FROM UNNEST(crossref_response.institution) AS _institution
+                WHERE _institution.name IN ('bioRxiv', 'medRxiv')
+              )
             )
     fieldNamesFor:
       id: doi
