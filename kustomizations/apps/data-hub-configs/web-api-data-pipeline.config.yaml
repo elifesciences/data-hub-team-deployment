@@ -257,7 +257,10 @@ webApi:
               '10.31224',   -- engrXiv
 
               -- Cold Spring Harbor Laboratory:
-              '10.1101'    -- bioRxiv, medRxiv, ...
+              '10.1101',   -- bioRxiv, medRxiv, ...
+
+              -- eLife:
+              '10.7554'
             ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
