@@ -106,9 +106,11 @@ toolDefinitions:
           SELECT
             source_view_name,
             destination_table_name,
-            (slot_millis / 1000) AS slot_time_secs,
-            total_bytes_billed,
-            (total_bytes_billed * 6.25 / (1024 * 1024 * 1024 * 1024)) AS cost_in_usd,  -- $6.25 per TiB,
+            STRUCT(
+              (slot_millis / 1000) AS slot_time_secs,
+              total_bytes_billed,
+              (total_bytes_billed * 6.25 / (1024 * 1024 * 1024 * 1024)) AS cost_in_usd  -- $6.25 per TiB
+            ) AS latest_run,
             (
               SELECT AS STRUCT
                 COUNT(*) AS runs,
