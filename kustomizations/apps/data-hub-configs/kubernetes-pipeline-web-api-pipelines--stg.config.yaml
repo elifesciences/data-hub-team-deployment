@@ -129,6 +129,13 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=crossref_metadata_api'
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
