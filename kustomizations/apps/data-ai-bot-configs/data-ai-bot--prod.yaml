@@ -107,10 +107,9 @@ toolDefinitions:
             ecr.Name,
             ecr.Email,
             ecr.Institution,
-            ecr.Subject_Areas,
-            ecr.Keywords,
-            ecr.Webpage_URL,
-            ecr.All_Relevant_Editors
+            ecr.Subject_Areas_CSV,
+            ecr.Keywords_CSV,
+            ecr.Webpage_URL
           FROM `elife-data-pipeline.prod.mv_Editorial_Early_Career_Reviewer` AS ecr
 
     - name: get_data_hub_bigquery_views_pipeline_log
