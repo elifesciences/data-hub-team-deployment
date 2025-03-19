@@ -94,6 +94,25 @@ toolDefinitions:
           FROM `elife-data-pipeline.prod.mv_Editorial_Public_Editor_Profile`
           WHERE Role_Name = 'Senior Editor'
 
+    - name: get_ecrs
+      description: |-
+        Retrieves a list of Early Career Researchers (ECRs) along with their expertise.
+        Returns JSON.
+      module: data_ai_bot.tools.sources.bigquery
+      className: BigQueryTool
+      initParameters:
+        project_name: elife-data-pipeline
+        sql_query: |-
+          SELECT
+            ecr.Name,
+            ecr.Email,
+            ecr.Institution,
+            ecr.Subject_Areas,
+            ecr.Keywords,
+            ecr.Webpage_URL,
+            ecr.All_Relevant_Editors
+          FROM `elife-data-pipeline.prod.mv_Editorial_Early_Career_Reviewer` AS ecr
+
     - name: get_data_hub_bigquery_views_pipeline_log
       description: |-
         Retrieves a the latest list of BigQuery materialized views log.
@@ -140,4 +159,5 @@ agent:
     - get_zen_quote
     - search_elife_papers
     - get_senior_editors
+    - get_ecrs
     - get_data_hub_bigquery_views_pipeline_log
