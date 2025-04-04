@@ -113,7 +113,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/preserve-host: “false”
+    nginx.ingress.kubernetes.io/upstream-vhost: continuumtest--metrics.elifesciences.org
 spec:
   rules:
     - host: data-hub-metrics-api--stg.elifesciences.org
