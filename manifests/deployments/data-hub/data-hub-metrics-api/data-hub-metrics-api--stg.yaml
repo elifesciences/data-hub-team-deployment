@@ -74,13 +74,14 @@ metadata:
     app: data-hub-metrics-api--stg
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
     - host: data-hub-metrics-api--stg.elifesciences.org
       http:
         paths:
-          - pathType: Prefix
-            path: "/"
+          - pathType: ImplementationSpecific
+            path: "/metrics/article/\\d+/citations/version/\\d+"
             backend:
               service:
                 name: data-hub-metrics-api--stg
