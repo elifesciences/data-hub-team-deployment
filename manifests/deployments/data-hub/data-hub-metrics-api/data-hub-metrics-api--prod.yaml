@@ -74,11 +74,26 @@ metadata:
     app: data-hub-metrics-api--prod
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
     - host: data-hub-metrics-api.elifesciences.org
       http:
         paths:
+          - pathType: ImplementationSpecific
+            path: "/metrics/article/\\d+/citations/version/\\d+"
+            backend:
+              service:
+                name: data-hub-metrics-api--prod
+                port:
+                  number: 8000
+          - pathType: Prefix
+            path: "/docs"
+            backend:
+              service:
+                name: data-hub-metrics-api--prod
+                port:
+                  number: 8000
           - pathType: Prefix
             path: "/"
             backend:
@@ -90,3 +105,35 @@ spec:
     - hosts:
         - data-hub-metrics-api.elifesciences.org
       secretName: data-hub-metrics-api-prod-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elife-metrics--prod
+  namespace: data-hub
+spec:
+  type: ExternalName
+  externalName: prod--metrics.elife.internal
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-metrics-api--prod-elife-metrics--prod-proxy
+  namespace: data-hub
+  labels:
+    app: data-hub-metrics-api--prod
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
+spec:
+  rules:
+    - host: data-hub-metrics-api.elifesciences.org
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: "/metrics/(.*)"
+            backend:
+              service:
+                name: elife-metrics--prod
+                port:
+                  number: 80
