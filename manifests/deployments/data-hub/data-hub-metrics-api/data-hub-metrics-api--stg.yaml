@@ -109,7 +109,6 @@ metadata:
   labels:
     app: data-hub-metrics-api--stg
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -126,7 +125,3 @@ spec:
                 name: elife-metrics-api--continuumtest
                 port:
                   number: 443
-  tls:
-    - hosts:
-        - data-hub-metrics-api--stg.elifesciences.org
-      secretName: data-hub-metrics-api-stg-tls
