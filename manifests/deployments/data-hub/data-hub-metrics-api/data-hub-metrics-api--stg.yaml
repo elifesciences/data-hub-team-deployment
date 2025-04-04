@@ -104,7 +104,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: data-hub-metrics-api--stg
+  name: data-hub-metrics-api--stg-elife-metrics--continuumtest-proxy
   namespace: data-hub
   labels:
     app: data-hub-metrics-api--stg
