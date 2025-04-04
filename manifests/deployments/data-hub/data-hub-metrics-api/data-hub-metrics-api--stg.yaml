@@ -91,3 +91,41 @@ spec:
     - hosts:
         - data-hub-metrics-api--stg.elifesciences.org
       secretName: data-hub-metrics-api-stg-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elife-metrics-api--continuumtest
+  namespace: data-hub
+spec:
+  type: ExternalName
+  externalName: continuumtest--metrics.elifesciences.org
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-metrics-api--stg
+  namespace: data-hub
+  labels:
+    app: data-hub-metrics-api--stg
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+    - host: data-hub-metrics-api--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            path: "/metrics/(.*)"
+            backend:
+              service:
+                name: elife-metrics-api--continuumtest
+                port:
+                  number: 443
+  tls:
+    - hosts:
+        - data-hub-metrics-api--stg.elifesciences.org
+      secretName: data-hub-metrics-api-stg-tls
