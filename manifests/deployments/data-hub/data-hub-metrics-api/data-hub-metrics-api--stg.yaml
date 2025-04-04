@@ -87,6 +87,20 @@ spec:
                 name: data-hub-metrics-api--stg
                 port:
                   number: 8000
+          - pathType: Prefix
+            path: "/docs"
+            backend:
+              service:
+                name: data-hub-metrics-api--stg
+                port:
+                  number: 8000
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: data-hub-metrics-api--stg
+                port:
+                  number: 8000
   tls:
     - hosts:
         - data-hub-metrics-api--stg.elifesciences.org
