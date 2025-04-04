@@ -99,7 +99,7 @@ metadata:
   namespace: data-hub
 spec:
   type: ExternalName
-  externalName: continuumtest--metrics.elifesciences.org
+  externalName: continuumtest--metrics.elife.internal
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -109,8 +109,6 @@ metadata:
   labels:
     app: data-hub-metrics-api--stg
   annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/upstream-vhost: continuumtest--metrics.elifesciences.org
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
 spec:
@@ -124,4 +122,4 @@ spec:
               service:
                 name: elife-metrics--continuumtest
                 port:
-                  number: 443
+                  number: 80
