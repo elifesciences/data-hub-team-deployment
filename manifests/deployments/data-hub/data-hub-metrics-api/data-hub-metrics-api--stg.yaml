@@ -102,13 +102,14 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /metrics/$1
 spec:
   rules:
     - host: data-hub-metrics-api--stg.elifesciences.org
       http:
         paths:
           - pathType: ImplementationSpecific
-            path: "/metrics/article/\\d+/citations/version/\\d+"
+            path: "/api/v2/(article/\\d+/citations/version/\\d+)"
             backend:
               service:
                 name: data-hub-metrics-api--stg
@@ -133,14 +134,13 @@ metadata:
     app: data-hub-metrics-api--stg
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /api/v2/$1
 spec:
   rules:
     - host: data-hub-metrics-api--stg.elifesciences.org
       http:
         paths:
           - pathType: ImplementationSpecific
-            path: "/metrics/(.*)"
+            path: "/api/v2/(.*)"
             backend:
               service:
                 name: elife-metrics--continuumtest
