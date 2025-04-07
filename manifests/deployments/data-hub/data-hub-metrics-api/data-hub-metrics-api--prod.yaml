@@ -127,7 +127,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: data-hub-metrics-api-to-elife-metrics-continuumtest-proxy--prod
+  name: data-hub-metrics-api-to-elife-metrics-prod-proxy--prod
   namespace: data-hub
   labels:
     app: data-hub-metrics-api--prod
