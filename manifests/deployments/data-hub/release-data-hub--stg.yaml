@@ -92,6 +92,8 @@ spec:
         # Staging should not use the production labslink config, so we use their test environment (it's not related to our `--test` env)
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc-labslink--test.config.yaml
+      - name: FINANCE_DATA_CONFIG_FILE_PATH
+        value: /dag_config_files/finance-data--stg.config.yaml
       - name: GMAIL_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/gmail-data-pipeline.config.yaml
       - name: CROSSREF_CONFIG_FILE_PATH
