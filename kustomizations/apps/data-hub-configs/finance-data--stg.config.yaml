@@ -5,5 +5,5 @@ financeDataPipeline:
       dataset: '{ENV}'
       table: 'v_Finance_Data_RP_Site'
     target:
-      bucket: 'hazal-test'
+      bucket: 'elife-data-hub-finance-data'
       objectName: 'finance_data_rp_site_staging.csv'
