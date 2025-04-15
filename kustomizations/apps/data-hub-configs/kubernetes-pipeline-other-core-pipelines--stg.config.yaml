@@ -164,4 +164,4 @@ kubernetesPipelines:
 
     env:
       - name: FINANCE_DATA_CONFIG_FILE_PATH
-        value: /dag_config_files/finance-data--stg.config.yaml
+        value: /dag_config_files/finance-data.config.yaml
