@@ -6,4 +6,4 @@ financeDataPipeline:
       table: 'v_Finance_Data_RP_Site'
     target:
       bucket: 'elife-data-hub-finance-data'
-      objectName: 'finance_data_rp_site_staging.csv'
+      objectName: '{ENV}/finance_data_rp_site_staging.csv'
