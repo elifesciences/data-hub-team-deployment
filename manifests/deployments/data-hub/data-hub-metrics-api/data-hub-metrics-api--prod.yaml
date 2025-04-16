@@ -74,6 +74,7 @@ metadata:
     app: data-hub-metrics-api--prod
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
     - host: data-hub-metrics-api.elifesciences.org
