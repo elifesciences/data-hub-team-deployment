@@ -8,7 +8,7 @@ kubernetesPipelines:
         tags:
           - 'Metrics API'
           - 'Kubernetes'
-    image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-ed716d65-20250425.0945
+    image: '${data_hub_metrics_api_unstable_image}'
     arguments:
       - 'python'
       - '-m'
