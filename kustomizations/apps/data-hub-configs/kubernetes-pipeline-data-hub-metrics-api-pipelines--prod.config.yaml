@@ -8,7 +8,7 @@ kubernetesPipelines:
         tags:
           - 'Metrics API'
           - 'Kubernetes'
-    image: '${data_hub_metrics_api_unstable_image}'
+    image: '${data_hub_metrics_api_stable_image}'
     arguments:
       - 'python'
       - '-m'
