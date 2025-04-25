@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: valkey
-      version: "0.3.17"
+      version: "3.0.2"
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -20,5 +20,5 @@ spec:
     architecture: standalone
     auth:
       enabled: false
-    master:
+    primary:
       resourcesPreset: none
