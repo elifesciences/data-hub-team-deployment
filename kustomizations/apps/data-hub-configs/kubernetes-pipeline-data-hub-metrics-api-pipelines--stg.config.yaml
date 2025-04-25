@@ -1,0 +1,37 @@
+kubernetesPipelines:
+
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Data_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@daily'
+        max_active_runs: 1
+        tags:
+          - 'Metrics API'
+          - 'Kubernetes'
+    image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-ed716d65-20250425.0945
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_hub_metrics_api.refresh_data.cli'
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: REDIS_HOST
+        value: data-hub-metrics-api-redis--stg-valkey-master
+      - name: REDIS_PORT
+        value: "6379"
+    volumeMounts:
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+    volumes:
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
