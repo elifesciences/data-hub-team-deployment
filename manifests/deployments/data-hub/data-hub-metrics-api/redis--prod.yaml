@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: data-hub-metrics-api-redis--prod
+  namespace: data-hub
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: valkey
+      version: "0.3.17"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+  values:
+    global:
+      defaultStorageClass: data-hub-gp3
+    architecture: standalone
+    auth:
+      enabled: false
+    master:
+      resourcesPreset: none
