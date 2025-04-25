@@ -17,6 +17,7 @@ configMapGenerator:
   - finance-data.config.yaml
   - gmail-data-pipeline.config.yaml
   - kubernetes-pipeline--prod.config.yaml
+  - kubernetes-pipeline-data-hub-metrics-api-pipelines--prod.config.yaml
   - kubernetes-pipeline-data-science-pipelines--prod.config.yaml
   - kubernetes-pipeline-ejp-xml-pipelines--prod.config.yaml
   - kubernetes-pipeline-other-core-pipelines--prod.config.yaml
