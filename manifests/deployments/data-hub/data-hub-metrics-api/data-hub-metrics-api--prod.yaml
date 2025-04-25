@@ -6,6 +6,7 @@ metadata:
     app: data-hub-metrics-api--prod
   namespace: data-hub
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: data-hub-metrics-api--prod
