@@ -22,3 +22,10 @@ spec:
       enabled: false
     primary:
       resourcesPreset: none
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
