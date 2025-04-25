@@ -46,7 +46,7 @@ spec:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
         - name: REDIS_HOST
-          value: data-hub-metrics-api-redis--stg-master
+          value: data-hub-metrics-api-redis--stg-valkey-master
         - name: REDIS_PORT
           value: "6379"
         volumeMounts:
