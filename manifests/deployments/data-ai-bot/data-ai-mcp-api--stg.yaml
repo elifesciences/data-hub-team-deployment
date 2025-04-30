@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-ai-mcp-api--stg
+  labels:
+    app: data-ai-mcp-api--stg
+  namespace: data-ai-bot
+spec:
+  selector:
+    matchLabels:
+      app: data-ai-mcp-api--stg
+  template:
+    metadata:
+      labels:
+        app: data-ai-mcp-api--stg
+    spec:
+      containers:
+      - name: data-ai-mcp-api
+        image: ghcr.io/de-code/py-conf-mcp_unstable:main-e113860d-20250430.0848
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 1500m
+            memory: 500Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-ai-mcp-api--stg
+  namespace: data-ai-bot
+spec:
+  selector:
+    app: data-ai-mcp-api--stg
+  ports:
+  - port: 8080
