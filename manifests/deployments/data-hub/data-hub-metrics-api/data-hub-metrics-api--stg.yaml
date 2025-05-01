@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: data-hub-metrics-api
-        image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-24b9a34c-20250430.1601 # {"$imagepolicy": "data-hub:data-hub-metrics-api-unstable"}
+        image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-abbf3d85-20250501.1006 # {"$imagepolicy": "data-hub:data-hub-metrics-api-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -126,7 +126,6 @@ spec:
                 name: data-hub-metrics-api--stg
                 port:
                   number: 8000
-
           - pathType: ImplementationSpecific
             path: "/api/v2/(article/\\d+/citations)"
             backend:
