@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: data-ai-bot
-        image: ghcr.io/de-code/data-ai-bot_unstable:main-7128a324-20250319.1827 # {"$imagepolicy": "data-ai-bot:data-ai-bot-unstable"}
+        image: ghcr.io/de-code/data-ai-bot_unstable:main-f513995b-20250501.1753 # {"$imagepolicy": "data-ai-bot:data-ai-bot-unstable"}
         imagePullPolicy: IfNotPresent
         env:
         - name: CONFIG_FILE
