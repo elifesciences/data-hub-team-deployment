@@ -27,16 +27,16 @@ spec:
           httpGet:
             path: /
             port: http
-          initialDelaySeconds: 5
-          timeoutSeconds: 120
-          periodSeconds: 60
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
         readinessProbe:
           httpGet:
             path: /
             port: http
-          initialDelaySeconds: 5
-          timeoutSeconds: 120
-          periodSeconds: 60
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
         resources:
           limits:
             memory: 2Gi
