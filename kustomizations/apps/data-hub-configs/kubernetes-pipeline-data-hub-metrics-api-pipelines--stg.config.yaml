@@ -17,7 +17,7 @@ kubernetesPipelines:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /dag_secret_files/gcloud/credentials.json
       - name: REDIS_HOST
-        value: data-hub-metrics-api-redis--stg-valkey-primary
+        value: data-hub-metrics-api-valkey--stg-primary
       - name: REDIS_PORT
         value: "6379"
     volumeMounts:
