@@ -29,3 +29,34 @@ spec:
         effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: data-hub-metrics-api-valkey--stg
+  namespace: data-hub
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: valkey
+      version: "3.0.2"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+  values:
+    global:
+      defaultStorageClass: data-hub-gp3
+    architecture: standalone
+    auth:
+      enabled: false
+    primary:
+      resourcesPreset: none
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
