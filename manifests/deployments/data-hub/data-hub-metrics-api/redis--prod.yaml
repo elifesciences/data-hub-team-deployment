@@ -16,10 +16,20 @@ spec:
   values:
     global:
       defaultStorageClass: data-hub-gp3
-    architecture: standalone
+    architecture: replication
     auth:
       enabled: false
     primary:
+      resourcesPreset: none
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
+    replica:
+      replicaCount: 2
       resourcesPreset: none
       tolerations:
       - key: workload
