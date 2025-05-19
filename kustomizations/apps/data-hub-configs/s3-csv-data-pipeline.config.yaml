@@ -410,7 +410,7 @@ s3Csv:
     description:
       Load Sciety Events from CSV to BigQuery.
       Parse "payload" as JSON.
-    bucketName: sciety-data-extractions
+    bucketName: sciety-events-export
     objectKeyPattern:
       - sciety--prod--events-from-cronjob.csv
     headerLineIndex: 0
