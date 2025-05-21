@@ -335,7 +335,7 @@ spec:
             secretName: opensearch-prod-admin-password
         - name: surveymonkey-secret-volume
           secret:
-            secretName: surveymonkey-credentials
+            secretName: surveymonkey
     workers:
       resources:
         requests:
@@ -447,7 +447,7 @@ spec:
           secretName: opensearch-prod-admin-password
       - name: surveymonkey-secret-volume
         secret:
-          secretName: surveymonkey-credentials
+          secretName: surveymonkey
     postgresql:
       resources:
         requests:
