@@ -67,26 +67,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
 
-  - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
-    arguments:
-      - 'python'
-      - '-m'
-      - 'data_pipeline.generic_web_api.cli'
-      - '--data-pipeline-id=hypothesis_annotations_for_elife_journal'
-
-  - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '@hourly'
-        tags:
-          - 'DocMaps'
-          - 'Web API'
-    arguments:
-      - 'python'
-      - '-m'
-      - 'data_pipeline.generic_web_api.cli'
-      - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
-
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_selected_groups_Kubernetes'
     airflow:
       dagParameters:

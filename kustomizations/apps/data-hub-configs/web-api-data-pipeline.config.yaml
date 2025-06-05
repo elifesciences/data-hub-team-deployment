@@ -48,56 +48,6 @@ webApi:
       itemsKeyFromResponseRoot:
         - items
 
-  # hypothesis api (eLife journal)
-  - dataPipelineId: hypothesis_annotations_for_elife_journal
-    dataset: '{ENV}'
-    table: hypothesis_annotations
-    stateFile:
-      bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/generic-web-api/{ENV}-hypothesis-processing-state.json'
-    dataUrl:
-      urlExcludingConfigurableParameters: https://hypothes.is/api/search?group=imRGyeeV&sort=updated&order=asc
-      configurableParameters:
-        pageSizeParameterName: limit
-        defaultPageSize: 100
-        fromDateParameterName: search_after
-        defaultStartDate: "2012-01-01T01:01:01.000000+00:00"
-        dateFormat: "%Y-%m-%dT%H:%M:%S.%f%z"
-    response:
-      recordTimestamp:
-        itemTimestampKeyFromItemRoot:
-          - updated
-      itemsKeyFromResponseRoot:
-        - rows
-
-  # hypothesis api (public reviews)
-  - dataPipelineId: hypothesis_annotations_for_public_reviews
-    dataset: '{ENV}'
-    table: hypothesis_annotations
-    stateFile:
-      bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/generic-web-api/{ENV}-hypothesis-processing-state-q5X6RWJ6.json'
-    dataUrl:
-      urlExcludingConfigurableParameters: https://hypothes.is/api/search?group=q5X6RWJ6&sort=updated&order=asc
-      configurableParameters:
-        pageSizeParameterName: limit
-        defaultPageSize: 100
-        fromDateParameterName: search_after
-        defaultStartDate: "2012-01-01T01:01:01.000000+00:00"
-        dateFormat: "%Y-%m-%dT%H:%M:%S.%f%z"
-    response:
-      recordTimestamp:
-        itemTimestampKeyFromItemRoot:
-          - updated
-      itemsKeyFromResponseRoot:
-        - rows
-    airflow:
-      dagParameters:
-        schedule: '@hourly'
-        tags:
-          - 'Web API'
-          - 'DocMaps'
-
   # hypothesis api (for selected groups)
   - dataPipelineId: hypothesis_annotations_for_selected_groups
     dataset: '{ENV}'
@@ -109,7 +59,9 @@ webApi:
           sqlQuery: |-
             SELECT *
             FROM UNNEST([
-              'vweBiYd7'  -- eLife (unscoped)
+              'q5X6RWJ6',  -- Public Reviews in 'eLife' group
+              'vweBiYd7',  -- Public Reviews in 'eLife (unscoped)' group
+              'imRGyeeV'   -- eLife journal
             ]) AS group_id
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
