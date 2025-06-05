@@ -98,6 +98,37 @@ webApi:
           - 'Web API'
           - 'DocMaps'
 
+  # hypothesis api (for selected groups)
+  - dataPipelineId: hypothesis_annotations_for_selected_groups
+    dataset: '{ENV}'
+    table: hypothesis_annotations
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery: |-
+            SELECT *
+            FROM UNNEST([
+              'vweBiYd7'  -- eLife (unscoped)
+            ]) AS group_id
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-hypothesis-processing-state-{group_id}.json'
+    dataUrl:
+      urlExcludingConfigurableParameters: https://hypothes.is/api/search?group={group_id}&sort=updated&order=asc
+      configurableParameters:
+        pageSizeParameterName: limit
+        defaultPageSize: 100
+        fromDateParameterName: search_after
+        defaultStartDate: "2012-01-01T01:01:01.000000+00:00"
+        dateFormat: "%Y-%m-%dT%H:%M:%S.%f%z"
+    response:
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - updated
+      itemsKeyFromResponseRoot:
+        - rows
+
   # toggl api
   - dataPipelineId: toggl
     dataset: '{ENV}'
