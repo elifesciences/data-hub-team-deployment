@@ -560,7 +560,7 @@ webApi:
                 SELECT manuscript_id FROM `elife-data-pipeline.{ENV}.mv_docmaps_index`
               )
     dataUrl:
-      urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/articles/{article_id}/versions
+      urlExcludingConfigurableParameters: https://api.prod.elifesciences.org/articles/{article_id}/versions
     airflow:
       dagParameters:
         tags:
