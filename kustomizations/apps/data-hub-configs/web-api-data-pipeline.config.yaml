@@ -209,6 +209,9 @@ webApi:
           sqlQuery: |-
             SELECT doi_prefix
             FROM UNNEST([
+              -- eLife:
+              '10.7554',
+
               -- OSF preprint servers (Center for Open Science)
               '10.31730',  -- AfricArxiv
               '10.31221',  -- Arabixiv
@@ -237,13 +240,10 @@ webApi:
               '10.32942',  -- EcoEvoRxiv
 
               -- Open Engineering Inc:
-              '10.31224',   -- engrXiv
+              '10.31224',  -- engrXiv
 
               -- Cold Spring Harbor Laboratory:
-              '10.1101',   -- bioRxiv, medRxiv, ...
-
-              -- eLife:
-              '10.7554'
+              '10.1101'    -- bioRxiv, medRxiv, ...
             ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
