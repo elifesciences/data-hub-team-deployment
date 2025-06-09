@@ -31,7 +31,8 @@ configMapGenerator:
   - monitoring.config.yaml
   - s3-csv-data-pipeline.config.yaml
   - s3-csv-data-pipeline--test.config.yaml
-  - scheduled-queries--stg.config.yaml
+  - scheduled-queries-maintenance-pipelines--stg.config.yaml
+  - scheduled-queries-metrics-pipelines--stg.config.yaml
   - scheduled-queries--prod.config.yaml
   - semantic-scholar-recommendation.config.yaml
   - semantic-scholar.config.yaml
