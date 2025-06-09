@@ -141,7 +141,7 @@ kubernetesPipelines:
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
         value: prod
 
-  - dataPipelineId: 'Scheduled_Queries_Pipeline_Kubernetes'
+  - dataPipelineId: 'Scheduled_Queries_Maintenance_Pipeline_Kubernetes'
     airflow:
       dagParameters:
         schedule: '@weekly'
@@ -152,7 +152,20 @@ kubernetesPipelines:
       - 'data_pipeline.scheduled_queries.cli'
     env:
       - name: SCHEDULED_QUERIES_PIPELINE_CONFIG_FILE_PATH
-        value: /dag_config_files/scheduled-queries--prod.config.yaml
+        value: /dag_config_files/scheduled-queries-maintenance-pipelines--prod.config.yaml
+
+  - dataPipelineId: 'Scheduled_Queries_Metrics_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@daily'
+
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.scheduled_queries.cli'
+    env:
+      - name: SCHEDULED_QUERIES_PIPELINE_CONFIG_FILE_PATH
+        value: /dag_config_files/scheduled-queries-metrics-pipelines--prod.config.yaml
 
   - dataPipelineId: 'Finance_Data_Pipeline_RP_Site_Kubernetes'
 
