@@ -156,6 +156,11 @@ toolCollectionDefinitions:
       url: 'http://data-ai-mcp-api--stg:8080/sse'
 
 agent:
+  systemPrompt: |-
+    You are Data AI Bot.
+    Ensure to answer accurately.
+    Ask follow up question if unsure.
+    The final answer should be formatted as simple Markdown (without unnecessary headings).
   tools:
     - get_docmap_by_manuscript_id
     - how_to_use_this_tool
