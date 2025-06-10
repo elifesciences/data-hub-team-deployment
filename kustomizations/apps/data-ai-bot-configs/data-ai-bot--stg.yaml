@@ -55,6 +55,18 @@ toolDefinitions:
           query:
             type: string
             description: 'The search query. Can be empty.'
+          article_type:
+            type: string
+            description: |-
+              The article type filter criteria or empty.
+              Only use if specified by user.
+              One of: correction,editorial,expression-concern,feature,insight,research-advance,research-article,research-communication,retraction,registered-report,replication-study,review-article,scientific-correspondence,short-report,tools-resources
+          subject_area:
+            type: string
+            description: |-
+              The subject area filter criteria or empty.
+              Only use if specified by user.
+              One of: biochemistry-chemical-biology,cancer-biology,cell-biology,chromosomes-gene-expression,computational-systems-biology,developmental-biology,ecology,epidemiology-global-health,evolutionary-biology,genetics-genomics,immunology-inflammation,medicine,microbiology-infectious-disease,neuroscience,physics-living-systems,plant-biology,stem-cells-regenerative-medicine,structural-biology-molecular-biophysics
           significance:
             type: string
             description: |-
@@ -67,11 +79,23 @@ toolDefinitions:
               The minimum strength filter criteria or empty.
               Only use if specified by user.
               One of: exceptional,compelling,convincing,solid,incomplete,inadequate
+          start_date:
+            type: string
+            description: 'The start date to filter by, in YYYY-MM-DD format.'
+            regex: '\d{4}-\d{2}-\d{2}|'
+          end_date:
+            type: string
+            description: 'The end date to filter by, in YYYY-MM-DD format.'
+            regex: '\d{4}-\d{2}-\d{2}|'
         url: 'https://api.elifesciences.org/search'
         query_parameters:
           for: '{{ query }}'
+          type[]: '{{ article_type }}'
+          subject[]: '{{ subject_area }}'
           elifeAssessmentSignificance[]: '{{ significance }}'
           elifeAssessmentStrength[]: '{{ strength }}'
+          'start-date': '{{ start_date }}'
+          'end-date': '{{ end_date }}'
 
     - name: get_senior_editors
       description: |-
