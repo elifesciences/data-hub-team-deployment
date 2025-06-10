@@ -193,5 +193,5 @@ agent:
     - get_senior_editors
     - get_ecrs
     - get_data_hub_bigquery_views_pipeline_log
-  toolCollections:
-    - data-ai-mcp-api
+  # toolCollections:
+  #   - data-ai-mcp-api
