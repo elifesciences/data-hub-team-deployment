@@ -28,14 +28,14 @@ spec:
         - name: USER_AGENT
           value: "Data-AI-Bot--prod/1.0"
         - name: OPENAI_BASE_URL
-          value: "https://api.openai.com/v1"
+          value: "https://generativelanguage.googleapis.com/v1beta/openai/"
         - name: OPENAI_MODEL_ID
-          value: "gpt-4o-mini"
+          value: "gemini-2.0-flash"
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
-              name: openai-api
-              key: openai_api_key
+              name: gemini-api
+              key: api_key
         - name: SLACK_SIGNING_SECRET
           valueFrom:
             secretKeyRef:
