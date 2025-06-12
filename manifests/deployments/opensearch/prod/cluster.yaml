@@ -33,6 +33,10 @@ spec:
     version: 2.9.0
     enable: true
     replicas: 1
+    resources:
+      requests:
+        memory: "280Mi"
+        cpu: "200m"
 
   nodePools:
   - component: cluster-managers
