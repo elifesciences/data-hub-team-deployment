@@ -63,6 +63,10 @@ spec:
         volumeMounts:
         - mountPath: /mnt/data
           name: phoenix--stg
+        resources:
+          requests:
+            memory: "280Mi"
+            cpu: "20m"
   volumeClaimTemplates:
   - metadata:
       name: phoenix--stg
