@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: data-ai-mcp-api
-        image: ghcr.io/de-code/py-conf-mcp:0.0.2 # {"$imagepolicy": "data-ai-bot:py-conf-mcp-unstable-stable"}
+        image: ghcr.io/de-code/py-conf-mcp:0.0.2 # {"$imagepolicy": "data-ai-bot:py-conf-mcp-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
