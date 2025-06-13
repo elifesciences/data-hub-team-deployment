@@ -1,0 +1,21 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: py-conf-mcp-stable
+  namespace: data-ai-bot
+spec:
+  interval: 5m
+  image: ghcr.io/de-code/py-conf-mcp
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: py-conf-mcp-stable
+  namespace: data-ai-bot
+spec:
+  imageRepositoryRef:
+    name: py-conf-mcp-stable
+    namespace: data-ai-bot
+  policy:
+    semver:
+      range: '*'
