@@ -60,4 +60,4 @@ toolDefinitions:
 server:
   name: 'Test MCP server'
   tools:
-    - get_joke
+    - get_joke_via_web_api
