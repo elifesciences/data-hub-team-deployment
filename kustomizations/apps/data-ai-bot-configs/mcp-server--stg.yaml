@@ -61,6 +61,3 @@ server:
   name: 'Test MCP server'
   tools:
     - get_joke
-    - how_to_use_this_tool
-    - get_programming_joke_via_web_api
-    - get_joke_via_web_api
