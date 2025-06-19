@@ -7,5 +7,6 @@ configMapGenerator:
   files:
   - data-ai-bot--prod.yaml
   - data-ai-bot--stg.yaml
+  - mcp-server--stg.yaml
 generatorOptions:
   disableNameSuffixHash: true

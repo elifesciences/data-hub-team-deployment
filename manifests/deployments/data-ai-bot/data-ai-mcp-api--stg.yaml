@@ -18,10 +18,17 @@ spec:
       - name: data-ai-mcp-api
         image: ghcr.io/de-code/py-conf-mcp_unstable:main-e113860d-20250430.0848 # {"$imagepolicy": "data-ai-bot:py-conf-mcp-unstable-unstable"}
         imagePullPolicy: IfNotPresent
+        env:
+        - name: CONFIG_FILE
+          value: "/config/mcp-server--stg.yaml"
         ports:
         - name: http
           containerPort: 8080
           protocol: TCP
+        volumeMounts:
+        - name: data-ai-bot-configs-volume
+          mountPath: /config/
+          readOnly: true
         resources:
           requests:
             cpu: 100m
@@ -29,6 +36,10 @@ spec:
           limits:
             cpu: 1500m
             memory: 500Mi
+      volumes:
+      - name: data-ai-bot-configs-volume
+        configMap:
+          name: data-ai-bot-configs
 ---
 apiVersion: v1
 kind: Service
