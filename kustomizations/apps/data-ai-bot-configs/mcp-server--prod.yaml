@@ -1,0 +1,63 @@
+toolDefinitions:
+  fromPythonFunction:
+    - name: get_joke
+      module: py_conf_mcp.tools.example.joke
+      key: get_joke
+      description: |-
+        Fetches a random programming joke.
+
+  fromPythonClass:
+    - name: how_to_use_this_tool
+      description: |-
+        Explain to the user how to use this AI tool.
+        This also summarised what this tool knows.
+        Also provides some example prompts.
+      module: py_conf_mcp.tools.sources.static
+      className: StaticContentTool
+      initParameters:
+        content: |-
+          You can ask for jokes..
+
+          Example prompts:
+            - Tell me a joke.
+
+    - name: get_programming_joke_via_web_api
+      description: |-
+        Fetches a random joke.
+      module: py_conf_mcp.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        url: 'https://v2.jokeapi.dev/joke/Programming?type=single&safe-mode&blacklistFlags=nsfw'
+
+    - name: get_joke_via_web_api
+      description: |-
+        Fetches a random joke.
+      module: py_conf_mcp.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        url: 'https://v2.jokeapi.dev/joke/{{ category }}?type={{ type }}&safe-mode&blacklistFlags=nsfw'
+      inputs:
+        category:
+          type: str
+          default: 'Programming'
+          # Note: 'Spooky' and 'Christmas' are not available in the API as single joke types
+          enum:
+            - Any
+            - Programming
+            - Misc
+            - Dark
+            - Pun
+            - Spooky
+            - Christmas
+        type:
+          type: str
+          default: 'single'
+          title: Joke Type
+          enum:
+            - single
+            - twopart
+
+server:
+  name: 'Test MCP server'
+  tools:
+    - get_joke_via_web_api
