@@ -12,7 +12,7 @@ kubernetesPipelines:
     arguments:
       - 'python'
       - '-m'
-      - 'data_hub_metrics_api.refresh_data.cli'
+      - 'data_hub_metrics_api.refresh_data.citations_cli'
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /dag_secret_files/gcloud/credentials.json
