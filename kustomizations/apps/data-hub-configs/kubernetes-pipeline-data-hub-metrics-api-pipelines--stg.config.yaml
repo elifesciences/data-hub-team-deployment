@@ -57,6 +57,8 @@ kubernetesPipelines:
         value: data-hub-metrics-api-valkey--stg-primary
       - name: REDIS_PORT
         value: "6379"
+      - name: TQDM_POSITION
+        value: "-1"
     volumeMounts:
       - name: gcloud-secret-volume
         mountPath: /dag_secret_files/gcloud/
