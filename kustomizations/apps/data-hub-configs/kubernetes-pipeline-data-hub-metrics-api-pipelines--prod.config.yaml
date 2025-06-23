@@ -1,6 +1,6 @@
 kubernetesPipelines:
 
-  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Data_Pipeline_Kubernetes'
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Citations_Pipeline_Kubernetes'
     airflow:
       dagParameters:
         schedule: '@daily'
@@ -12,7 +12,7 @@ kubernetesPipelines:
     arguments:
       - 'python'
       - '-m'
-      - 'data_hub_metrics_api.refresh_data.cli'
+      - 'data_hub_metrics_api.refresh_data.citations_cli'
     env:
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /dag_secret_files/gcloud/credentials.json
@@ -20,6 +20,45 @@ kubernetesPipelines:
         value: data-hub-metrics-api-valkey--prod-primary
       - name: REDIS_PORT
         value: "6379"
+    volumeMounts:
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+    volumes:
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_Views_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@daily'
+        max_active_runs: 1
+        tags:
+          - 'Metrics API'
+          - 'Kubernetes'
+    image: '${data_hub_metrics_api_stable_image}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_hub_metrics_api.refresh_data.page_views_cli'
+      - '--number-of-days=64'
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: REDIS_HOST
+        value: data-hub-metrics-api-valkey--prod-primary
+      - name: REDIS_PORT
+        value: "6379"
+      - name: TQDM_POSITION
+        value: "-1"
     volumeMounts:
       - name: gcloud-secret-volume
         mountPath: /dag_secret_files/gcloud/
