@@ -53,8 +53,8 @@ kubernetesPipelines:
       - 'data_hub_metrics_api.refresh_data.page_views_monthly_cli'
       - '--number-of-months=36'
 
-  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_View_Totals_Pipeline_Kubernetes'
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_View_And_Download_Totals_Pipeline_Kubernetes'
     arguments:
       - 'python'
       - '-m'
-      - 'data_hub_metrics_api.refresh_data.page_view_totals_cli'
+      - 'data_hub_metrics_api.refresh_data.page_view_and_download_totals_cli'
