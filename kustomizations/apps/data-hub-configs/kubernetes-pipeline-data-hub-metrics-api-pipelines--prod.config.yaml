@@ -39,18 +39,18 @@ kubernetesPipelines:
       - '-m'
       - 'data_hub_metrics_api.refresh_data.citations_cli'
 
-  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_Views_Pipeline_Kubernetes'
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_Views_And_Downloads_Daily_Pipeline_Kubernetes'
     arguments:
       - 'python'
       - '-m'
-      - 'data_hub_metrics_api.refresh_data.page_views_cli'
+      - 'data_hub_metrics_api.refresh_data.page_views_and_downloads_daily_cli'
       - '--number-of-days=64'
 
-  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_Views_Monthly_Pipeline_Kubernetes'
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_Views_And_Downloads_Monthly_Pipeline_Kubernetes'
     arguments:
       - 'python'
       - '-m'
-      - 'data_hub_metrics_api.refresh_data.page_views_monthly_cli'
+      - 'data_hub_metrics_api.refresh_data.page_views_and_downloads_monthly_cli'
       - '--number-of-months=36'
 
   - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Page_View_And_Download_Totals_Pipeline_Kubernetes'
