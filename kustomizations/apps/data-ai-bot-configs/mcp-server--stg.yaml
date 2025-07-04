@@ -64,7 +64,7 @@ toolDefinitions:
       module: py_conf_mcp.tools.sources.web_api
       className: WebApiTool
       initParameters:
-        url: 'https://localhost:9200/dev_ecr_v1/_search'
+        url: 'https://opensearch-staging.data-hub:9200/ecr_v1/_search'
         verify_ssl: false
         basic_auth:
           username: '{{ read_secret_from_env("OPENSEARCH_USERNAME_FILE_PATH") }}'
