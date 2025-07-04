@@ -159,7 +159,7 @@ toolDefinitions:
 toolCollectionDefinitions:
   fromMcp:
     - name: data-ai-mcp-api
-      url: 'http://data-ai-mcp-api--stg:8080/mcp/'
+      url: 'http://data-ai-mcp-api--prod:8080/mcp/'
       transport: streamable-http
 
 agent:
