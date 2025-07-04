@@ -159,7 +159,8 @@ toolDefinitions:
 toolCollectionDefinitions:
   fromMcp:
     - name: data-ai-mcp-api
-      url: 'http://data-ai-mcp-api--prod:8080/sse'
+      url: 'http://data-ai-mcp-api--stg:8080/mcp/'
+      transport: streamable-http
 
 agent:
   systemPrompt: |-
@@ -174,5 +175,5 @@ agent:
     - search_elife_papers
     - get_senior_editors
     - get_data_hub_bigquery_views_pipeline_log
-  # toolCollections:
-  #   - data-ai-mcp-api
+  toolCollections:
+    - data-ai-mcp-api
