@@ -59,7 +59,8 @@ toolDefinitions:
 
     - name: search_ecr
       description: |-
-        Searches for Early Career Researchers (ECR)
+        Searches for Early Career Researchers (ECR).
+        Use if asked to list or find ECRs.
       module: py_conf_mcp.tools.sources.web_api
       className: WebApiTool
       initParameters:
@@ -114,6 +115,7 @@ toolDefinitions:
         query:
           type: str
           title: Search Query
+          description: 'The search query to find ECRs.'
 
 server:
   name: 'Test MCP server'
