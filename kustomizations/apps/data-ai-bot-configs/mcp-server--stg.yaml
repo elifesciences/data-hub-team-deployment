@@ -57,7 +57,66 @@ toolDefinitions:
             - single
             - twopart
 
+    - name: search_ecr
+      description: |-
+        Searches for Early Career Researchers (ECR)
+      module: py_conf_mcp.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        url: 'https://localhost:9200/dev_ecr_v1/_search'
+        verify_ssl: false
+        basic_auth:
+          username: '{{ read_secret_from_env("OPENSEARCH_USERNAME_FILE_PATH") }}'
+          password: '{{ read_secret_from_env("OPENSEARCH_PASSWORD_FILE_PATH") }}'
+        json_template: |-
+          {
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "multi_match": {
+                      "query": {{ query | tojson }},
+                      "fields": [
+                        "name^3",
+                        "subject_areas^2",
+                        "keywords"
+                      ],
+                      "type": "most_fields",
+                      "fuzziness": "AUTO",
+                      "operator": "or",
+                      "minimum_should_match": 1
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 10
+          }
+        response_template: |-
+          {%- if response_json.hits.total.value > 0 -%}
+            {%- if response_json.hits.total.value == 1 -%}
+          1 ECR found:
+            {%- else -%}
+          {{ response_json.hits.total.value }} ECRs found:
+            {%- endif -%}
+          {%- else -%}
+            No ECRs found.
+          {%- endif %}
+          {%- if response_json.hits.total.value > 0 %}
+          {%- for hit in response_json.hits.hits %}
+          - {{ hit._source.name }}
+            Institution: {{ hit._source.institution }}
+            Subject areas: {{ hit._source.subject_areas }}
+            Keywords: {{ hit._source.keywords }}
+          {%- endfor %}
+          {%- endif %}
+      inputs:
+        query:
+          type: str
+          title: Search Query
+
 server:
   name: 'Test MCP server'
   tools:
     - get_joke_via_web_api
+    - search_ecr
