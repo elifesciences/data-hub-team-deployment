@@ -89,6 +89,30 @@ kubernetesPipelines:
         secret:
           secretName: opensearch-prod-admin-password
 
+  - dataPipelineId: 'BigQuery_To_OpenSearch_Pipeline_ECR_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: null
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.opensearch.cli'
+    env:
+      - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
+        value: /dag_config_files/bigquery-to-opensearch-ecr--prod.yaml
+      - name: OPENSEARCH_USERNAME_FILE_PATH
+        value: /dag_secret_files/opensearch/username
+      - name: OPENSEARCH_PASSWORD_FILE_PATH
+        value: /dag_secret_files/opensearch/password
+    volumeMounts:
+      - name: opensearch-secret-volume
+        mountPath: /dag_secret_files/opensearch/
+        readOnly: true
+    volumes:
+      - name: opensearch-secret-volume
+        secret:
+          secretName: opensearch-prod-admin-password
+
   - dataPipelineId: 'EuropePmc_Pipeline_Kubernetes'
     airflow:
       dagParameters:
