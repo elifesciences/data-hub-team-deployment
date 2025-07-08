@@ -106,7 +106,9 @@ toolDefinitions:
           {%- if response_json.hits.total.value > 0 %}
           {%- for hit in response_json.hits.hits %}
           - {{ hit._source.name }}
+            Email: {{ hit._source.email }}
             Institution: {{ hit._source.institution }}
+            Website URL: {{ hit._source.website_url }}
             Subject areas: {{ hit._source.subject_areas }}
             Keywords: {{ hit._source.keywords }}
           {%- endfor %}
