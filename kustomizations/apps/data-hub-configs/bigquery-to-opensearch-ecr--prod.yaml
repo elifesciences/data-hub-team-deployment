@@ -32,6 +32,7 @@ bigQueryToOpenSearch:
             Name AS name,
             Email AS email,
             Institution AS institution,
+            Webpage_URL AS website_url,
             ARRAY(SELECT Subject_Area_Name FROM UNNEST(Subject_Areas)) AS subject_areas,
             ARRAY(SELECT Keyword FROM UNNEST(Keywords)) AS keywords,
             Updated_Timestamp AS updated_timestamp
