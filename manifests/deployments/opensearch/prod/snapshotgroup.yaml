@@ -2,56 +2,101 @@
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-prod-0
+  name: opensearch-prod-cluster-managers-0
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-prod-masters-0
+    claimName: data-opensearch-prod-cluster-managers-0
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 14
+      keep: 30
+    - every: month
+      keep: 12
 ---
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-prod-1
+  name: opensearch-prod-cluster-managers-1
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-prod-masters-1
+    claimName: data-opensearch-prod-cluster-managers-1
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 14
+      keep: 30
+    - every: month
+      keep: 12
 ---
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-prod-2
+  name: opensearch-prod-cluster-managers-2
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-prod-masters-2
+    claimName: data-opensearch-prod-cluster-managers-2
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 14
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-data-nodes-0
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-data-nodes-0
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-data-nodes-1
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-data-nodes-1
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-data-nodes-2
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-data-nodes-2
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
