@@ -6,17 +6,15 @@ metadata:
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-staging-masters-0
+    claimName: data-opensearch-staging-cluster-managers-0
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 3
+      keep: 30
+    - every: month
+      keep: 12
 ---
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
@@ -25,17 +23,15 @@ metadata:
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-staging-masters-1
+    claimName: data-opensearch-staging-cluster-managers-1
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 3
+      keep: 30
+    - every: month
+      keep: 12
 ---
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
@@ -44,14 +40,63 @@ metadata:
   namespace: data-hub
 spec:
   persistentVolumeClaim:
-    claimName: data-opensearch-staging-masters-2
+    claimName: data-opensearch-staging-cluster-managers-2
   template:
     spec:
       volumeSnapshotClassName: csi-ebs
   schedule:
-    - every: 10 minutes
-      keep: 6
-    - every: hour
-      keep: 3
     - every: day
-      keep: 3
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-staging-0
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-staging-data-nodes-0
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-staging-1
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-staging-data-nodes-1
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-staging-2
+  namespace: data-hub
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-staging-data-nodes-2
+  template:
+    spec:
+      volumeSnapshotClassName: csi-ebs
+  schedule:
+    - every: day
+      keep: 30
+    - every: month
+      keep: 12
