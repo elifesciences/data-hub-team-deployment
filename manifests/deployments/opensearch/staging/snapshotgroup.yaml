@@ -2,7 +2,7 @@
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-0
+  name: opensearch-staging-cluster-managers-0
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -19,7 +19,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-1
+  name: opensearch-staging-cluster-managers-1
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -36,7 +36,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-2
+  name: opensearch-staging-cluster-managers-2
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -53,7 +53,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-0
+  name: opensearch-staging-data-nodes-0
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -70,7 +70,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-1
+  name: opensearch-staging-data-nodes-1
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -87,7 +87,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-staging-2
+  name: opensearch-staging-data-nodes-2
   namespace: data-hub
 spec:
   persistentVolumeClaim:
