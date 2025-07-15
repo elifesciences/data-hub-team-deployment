@@ -58,3 +58,9 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_hub_metrics_api.refresh_data.page_view_and_download_totals_cli'
+
+  - dataPipelineId: 'Data_Hub_Metrics_API_Refresh_Non_Article_Page_View_Totals_Pipeline_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_hub_metrics_api.refresh_data.non_article_page_view_totals_cli'
