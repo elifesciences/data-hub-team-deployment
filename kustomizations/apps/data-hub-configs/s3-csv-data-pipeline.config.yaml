@@ -93,7 +93,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: data_availability
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/data_availability_001.json"
