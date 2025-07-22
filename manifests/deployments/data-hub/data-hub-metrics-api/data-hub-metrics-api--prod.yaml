@@ -121,7 +121,7 @@ spec:
       http:
         paths:
           - pathType: ImplementationSpecific
-            path: "/api/v2/(.*)"
+            path: "/api/v2/(.+)"
             backend:
               service:
                 name: data-hub-metrics-api--prod
