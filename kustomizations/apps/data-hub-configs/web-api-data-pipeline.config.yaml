@@ -357,6 +357,21 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - date
+      fieldsToReturn:
+        - abstract
+        - author_corresponding
+        - author_corresponding_institution
+        - authors
+        - category
+        - date
+        - doi
+        - jatsxml
+        - license
+        - published
+        - server
+        - title
+        - version
+        - type
 
   # medRxiv api
   - dataPipelineId: medrxiv_api
@@ -383,6 +398,21 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - date
+      fieldsToReturn:
+        - abstract
+        - author_corresponding
+        - author_corresponding_institution
+        - authors
+        - category
+        - date
+        - doi
+        - jatsxml
+        - license
+        - published
+        - server
+        - title
+        - version
+        - type
 
   # EuropePMC: Articles that are evaluated by Sciety (via LabsLink)
   - dataPipelineId: europepmc_sciety_evaluated_via_labslink
