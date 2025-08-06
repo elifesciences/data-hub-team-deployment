@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: valkey
-      version: "3.0.2"
+      version: "3.0.22"
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -16,6 +16,11 @@ spec:
   values:
     global:
       defaultStorageClass: data-hub-gp3
+      security:
+        allowInsecureImages: true
+    image:
+      repository: bitnamilegacy/valkey
+      tag: 8.1.3-debian-12-r1
     architecture: replication
     auth:
       enabled: false
