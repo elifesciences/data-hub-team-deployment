@@ -467,6 +467,8 @@ spec:
         nodeSelector:
           data-hub-workload: "services"
     redis:
+      image:
+        repository: bitnamilegacy/redis
       master:
         tolerations:
         - key: workload
