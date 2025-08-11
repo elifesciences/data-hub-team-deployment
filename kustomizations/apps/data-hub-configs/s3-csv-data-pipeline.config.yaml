@@ -320,8 +320,7 @@ s3Csv:
 
   - dataPipelineId: prod_kriya_digest_sub_article_info_001
     description:
-      For Production Team;
-      Expected monthly, usually on the 5th or 6th.
+      For Production Team
     airflow:
       dagParameters:
         schedule: "@daily"
