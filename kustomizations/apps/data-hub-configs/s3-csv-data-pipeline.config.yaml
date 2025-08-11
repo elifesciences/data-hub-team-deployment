@@ -301,8 +301,9 @@ s3Csv:
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_carina_eol_kriya_001.json"
 
   - dataPipelineId: prod_task_adept_carina_eol_elife_001
-    description:
-      For Production Team
+    description: |-
+      For Production Team;
+      Expected monthly, usually on the 5th or 6th.
     airflow:
       dagParameters:
         schedule: "@daily"
