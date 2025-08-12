@@ -161,6 +161,9 @@ toolCollectionDefinitions:
     - name: data-ai-mcp-api
       url: 'http://data-ai-mcp-api--prod:8080/mcp/'
       transport: streamable-http
+      tools:
+        - get_joke_via_web_api
+        - search_ecr
 
 agent:
   systemPrompt: |-
