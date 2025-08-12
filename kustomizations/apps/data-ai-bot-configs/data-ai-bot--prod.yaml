@@ -100,6 +100,7 @@ toolDefinitions:
     - name: get_senior_editors
       description: |-
         Retrieves a list of senior editors along with their expertise.
+        Only use this tool if instructed to find senior editors by expertise.
         Returns JSON.
       module: data_ai_bot.tools.sources.bigquery
       className: BigQueryTool
