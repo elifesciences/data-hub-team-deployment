@@ -12,6 +12,7 @@ toolDefinitions:
         Explain to the user how to use this AI tool.
         This also summarised what this tool knows.
         Also provides some example prompts.
+        Only use this tool if the user asked for it.
       module: data_ai_bot.tools.sources.static
       className: StaticContentTool
       initParameters:
