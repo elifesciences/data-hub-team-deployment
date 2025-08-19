@@ -30,6 +30,7 @@ configMapGenerator:
   - kubernetes-pipeline-ejp-xml-pipelines--stg.config.yaml
   - kubernetes-pipeline-other-core-pipelines--stg.config.yaml
   - kubernetes-pipeline-web-api-pipelines--stg.config.yaml
+  - kubernetes-pipeline-csv-pipelines--stg.config.yaml
   - monitoring.config.yaml
   - s3-csv-data-pipeline.config.yaml
   - s3-csv-data-pipeline--test.config.yaml
