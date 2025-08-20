@@ -165,7 +165,6 @@ toolCollectionDefinitions:
       transport: streamable-http
       tools:
         - get_rp_paper_submissions
-  fromMcp:
     - name: data_ai_other_mcp
       url: 'http://data-ai-mcp-api--stg:8080/mcp/'
       transport: streamable-http
