@@ -22,9 +22,11 @@ spec:
         - name: CONFIG_FILE
           value: "/config/mcp-server--stg.yaml"
         - name: OPENSEARCH_USERNAME_FILE_PATH
-          value: /secrets/opensearch/username
+          value: /.secrets/opensearch/username
         - name: OPENSEARCH_PASSWORD_FILE_PATH
-          value: /secrets/opensearch/password
+          value: /.secrets/opensearch/password
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /.secrets/gcp/service_account
         ports:
         - name: http
           containerPort: 8080
@@ -34,7 +36,10 @@ spec:
           mountPath: /config/
           readOnly: true
         - name: opensearch-secret-volume
-          mountPath: /secrets/opensearch/
+          mountPath: /.secrets/opensearch/
+          readOnly: true
+        - name: gcp-secret-volume
+          mountPath: /.secrets/gcp/
           readOnly: true
         resources:
           requests:
@@ -50,6 +55,9 @@ spec:
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
+      - name: gcp-secret-volume
+        secret:
+          secretName: gcp
 ---
 apiVersion: v1
 kind: Service
