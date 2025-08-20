@@ -160,12 +160,40 @@ toolDefinitions:
 
 toolCollectionDefinitions:
   fromMcp:
-    - name: data-ai-mcp-api
+    - name: data_hub_mcp
+      url: 'http://data-ai-mcp-api--stg:8080/mcp/'
+      transport: streamable-http
+      tools:
+        - get_rp_paper_submissions
+  fromMcp:
+    - name: data_ai_other_mcp
       url: 'http://data-ai-mcp-api--stg:8080/mcp/'
       transport: streamable-http
       tools:
         - get_joke_via_web_api
         - search_ecr
+
+models:
+  - model_name: gpt-5-mini
+    base_url: https://api.openai.com/v1
+    api_key: "{{ env['OPENAI_API_KEY'] }}"
+  - model_name: gpt-5
+    base_url: https://api.openai.com/v1
+    api_key: "{{ env['OPENAI_API_KEY'] }}"
+
+managedAgents:
+  - name: data_hub_agent
+    description: |-
+      Use this agent to retrieve data from Data Hub.
+      Such as Reviewed Preprint (RP) submission information.
+    systemPrompt: |-
+      You are Data Hub Agent, the BigQuery SQL expert.
+      Ensure to answer accurately.
+      Ask follow up question if unsure.
+      The final answer should be formatted as simple Markdown (without unnecessary headings).
+    toolCollections:
+      - data_hub_local_mcp
+    model: gpt-5
 
 agent:
   systemPrompt: |-
@@ -181,4 +209,7 @@ agent:
     - get_senior_editors
     - get_data_hub_bigquery_views_pipeline_log
   toolCollections:
-    - data-ai-mcp-api
+    - data_ai_other_mcp
+  managedAgents:
+    - data_hub_agent
+  model: gpt-5-mini

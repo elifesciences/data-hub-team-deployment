@@ -29,8 +29,6 @@ spec:
           value: "Data-AI-Bot--stg/1.0"
         - name: OPENAI_BASE_URL
           value: "https://api.openai.com/v1"
-        - name: OPENAI_MODEL_ID
-          value: "gpt-5-mini"
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
