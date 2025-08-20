@@ -192,7 +192,7 @@ managedAgents:
       Ask follow up question if unsure.
       The final answer should be formatted as simple Markdown (without unnecessary headings).
     toolCollections:
-      - data_hub_local_mcp
+      - data_hub_mcp
     model: gpt-5
 
 agent:
