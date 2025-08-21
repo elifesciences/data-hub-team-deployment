@@ -25,6 +25,8 @@ spec:
           value: /secrets/opensearch/username
         - name: OPENSEARCH_PASSWORD_FILE_PATH
           value: /secrets/opensearch/password
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /.secrets/gcp/service_account
         ports:
         - name: http
           containerPort: 8080
@@ -35,6 +37,9 @@ spec:
           readOnly: true
         - name: opensearch-secret-volume
           mountPath: /secrets/opensearch/
+          readOnly: true
+        - name: gcp-secret-volume
+          mountPath: /.secrets/gcp/
           readOnly: true
         resources:
           requests:
@@ -50,6 +55,9 @@ spec:
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-prod-admin-password
+      - name: gcp-secret-volume
+        secret:
+          secretName: gcp
 ---
 apiVersion: v1
 kind: Service

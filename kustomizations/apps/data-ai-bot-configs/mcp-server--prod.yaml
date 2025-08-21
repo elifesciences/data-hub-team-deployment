@@ -119,8 +119,96 @@ toolDefinitions:
           title: Search Query
           description: 'The search query to find ECRs.'
 
+    - name: get_rp_paper_submissions
+      description: |-
+        Retrieves a list of Reviewed Preprint (RP) paper / manuscript submissions.
+        This does NOT include legacy non-RP submissions.
+        Use this and only this tool to calculate submission counts.
+        Excludes withdrawn and appealed papers.
+        All fields relate to the first version of a submission.
+        Try to reduce the number of tool calls where possible - by selecting breakdown columns and using group by.
+        You can for example breakdown by month, by using DATE_TRUNC(First_Version_QC_Complete_Date, MONTH) in the group by and select columns (and optionally order by clause).
+        Returns CSV.
+        Available BigQuery SQL columns:
+        - Source_Site_ID: `legacy_site` (Legacy) or `rp_site` (RP/Reviewed Preprints)
+        - Manuscript_ID: 5 or 6 digit manuscript ID
+        - Country: STRING
+        - Manuscript_Type: STRING (also called Article Type)
+        - Is_Research_Content: BOOL (whether the manuscript type is classed as research content - we should filter by this by default)
+        - Subject_Areas: ARRAY<STRING>
+        - Keywords: ARRAY<STRING>
+        - Manuscript_Title: STRING
+        - First_Version_QC_Complete_Date: Always present. Default for date filtering. Also Received Date.
+        - First_Version_Under_Review_Date: Also Sent for Review Date.
+      module: py_conf_mcp.tools.sources.bigquery
+      className: BigQueryTool
+      initParameters:
+        project_name: elife-data-pipeline
+        output_format: csv
+        sql_query: |-
+          SELECT
+          {%- if select_columns %}
+            {{ select_columns }}
+          {%- else %}
+            *
+          {%- endif %}
+          FROM (
+            SELECT
+              Summary.Source_Site_ID,
+              Summary.Manuscript_ID,
+              Summary.First_Version.Country,
+              Summary.First_Version.Manuscript_Type,
+              Summary.First_Version.Is_Research_Content,
+              ARRAY(SELECT Subject_Area_Name FROM UNNEST(Summary.First_Version.Subject_Areas)) AS Subject_Areas,
+              ARRAY(SELECT Keyword FROM UNNEST(Full_First_Version.Keywords)) AS Keywords,
+              Full_First_Version.Manuscript_Title,
+              DATE(Summary.First_Version.QC_Complete_Timestamp) AS First_Version_QC_Complete_Date,
+              DATE(Summary.First_Version.Under_Review_Timestamp) AS First_Version_Under_Review_Date
+            FROM `elife-data-pipeline.prod.mv_RP_Manuscript_Processing_Summary` AS Summary
+            LEFT JOIN `elife-data-pipeline.prod.mv_Editorial_All_Manuscript_Version` AS Full_First_Version
+              ON Full_First_Version.Long_Manuscript_Identifier = Summary.First_Version.Long_Manuscript_Identifier
+            WHERE NOT Summary.First_Version.Is_Withdrawn
+              AND NOT Summary.First_Version.Is_Appeal
+          )
+          {%- if where_clause %}
+          WHERE {{ where_clause | replace('WHERE ', '') }}
+          {%- endif %}
+          {%- if group_by_clause %}
+          GROUP BY {{ group_by_clause | replace('GROUP BY ', '') }}
+          {%- endif %}
+          {%- if order_by_clause %}
+          ORDER BY {{ order_by_clause | replace('ORDER BY ', '') }}
+          {%- endif %}
+          {%- if limit and limit > 0 %}
+          LIMIT {{ limit }}
+          {%- else %}
+          LIMIT 20
+          {%- endif %}
+      inputs:
+        select_columns:
+          type: str
+          title: The columns to select (can also include COUNT(*)). This should also include all group by fields.
+          default: ''
+        where_clause:
+          type: str
+          title: The where clause
+          default: ''
+        group_by_clause:
+          type: str
+          title: The group by clause
+          default: ''
+        order_by_clause:
+          type: str
+          title: The order by clause
+          default: ''
+        limit:
+          type: int
+          title: Max number of rows to return
+          default: 20
+
 server:
   name: 'Test MCP server'
   tools:
     - get_joke_via_web_api
     - search_ecr
+    - get_rp_paper_submissions
