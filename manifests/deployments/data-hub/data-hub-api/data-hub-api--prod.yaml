@@ -55,6 +55,13 @@ spec:
       - name: gcp-credentials-sealed-secret-volume
         secret:
           secretName: gcloud
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
 ---
 apiVersion: v1
 kind: Service
