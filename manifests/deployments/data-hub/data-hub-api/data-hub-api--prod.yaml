@@ -29,6 +29,7 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 120
           periodSeconds: 60
+          failureThreshold: 5
         readinessProbe:
           httpGet:
             path: /
@@ -36,6 +37,7 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 120
           periodSeconds: 60
+          failureThreshold: 5
         resources:
           limits:
             memory: 6Gi
