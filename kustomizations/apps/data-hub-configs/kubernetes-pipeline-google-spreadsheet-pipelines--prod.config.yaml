@@ -1,0 +1,90 @@
+defaultConfig:
+  airflow:
+    dagParameters:
+      # At minute 0, 20, and 40 past every hour from 3 through 22 on every day-of-week from Monday through Friday.
+      schedule: '0,20,40 3-22 * * 1-5'
+      max_active_runs: 1
+      tags:
+        - 'Kubernetes'
+        - 'Google Spreadsheet'
+  image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+  env:
+    - name: DEPLOYMENT_ENV
+      value: prod
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /dag_secret_files/gcloud/credentials.json
+    - name: SPREADSHEET_CONFIG_FILE_PATH
+      value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
+  volumeMounts:
+    - name: gcloud-secret-volume
+      mountPath: /dag_secret_files/gcloud/
+      readOnly: true
+    - name: data-hub-config-volume
+      mountPath: /dag_config_files/
+      readOnly: true
+  volumes:
+    - name: gcloud-secret-volume
+      secret:
+        secretName: gcloud
+    - name: data-hub-config-volume
+      configMap:
+        name: data-hub-configs
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 1000m
+    requests:
+      memory: 1Gi
+      cpu: 100m
+
+
+kubernetesPipelines:
+
+  - dataPipelineId: 'Google_Spreadsheet_public_editor_profile_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=public_editor_profile'
+
+  - dataPipelineId: 'Google_Spreadsheet_bre_distribution_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=bre_distribution'
+
+  - dataPipelineId: 'Google_Spreadsheet_unmatched_and_override_hypothesis_matching_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=unmatched_and_override_hypothesis_matching'
+
+  - dataPipelineId: 'Google_Spreadsheet_deleted_hypothesis_annotations_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=deleted_hypothesis_annotations'
+
+  - dataPipelineId: 'Google_Spreadsheet_reviewed_preprint_publication_date_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=reviewed_preprint_publication_date'
+
+  - dataPipelineId: 'Google_Spreadsheet_reviewed_preprint_meca_path_update_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=reviewed_preprint_meca_path_update'
+
+  - dataPipelineId: 'Google_Spreadsheet_invalid_manuscripts_to_exclude_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.google_spreadsheet.cli'
+      - '--data-pipeline-id=invalid_manuscripts_to_exclude'
