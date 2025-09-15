@@ -2,7 +2,7 @@ defaultConfig:
   airflow:
     dagParameters:
       # At minute 0, 20, and 40 past every hour from 3 through 22 on every day-of-week from Monday through Friday.
-      schedule: '0,20,40 3-22 * * 1-5*
+      schedule: '0,20,40 3-22 * * 1-5*'
       max_active_runs: 1
       tags:
         - 'Kubernetes'
