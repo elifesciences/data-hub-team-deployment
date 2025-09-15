@@ -2,7 +2,8 @@ gcpProjectName: 'elife-data-pipeline'
 importedTimestampFieldName: "imported_timestamp"
 spreadsheets:
     # this is the public editor profile
-  - spreadsheetId: "1VnpuiY3o4iCEIEWjCKfXFFyowxTfTxzno2VU5UnRINE"
+  - dataPipelineId: 'public_editor_profile'
+    spreadsheetId: "1VnpuiY3o4iCEIEWjCKfXFFyowxTfTxzno2VU5UnRINE"
     sheets:
       - sheetName: 'BREs'
         sheetRange: ''
@@ -34,7 +35,8 @@ spreadsheets:
         tableName: 'editor_on_leave_period'
         tableWriteAppend: False
 
-  - spreadsheetId: '1nQcLBO_yIumkXousRg_-l9Kx1HmiG7NcvDg1vkrdK-0'
+  - dataPipelineId: 'bre_distribution'
+    spreadsheetId: '1nQcLBO_yIumkXousRg_-l9Kx1HmiG7NcvDg1vkrdK-0'
     sheets:
       - sheetName: 'BRE distribution_current'
         sheetRange: ''
@@ -48,7 +50,8 @@ spreadsheets:
         #    metadataLineIndex: 1
 
   # unmatched manuscripts and override hypothesis matching
-  - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
+  - dataPipelineId: 'unmatched_and_override_hypothesis_matching'
+    spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
     sheets:
       - sheetName: 'unmatched_list'
         sheetRange: ''
@@ -67,7 +70,8 @@ spreadsheets:
         tableWriteAppend: true
 
   # deleted hypothesis annotations
-  - spreadsheetId: '1naXfcCxvTC8fLPhR8K1znC9B5DMxGP7HMpp-2CcO_sY'
+  - dataPipelineId: 'deleted_hypothesis_annotations'
+    spreadsheetId: '1naXfcCxvTC8fLPhR8K1znC9B5DMxGP7HMpp-2CcO_sY'
     sheets:
       - sheetName: 'deleted_hypothesis_list'
         sheetRange: ''
@@ -78,7 +82,8 @@ spreadsheets:
         tableWriteAppend: true
 
   # reviewed preprint publication date
-  - spreadsheetId: '1amAlKvdLcaDp5W8Z8g77NmkwbMF5n_u89ArSqPMO8jg'
+  - dataPipelineId: 'reviewed_preprint_publication_date'
+    spreadsheetId: '1amAlKvdLcaDp5W8Z8g77NmkwbMF5n_u89ArSqPMO8jg'
     sheets:
       - sheetName: 'publication_date'
         sheetRange: ''
@@ -89,7 +94,8 @@ spreadsheets:
         tableWriteAppend: true
 
   # meca path update
-  - spreadsheetId: '1mctCQuNFBjSn97Lihy7_vBO6z7-N-oqyLv4clyi6zHg'
+  - dataPipelineId: 'reviewed_preprint_meca_path_update'
+    spreadsheetId: '1mctCQuNFBjSn97Lihy7_vBO6z7-N-oqyLv4clyi6zHg'
     sheets:
       - sheetName: 'meca_path'
         sheetRange: ''
@@ -100,7 +106,8 @@ spreadsheets:
         tableWriteAppend: true
 
     # eJP invalid manuscripts to exclude
-  - spreadsheetId: '1xGUTxD4U67kcjNuJ7zXz1XSkK-0wCiR6h-Om64dp2pM'
+  - dataPipelineId: 'invalid_manuscripts_to_exclude'
+    spreadsheetId: '1xGUTxD4U67kcjNuJ7zXz1XSkK-0wCiR6h-Om64dp2pM'
     sheets:
       - sheetName: 'invalid_manuscripts'
         sheetRange: ''
