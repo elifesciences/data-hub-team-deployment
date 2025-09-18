@@ -92,7 +92,7 @@ kubernetesPipelines:
   - dataPipelineId: 'BigQuery_To_OpenSearch_Pipeline_ECR_Kubernetes'
     airflow:
       dagParameters:
-        schedule: null
+        schedule: '0 4 * * *'  # At 04:00, every day
     arguments:
       - 'python'
       - '-m'
