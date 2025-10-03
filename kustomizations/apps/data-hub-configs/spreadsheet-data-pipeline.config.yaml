@@ -4,6 +4,9 @@ spreadsheets:
     # this is the public editor profile
   - dataPipelineId: 'public_editor_profile'
     spreadsheetId: "1VnpuiY3o4iCEIEWjCKfXFFyowxTfTxzno2VU5UnRINE"
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-public_editor_profile-state.txt'
     sheets:
       - sheetName: 'BREs'
         sheetRange: ''
@@ -37,6 +40,9 @@ spreadsheets:
 
   - dataPipelineId: 'bre_distribution'
     spreadsheetId: '1nQcLBO_yIumkXousRg_-l9Kx1HmiG7NcvDg1vkrdK-0'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-bre_distribution-state.txt'
     sheets:
       - sheetName: 'BRE distribution_current'
         sheetRange: ''
@@ -52,6 +58,9 @@ spreadsheets:
   # unmatched manuscripts and override hypothesis matching
   - dataPipelineId: 'unmatched_and_override_hypothesis_matching'
     spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-unmatched_and_override_hypothesis_matching-state.txt'
     sheets:
       - sheetName: 'unmatched_list'
         sheetRange: ''
@@ -72,6 +81,9 @@ spreadsheets:
   # deleted hypothesis annotations
   - dataPipelineId: 'deleted_hypothesis_annotations'
     spreadsheetId: '1naXfcCxvTC8fLPhR8K1znC9B5DMxGP7HMpp-2CcO_sY'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-deleted_hypothesis_annotations-state.txt'
     sheets:
       - sheetName: 'deleted_hypothesis_list'
         sheetRange: ''
@@ -84,6 +96,9 @@ spreadsheets:
   # reviewed preprint publication date
   - dataPipelineId: 'reviewed_preprint_publication_date'
     spreadsheetId: '1amAlKvdLcaDp5W8Z8g77NmkwbMF5n_u89ArSqPMO8jg'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-reviewed_preprint_publication_date-state.txt'
     sheets:
       - sheetName: 'publication_date'
         sheetRange: ''
@@ -96,6 +111,9 @@ spreadsheets:
   # meca path update
   - dataPipelineId: 'reviewed_preprint_meca_path_update'
     spreadsheetId: '1mctCQuNFBjSn97Lihy7_vBO6z7-N-oqyLv4clyi6zHg'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-reviewed_preprint_meca_path_update-state.txt'
     sheets:
       - sheetName: 'meca_path'
         sheetRange: ''
@@ -108,6 +126,9 @@ spreadsheets:
     # eJP invalid manuscripts to exclude
   - dataPipelineId: 'invalid_manuscripts_to_exclude'
     spreadsheetId: '1xGUTxD4U67kcjNuJ7zXz1XSkK-0wCiR6h-Om64dp2pM'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/google-spreadsheet/{ENV}-invalid_manuscripts_to_exclude-state.txt'
     sheets:
       - sheetName: 'invalid_manuscripts'
         sheetRange: ''
