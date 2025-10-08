@@ -55,7 +55,7 @@ spec:
         env:
         - name: PHOENIX_WORKING_DIR
           value: /mnt/data
-        image: docker.io/arizephoenix/phoenix:version-12.3.0 # {"$imagepolicy": "data-ai-bot:phoenix"}
+        image: docker.io/arizephoenix/phoenix:version-12.4.0 # {"$imagepolicy": "data-ai-bot:phoenix"}
         ports:
         - containerPort: 6006
         - containerPort: 4317
