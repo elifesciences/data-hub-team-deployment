@@ -103,7 +103,7 @@ s3Csv:
     recordProcessingSteps:
       - html_unescape
 
-  - dataPipelineId: submision_funding_information
+  - dataPipelineId: submission_funding_information
     description: 
       For eLifeBot
     bucketName: elife-ejp-ftp
@@ -112,11 +112,11 @@ s3Csv:
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
-    tableName: submision_funding_information
+    tableName: submission_funding_information
     tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/submision_funding_information_001.json"
+      objectName: "airflow-config/s3-csv/{ENV}-state/submission_funding_information_001.json"
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
