@@ -85,7 +85,7 @@ s3Csv:
 
   - dataPipelineId: data_availability
     description: 
-      For DocMaps
+      For eLifeBot
     bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataHub:_Data_Availability_*_eLife.csv
@@ -97,6 +97,26 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/data_availability_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+
+  - dataPipelineId: submission_funding_information
+    description: 
+      For eLifeBot
+    bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataHub:_Submission_Funding_Information_*_eLife.csv
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: submission_funding_information
+    tableWriteAppend: False
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/submission_funding_information_001.json"
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
