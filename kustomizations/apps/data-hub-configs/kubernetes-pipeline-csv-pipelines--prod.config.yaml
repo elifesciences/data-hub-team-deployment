@@ -75,6 +75,13 @@ kubernetesPipelines:
       - 'data_pipeline.s3_csv_data.cli'
       - '--data-pipeline-id=data_availability'
 
+  - dataPipelineId: 'CSV_Submission_Funding_Information_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.s3_csv_data.cli'
+      - '--data-pipeline-id=submission_funding_information'
+
   - dataPipelineId: 'CSV_767_datascience_person_roles_001_Kubernetes'
     arguments:
       - 'python'
