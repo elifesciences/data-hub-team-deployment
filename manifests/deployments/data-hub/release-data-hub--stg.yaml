@@ -343,6 +343,17 @@ spec:
         - name: surveymonkey-secret-volume
           secret:
             secretName: surveymonkey
+      dbMigrations:
+        tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+        nodeSelector:
+          data-hub-workload: "services"
+        resources:
+          requests:
+            ephemeral-storage: "50Mi"
     workers:
       resources:
         requests:
@@ -574,17 +585,6 @@ spec:
           ephemeral-storage: "50Mi"
           memory: 650Mi
           cpu: 400m
-    dbMigrations:
-      tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
-      nodeSelector:
-        data-hub-workload: "services"
-      resources:
-        requests:
-          ephemeral-storage: "50Mi"
     pgbouncer:
       tolerations:
       - key: workload
