@@ -7,7 +7,7 @@ defaultConfig:
       tags:
         - 'Kubernetes'
         - 'Google Spreadsheet'
-  image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+  image: '${data_hub_core_dags_stable_image_repo}:${data_hub_core_dags_stable_image_tag}'
   env:
     - name: DEPLOYMENT_ENV
       value: prod
