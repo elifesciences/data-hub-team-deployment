@@ -54,7 +54,7 @@ spec:
     additionalConfig:
       ##
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
       ##
     resources:
       requests:
@@ -94,7 +94,7 @@ spec:
     additionalConfig:
       ##
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
       ##
     resources:
       requests:
@@ -137,7 +137,7 @@ spec:
     additionalConfig:
       ##
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
       ##
     resources:
       requests:
