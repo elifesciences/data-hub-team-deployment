@@ -34,7 +34,7 @@ spec:
         sources:
         - serviceAccountToken:
             audience: api
-            expirationSeconds: 3600
+            expirationSeconds: 86400
             path: token
     ##
 
