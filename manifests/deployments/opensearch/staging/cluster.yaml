@@ -36,6 +36,8 @@ spec:
             audience: api
             expirationSeconds: 86400
             path: token
+    additionalConfig:
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
     ##
 
   dashboards:
