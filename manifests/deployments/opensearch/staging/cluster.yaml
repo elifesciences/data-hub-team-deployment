@@ -24,10 +24,6 @@ spec:
         bucket: ${aws_backup_s3_bucket}
         region: ${aws_region}
         base_path: data-hub/opensearch/staging
-    # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-    additionalVolumes:
-    - name: aws-iam-token
-      path: /usr/share/opensearch/config/aws-iam-token
   dashboards:
     image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.9.0
     version: 2.9.0
