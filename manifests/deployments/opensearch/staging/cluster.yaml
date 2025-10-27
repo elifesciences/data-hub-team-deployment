@@ -27,7 +27,7 @@ spec:
     # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
     additionalVolumes:
     - name: sa-aws-iam-token
-      path: /usr/share/opensearch/config/aws-iam-token/token
+      path: /usr/share/opensearch/config/aws-iam-token
       projected:
         sources:
         - serviceAccountToken:
