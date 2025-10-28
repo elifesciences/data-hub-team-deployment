@@ -42,7 +42,7 @@ spec:
 
   dashboards:
     image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.9.0
-    version: 2.9.0
+    version: 2.19.3
     enable: true
     replicas: 1
     resources:
