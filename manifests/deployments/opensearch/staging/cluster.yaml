@@ -11,7 +11,7 @@ spec:
     image: public.ecr.aws/opensearchproject/opensearch:2.9.0
     serviceName: opensearch-staging
     serviceAccount: opensearch-staging
-    version: 2.9.0
+    version: 2.19.3
     monitoring:
       enable: false
     pluginsList:
