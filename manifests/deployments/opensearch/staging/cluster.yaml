@@ -8,14 +8,14 @@ spec:
   confMgmt:
     smartScaler: true
   general:
-    image: public.ecr.aws/opensearchproject/opensearch:2.9.0
+    image: public.ecr.aws/opensearchproject/opensearch:2.19.3
     serviceName: opensearch-staging
     serviceAccount: opensearch-staging
     version: 2.19.3
     monitoring:
       enable: false
     pluginsList:
-    - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.9.0.0/prometheus-exporter-2.9.0.0.zip"
+    - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.19.3.0/prometheus-exporter-2.19.3.0.zip"
     - "repository-s3"
     snapshotRepositories:
     - name: ${aws_backup_s3_bucket}
@@ -41,7 +41,7 @@ spec:
     ##
 
   dashboards:
-    image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.9.0
+    image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.19.3
     version: 2.19.3
     enable: true
     replicas: 1
