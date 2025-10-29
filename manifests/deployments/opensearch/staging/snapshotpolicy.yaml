@@ -6,6 +6,7 @@ metadata:
   namespace: data-hub
 spec:
   enabled: true
+  policyName: opensearch-staging-daily
   opensearchCluster:
     name: opensearch-staging
   creation:
@@ -38,6 +39,7 @@ metadata:
   namespace: data-hub
 spec:
   enabled: true
+  policyName: opensearch-staging-monthly
   opensearchCluster:
     name: opensearch-staging
   creation:
