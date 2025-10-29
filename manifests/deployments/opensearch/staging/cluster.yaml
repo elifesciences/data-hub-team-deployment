@@ -53,11 +53,6 @@ spec:
   nodePools:
   - component: cluster-managers
     replicas: 3
-    additionalConfig:
-      ##
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
-      ##
     resources:
       requests:
         memory: "3Gi"
@@ -93,11 +88,6 @@ spec:
 
   - component: data-nodes
     replicas: 3
-    additionalConfig:
-      ##
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
-      ##
     resources:
       requests:
         memory: "6Gi"
@@ -136,11 +126,6 @@ spec:
 
   - component: ingest
     replicas: 1
-    additionalConfig:
-      ##
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
-      ##
     resources:
       requests:
         memory: "3Gi"
