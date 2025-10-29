@@ -33,7 +33,7 @@ spec:
       projected:
         sources:
         - serviceAccountToken:
-            audience: api
+            audience: sts.amazonaws.com
             expirationSeconds: 86400
             path: token
     additionalConfig:
