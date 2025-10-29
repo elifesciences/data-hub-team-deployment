@@ -24,6 +24,23 @@ spec:
         bucket: ${aws_backup_s3_bucket}
         region: ${aws_region}
         base_path: data-hub/opensearch/prod
+    ##
+    # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+    additionalVolumes:
+    - name: sa-aws-iam-token
+      path: /usr/share/opensearch/config/aws-iam-token
+      subPath: token
+      projected:
+        sources:
+        - serviceAccountToken:
+            audience: sts.amazonaws.com
+            expirationSeconds: 86400
+            path: token
+    additionalConfig:
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
+      AWS_ROLE_ARN: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
+      AWS_WEB_IDENTITY_TOKEN_FILE: /usr/share/opensearch/config/aws-iam-token
+    ##
   dashboards:
     image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.9.0
     version: 2.9.0
@@ -37,9 +54,6 @@ spec:
   nodePools:
   - component: cluster-managers
     replicas: 3
-    additionalConfig:
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
         memory: "3Gi"
@@ -75,9 +89,6 @@ spec:
 
   - component: data-nodes
     replicas: 3
-    additionalConfig:
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
         memory: "6Gi"
@@ -116,9 +127,6 @@ spec:
 
   - component: ingest
     replicas: 1
-    additionalConfig:
-      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
         memory: "3Gi"
