@@ -1,0 +1,65 @@
+---
+apiVersion: opensearch.opster.io/v1
+kind: OpensearchSnapshotPolicy
+metadata:
+  name: opensearch-staging-daily
+  namespace: data-hub
+spec:
+  enabled: true
+  opensearchCluster:
+    name: opensearch-staging
+  creation:
+    schedule:
+      cron:
+        expression: "0 0 * * *"
+        timezone: "UTC"
+    timeLimit: "1h"
+  deletion:
+    schedule:
+      cron:
+        expression: "0 1 * * *"
+        timezone: "UTC"
+    timeLimit: "30m"
+    deleteCondition:
+      maxAge: "30d"
+  snapshotConfig:
+    repository: ${aws_backup_s3_bucket}
+    indices: "*"
+    includeGlobalState: true
+    ignoreUnavailable: false
+    partial: false
+    dateFormat: "yyyy-MM-dd-HH-mm"
+    dateFormatTimezone: "UTC"
+---
+apiVersion: opensearch.opster.io/v1
+kind: OpensearchSnapshotPolicy
+metadata:
+  name: opensearch-staging-monthly
+  namespace: data-hub
+spec:
+  enabled: true
+  opensearchCluster:
+    name: opensearch-staging
+  creation:
+    schedule:
+      cron:
+        schedule: "0 1 1 * *"
+        timezone: "UTC"
+    timeLimit: "1h"
+  deletion:
+    schedule:
+      cron:
+        schedule: "0 2 1 * *"
+        timezone: "UTC"
+    timeLimit: "30m"
+    deleteCondition:
+      maxCount: 12
+      minCount: 3
+  snapshotConfig:
+    repository: ${aws_backup_s3_bucket}
+    indices: "*"
+    includeGlobalState: true
+    ignoreUnavailable: false
+    partial: false
+    dateFormat: "yyyy-MM-dd-HH-mm"
+    dateFormatTimezone: "UTC"
