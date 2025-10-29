@@ -45,13 +45,13 @@ spec:
   creation:
     schedule:
       cron:
-        schedule: "0 1 1 * *"
+        expression: "0 1 1 * *"
         timezone: "UTC"
     timeLimit: "1h"
   deletion:
     schedule:
       cron:
-        schedule: "0 2 1 * *"
+        expression: "0 2 1 * *"
         timezone: "UTC"
     timeLimit: "30m"
     deleteCondition:
