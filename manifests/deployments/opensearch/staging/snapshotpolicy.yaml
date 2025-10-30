@@ -18,7 +18,7 @@ spec:
   deletion:
     schedule:
       cron:
-        expression: "0 0 * * *"
+        expression: "16 25 * * *"
         timezone: "UTC"
     timeLimit: "30m"
     deleteCondition:
