@@ -15,14 +15,14 @@ spec:
         expression: "0 0 * * *"
         timezone: "UTC"
     timeLimit: "1h"
-  deletion:
-    schedule:
-      cron:
-        expression: "0 0 * * *"
-        timezone: "UTC"
-    timeLimit: "30m"
-    deleteCondition:
-      maxAge: "30d"
+  # deletion:
+  #   schedule:
+  #     cron:
+  #       expression: "0 0 * * *"
+  #       timezone: "UTC"
+  #   timeLimit: "30m"
+  #   deleteCondition:
+  #     maxAge: "30d"
   snapshotConfig:
     repository: ${aws_backup_s3_bucket}
     indices: "*"
