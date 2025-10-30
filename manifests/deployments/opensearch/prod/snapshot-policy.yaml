@@ -10,7 +10,7 @@ spec:
     name: data-hub-team-deployment
     namespace: flux-system
   path: ./kustomizations/apps/opensearch-snapshot-policy
-  prune: true
+  prune: false
   postBuild:
     substitute:
       cluster_name: opensearch-prod
