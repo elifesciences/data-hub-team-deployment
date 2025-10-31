@@ -18,7 +18,7 @@ spec:
   # deletion:
   #   schedule:
   #     cron:
-  #       expression: "0 0 * * *"
+  #       expression: "0 1 * * *"
   #       timezone: "UTC"
   #   timeLimit: "30m"
   #   deleteCondition:
@@ -45,18 +45,18 @@ spec:
   creation:
     schedule:
       cron:
-        expression: "0 1 1 * *"
-        timezone: "UTC"
-    timeLimit: "1h"
-  deletion:
-    schedule:
-      cron:
         expression: "0 2 1 * *"
         timezone: "UTC"
-    timeLimit: "30m"
-    deleteCondition:
-      maxCount: 12
-      minCount: 3
+    timeLimit: "1h"
+  # deletion:
+  #   schedule:
+  #     cron:
+  #       expression: "0 3 1 * *"
+  #       timezone: "UTC"
+  #   timeLimit: "30m"
+  #   deleteCondition:
+  #     maxCount: 12
+  #     minCount: 3
   snapshotConfig:
     repository: ${aws_backup_s3_bucket}
     indices: "*"
