@@ -69,6 +69,7 @@ scheduledQueries:
           AND target.event_name = source.event_name
           AND COALESCE(target.file_extension, '') = COALESCE(source.file_extension, '')
           AND target.event_date = source.event_date
+          AND page_location_event_param.value.string_value IS NOT NULL
         WHEN MATCHED THEN
           UPDATE SET
             unique_session_count = source.unique_session_count,
