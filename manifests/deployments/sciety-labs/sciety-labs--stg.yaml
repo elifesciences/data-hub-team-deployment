@@ -9,10 +9,16 @@ spec:
   selector:
     matchLabels:
       app: sciety-labs--stg
+      app.kubernetes.io/name: sciety-labs
+      app.kubernetes.io/instance: sciety-labs--stg
+      app.kubernetes.io/component: web
   template:
     metadata:
       labels:
         app: sciety-labs--stg
+        app.kubernetes.io/name: sciety-labs
+        app.kubernetes.io/instance: sciety-labs--stg
+        app.kubernetes.io/component: web
     spec:
       containers:
       - name: sciety-labs
