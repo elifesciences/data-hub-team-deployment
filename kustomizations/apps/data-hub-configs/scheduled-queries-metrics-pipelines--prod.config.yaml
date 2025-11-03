@@ -50,6 +50,7 @@ scheduledQueries:
               ON file_extension_event_param.key = 'file_extension'
             WHERE event_name IN ('page_view', 'file_download')
               AND event._TABLE_SUFFIX >= FORMAT_DATE('%Y%m%d', DATE_SUB(DATE('{start_date}'), INTERVAL 3 DAY))
+              AND page_location_event_param.value.string_value IS NOT NULL
           )
           SELECT
             page_location,
