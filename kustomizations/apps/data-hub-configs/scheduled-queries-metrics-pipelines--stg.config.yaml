@@ -67,7 +67,7 @@ scheduledQueries:
         ) AS source
         ON target.page_location = source.page_location
           AND target.event_name = source.event_name
-          AND target.file_extension = source.file_extension
+          AND COALESCE(target.file_extension, '') = COALESCE(source.file_extension, '')
           AND target.event_date = source.event_date
         WHEN MATCHED THEN
           UPDATE SET
