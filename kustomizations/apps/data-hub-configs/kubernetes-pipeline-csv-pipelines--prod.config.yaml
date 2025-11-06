@@ -61,6 +61,13 @@ kubernetesPipelines:
       - 'data_pipeline.s3_csv_data.cli'
       - '--data-pipeline-id=ejp_manuscript_version_notes'
 
+  - dataPipelineId: 'CSV_ejp_manuscript_version_latest_stage_info_Kubernetes'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.s3_csv_data.cli'
+      - '--data-pipeline-id=ejp_manuscript_version_latest_stage_info'
+
   - dataPipelineId: 'CSV_rp_manuscript_license_Kubernetes'
     arguments:
       - 'python'

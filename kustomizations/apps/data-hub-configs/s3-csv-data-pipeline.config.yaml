@@ -63,6 +63,24 @@ s3Csv:
     recordProcessingSteps:
       - html_unescape
 
+  - dataPipelineId: ejp_manuscript_version_latest_stage_info
+    bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataHub:_Manuscript_Version_Latest_Stage_Info_*_eLife.csv
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: ejp_manuscript_version_latest_stage_info
+    tableWriteAppend: False
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/ejp_manuscript_version_latest_stage_info.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+
   - dataPipelineId: manuscript_license
     description: 
       For DocMaps
