@@ -38,10 +38,10 @@ spec:
           periodSeconds: 3
         resources:
           requests:
-            cpu: 700m
-            memory: 900Mi
+            cpu: 100m
+            memory: 100Mi
           limits:
-            memory: 1024Mi
+            memory: 100Mi
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json

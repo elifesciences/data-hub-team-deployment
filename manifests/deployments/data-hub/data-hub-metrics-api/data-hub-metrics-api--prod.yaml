@@ -38,11 +38,11 @@ spec:
           timeoutSeconds: 5
           periodSeconds: 3
         resources:
-          limits:
-            memory: 2Gi
           requests:
-            cpu: 700m
-            memory: 1.5Gi
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            memory: 100Mi
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
