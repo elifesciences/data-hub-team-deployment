@@ -34,7 +34,7 @@ spec:
         sources:
         - serviceAccountToken:
             audience: sts.amazonaws.com
-            expirationSeconds: 86400
+            expirationSeconds: 2592000 # 60s*60m*24h*30d
             path: token
     additionalConfig:
       s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
