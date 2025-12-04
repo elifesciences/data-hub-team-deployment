@@ -156,7 +156,7 @@ spec:
 
       # general
       - name: DEPLOYMENT_ENV
-        value: staging
+        value: test
       - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
         value: /opt/airflow/auxiliary_data_pipeline_files
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
