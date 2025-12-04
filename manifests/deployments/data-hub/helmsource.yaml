@@ -8,3 +8,12 @@ metadata:
 spec:
   interval: 5m
   url: https://airflow-helm.github.io/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: apache-airflow
+  namespace: data-hub
+spec:
+  interval: 5m
+  url: https://airflow.apache.org
