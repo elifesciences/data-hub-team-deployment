@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: data-hub--test
+  namespace: data-hub
+spec:
+  interval: 16m
+  timeout: 15m
+  releaseName: data-hub--test
+  chart:
+    spec:
+      chart: airflow
+      version: 1.18.0
+      sourceRef:
+        kind: HelmRepository
+        name: apache-airflow
+        namespace: data-hub
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    # https://airflow.apache.org/docs/helm-chart/stable/index.html#installing-the-chart-with-argo-cd-flux-rancher-or-terraform
+    # Required when using Flux/Argo/etc.
+    createUserJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    migrateDatabaseJob:
+      useHelmHooks: false
+      applyCustomEnv: false
