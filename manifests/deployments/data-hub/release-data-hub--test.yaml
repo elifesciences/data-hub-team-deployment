@@ -32,35 +32,6 @@ spec:
       useHelmHooks: false
       applyCustomEnv: false
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: data-hub-postgresql--test
-  namespace: data-hub
-spec:
-  interval: 15m
-  releaseName: data-hub-postgresql--test
-  chart:
-    spec:
-      chart: postgresql
-      version: 16.4.3
-      sourceRef:
-        kind: HelmRepository
-        name: bitnami
-        namespace: data-hub
-      interval: 30m
-  values:
-    defaultStorageClass: data-hub-gp3
-    auth:
-      enablePostgresUser: true
-      username: airflow
-      database: airflow
-    primary:
-      persistence:
-        enabled: true
-        size: 8Gi
-        storageClass: data-hub-gp3
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
