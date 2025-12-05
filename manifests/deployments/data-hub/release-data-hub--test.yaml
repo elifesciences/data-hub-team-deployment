@@ -114,46 +114,6 @@ spec:
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
         value: "kubernetes"
 
-      # scheduler intervals
-      - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 5 * * *"
-      - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 6 * * *"
-      - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
-        value: "40 * * * *"
-      - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 7 * * 1-5"
-      - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
-        value: "@daily"
-      - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
-        value: "0,20,40 3-22 * * 1-5"
-      - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 10 * * *"
-      - name: SEMANTIC_SCHOLAR_RECOMMENDATION_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 11 * * *"
-      - name: BIGQUERY_TO_OPENSEARCH_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 13 * * *"
-      - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
-        value: "20 6-21/1 * * *"
-      - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
-        value: "@hourly"
-      - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
-        value: "@hourly"
-      - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
-        value: "40 */3 * * *"
-      - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
-        value: "@hourly"
-      - name: EJP_XML_SCHEDULE_INTERVAL
-        value: "*/20 * * * *"
-      - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 0 1 * *"
-      - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
-        value: "0 4 * * *"
-      - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
-        value: "@daily"
-      - name: AIRFLOW_DB_MAINTENANCE_MAX_CLEANUP_DATA_AGE_IN_DAYS
-        value: "30"
-
       # general
       - name: DEPLOYMENT_ENV
         value: test
