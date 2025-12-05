@@ -58,4 +58,4 @@ spec:
       persistence:
         enabled: true
         size: 1Gi
-        storageClass: data-hub-gp3
+        defaultStorageClass: data-hub-gp3
