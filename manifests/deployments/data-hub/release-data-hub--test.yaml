@@ -60,3 +60,41 @@ spec:
         enabled: true
         size: 8Gi
         storageClass: data-hub-gp3
+---
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: data-hub-rds--test
+  namespace: data-hub
+spec:
+  allocatedStorage: 20
+  dbInstanceClass: db.t3.micro
+  dbInstanceIdentifier: data-hub-rds--test
+  dbName: postgres
+  port: 5432
+  engine: postgres
+  engineVersion: "16.4"
+  masterUsername: "postgres"
+  masterUserPassword:
+    name: data-hub-rds-secret-env-vars--test
+    key: PGPASSWORD
+  vpcSecurityGroupIDs:
+    - sg-0a04b1c8433227e63
+  dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: data-hub-dbinstance-endpoint-address--test
+  namespace: data-hub
+spec:
+  to:
+    name: data-hub-rds-secret-env-vars--test
+    kind: configmap
+    key: PGHOST
+  from:
+    path: ".status.endpoint.address"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: data-hub-rds--test
