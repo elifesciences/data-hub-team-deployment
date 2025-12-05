@@ -33,24 +33,35 @@ spec:
       applyCustomEnv: false
     postgresql:
       enabled: false
-    data:
-      metadataConnection:
-        userFromSecret:
-          name: data-hub-airflow-db-secret--test
-          key: PGUSER
-        passFromSecret:
-          name: data-hub-airflow-db-secret--test
-          key: PGPASSWORD
-        protocol: postgresql
-        hostFromSecret:
-          name: data-hub-airflow-db-secret--test
-          key: PGHOST
-        portFromSecret:
-          name: data-hub-airflow-db-secret--test
-          key: PGPORT
-        dbFromSecret:
-          name: data-hub-airflow-db-secret--test
-          key: PGDATABASE
+    extraEnv:
+      - name: PGHOST
+        valueFrom:
+          secretKeyRef:
+            name: data-hub-airflow-db-secret--test
+            key: PGHOST
+      - name: PGPORT
+        valueFrom:
+          secretKeyRef:
+            name: data-hub-airflow-db-secret--test
+            key: PGPORT
+      - name: PGUSER
+        valueFrom:
+          secretKeyRef:
+            name: data-hub-airflow-db-secret--test
+            key: PGUSER
+      - name: PGPASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: data-hub-airflow-db-secret--test
+            key: PGPASSWORD
+      - name: PGDATABASE
+        valueFrom:
+          secretKeyRef:
+            name: data-hub-airflow-db-secret--test
+            key: PGDATABASE
+      - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+        value: "postgresql+psycopg2://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
