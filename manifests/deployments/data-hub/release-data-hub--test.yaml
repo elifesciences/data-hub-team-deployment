@@ -31,6 +31,8 @@ spec:
     migrateDatabaseJob:
       useHelmHooks: false
       applyCustomEnv: false
+    postgresql:
+      enabled: false
     data:
       metadataConnection:
         userFromSecret:
