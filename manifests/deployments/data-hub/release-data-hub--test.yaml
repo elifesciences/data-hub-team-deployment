@@ -57,5 +57,5 @@ spec:
     primary:
       persistence:
         enabled: true
-        size: 1Gi
+        size: 8Gi
         defaultStorageClass: data-hub-gp3
