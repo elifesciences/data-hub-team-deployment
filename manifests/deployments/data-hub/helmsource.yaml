@@ -17,12 +17,3 @@ metadata:
 spec:
   interval: 5m
   url: https://airflow.apache.org
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: bitnami-postgresql
-  namespace: data-hub
-spec:
-  interval: 30m
-  url: https://charts.bitnami.com/bitnami
