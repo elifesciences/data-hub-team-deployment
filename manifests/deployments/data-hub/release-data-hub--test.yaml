@@ -23,7 +23,7 @@ spec:
     remediation:
       retries: 3
   values:
-    # Required when using Flux/Argo/etc.[web:1][web:123][web:28][web:128]
+    # Required when using Flux/Argo/etc.
     createUserJob:
       useHelmHooks: false
       applyCustomEnv: false
