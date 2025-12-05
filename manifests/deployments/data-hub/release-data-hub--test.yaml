@@ -33,7 +33,7 @@ spec:
       applyCustomEnv: false
     postgresql:
       enabled: false
-    extraEnv:
+    extraEnv: |
       - name: PGHOST
         valueFrom:
           secretKeyRef:
