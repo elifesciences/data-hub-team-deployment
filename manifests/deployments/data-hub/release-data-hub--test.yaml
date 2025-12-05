@@ -45,7 +45,7 @@ spec:
         flower_url_prefix: "/flower"
       logging:
         remote_logging: "True"
-        remote_base_log_folder: "s3://staging-elife-data-pipeline/airflow-logs"
+        remote_base_log_folder: "s3://ci-elife-data-pipeline/by-env/test/airflow-logs"
         remote_log_conn_id: "aws_default"
       scheduler:
         min_file_process_interval: "90"
