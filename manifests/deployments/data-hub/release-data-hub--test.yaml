@@ -83,3 +83,27 @@ spec:
       engine: postgres
       engine_version: "\"18.1\""
       project: data-hub
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data-hub-airflow-db-secret--test
+  namespace: data-hub
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/utils/rds-pg-external-secret
+  prune: true
+  targetNamespace: data-hub
+  dependsOn:
+  - name: data-hub-airflow-db--test
+  postBuild:
+    substitute:
+      external_secret_name: data-hub-airflow-db-secret--test
+      kubernetes_secret_name: data-hub-airflow-db-secret--test # Target secret name
+    substituteFrom:
+    - kind: Secret
+      name: data-hub-airflow-db-test-connection-values
