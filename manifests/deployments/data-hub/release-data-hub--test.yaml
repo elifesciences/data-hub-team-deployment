@@ -35,7 +35,7 @@ spec:
       enabled: false
     extraEnvFrom: |
       - secretRef:
-        name: data-hub-airflow-db-secret--test
+          name: data-hub-airflow-db-secret--test
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
