@@ -50,6 +50,7 @@ spec:
         namespace: data-hub
       interval: 30m
   values:
+    defaultStorageClass: data-hub-gp3
     auth:
       enablePostgresUser: true
       username: airflow
@@ -58,4 +59,4 @@ spec:
       persistence:
         enabled: true
         size: 8Gi
-        defaultStorageClass: data-hub-gp3
+        storageClass: data-hub-gp3
