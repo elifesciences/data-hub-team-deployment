@@ -35,12 +35,12 @@ spec:
       enabled: false
     data:
       metadataSecretName: data-hub-airflow-db-secret--test
-    extraEnvFrom: |
-      - secretRef:
-          name: data-hub-airflow-db-secret--test
-    extraEnv: |
-      - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-        value: "postgresql+psycopg2://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+    # extraEnvFrom: |
+    #   - secretRef:
+    #       name: data-hub-airflow-db-secret--test
+    # extraEnv: |
+    #   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+    #     value: "postgresql+psycopg2://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
