@@ -33,6 +33,8 @@ spec:
       applyCustomEnv: false
     postgresql:
       enabled: false
+    data:
+      metadataSecretName: data-hub-airflow-db-secret--test
     extraEnvFrom: |
       - secretRef:
           name: data-hub-airflow-db-secret--test
