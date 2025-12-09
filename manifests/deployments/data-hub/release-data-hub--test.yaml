@@ -47,6 +47,11 @@ spec:
     triggerer:
       persistence:
         storageClassName: data-hub-gp3
+      resources:
+        requests:
+          ephemeral-storage: "50Mi"
+          memory: 1200Mi
+          cpu: 400m
     workers:
       persistence:
         storageClassName: data-hub-gp3
@@ -54,6 +59,11 @@ spec:
       startupProbe:
         initialDelaySeconds: 15 # observed slow startup and failing startup probe
         failureThreshold: 60
+      resources:
+        requests:
+          memory: 1167Mi
+          cpu: 50m
+          ephemeral-storage: "100Mi"
     ingress:
       apiServer:
         enabled: true
