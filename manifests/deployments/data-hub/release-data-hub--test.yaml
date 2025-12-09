@@ -56,6 +56,12 @@ spec:
           ephemeral-storage: "50Mi"
           memory: 1200Mi
           cpu: 400m
+    scheduler:
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 200m
+          ephemeral-storage: "50Mi"
     workers:
       persistence:
         storageClassName: data-hub-gp3
