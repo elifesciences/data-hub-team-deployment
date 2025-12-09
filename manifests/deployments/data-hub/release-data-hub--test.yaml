@@ -55,6 +55,17 @@ spec:
         initialDelaySeconds: 15 # observed slow startup and failing startup probe
         failureThreshold: 60
     ingress:
+      apiServer:
+        enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          cert-manager.io/cluster-issuer: "letsencrypt"
+        hosts:
+          - name: data-hub--flux--test.elifesciences.org
+            tls:
+              enabled: true
+              secretName: "data-hub--flux--test.elifesciences.org-tls"
       web:
         enabled: true
         annotations:
