@@ -91,6 +91,10 @@ spec:
           memory: 1167Mi
           cpu: 50m
           ephemeral-storage: "100Mi"
+    databaseCleanup:
+      enabled: true
+      schedule: "0 * * * *"
+      retentionDays: 30
     ingress:
       apiServer:
         enabled: true
