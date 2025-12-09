@@ -44,6 +44,10 @@ spec:
     redis:
       persistence:
         storageClassName: data-hub-gp3
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 100m
     triggerer:
       persistence:
         storageClassName: data-hub-gp3
