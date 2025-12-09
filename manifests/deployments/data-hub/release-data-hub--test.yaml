@@ -78,6 +78,11 @@ spec:
         limits:
           memory: 2500Mi
     apiServer:
+      env:
+        - name: AIRFLOW__CORE__AUTH_MANAGER
+          value: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+        - name: AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS
+          value: true
       startupProbe:
         initialDelaySeconds: 15 # observed slow startup and failing startup probe
         failureThreshold: 60
