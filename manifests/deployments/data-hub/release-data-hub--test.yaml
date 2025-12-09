@@ -38,9 +38,9 @@ spec:
     # extraEnvFrom: |
     #   - secretRef:
     #       name: data-hub-airflow-db-secret--test
-    # extraEnv: |
-    #   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-    #     value: "postgresql+psycopg2://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+    extraEnv: |
+      - name: DUMMY_ENV
+        value: "dummy-value"
     redis:
       persistence:
         storageClassName: data-hub-gp3
