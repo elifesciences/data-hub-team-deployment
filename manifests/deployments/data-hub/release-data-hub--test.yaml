@@ -53,6 +53,7 @@ spec:
     apiServer:
       startupProbe:
         initialDelaySeconds: 15 # observed slow startup and failing startup probe
+        failureThreshold: 60
     ingress:
       web:
         enabled: true
