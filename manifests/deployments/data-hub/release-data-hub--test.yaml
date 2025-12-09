@@ -50,6 +50,9 @@ spec:
     workers:
       persistence:
         storageClassName: data-hub-gp3
+    apiServer:
+      startupProbe:
+        initialDelaySeconds: 15 # observed slow startup and failing startup probe
     ingress:
       web:
         enabled: true
