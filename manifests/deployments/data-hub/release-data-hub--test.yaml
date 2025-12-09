@@ -41,6 +41,15 @@ spec:
     # extraEnv: |
     #   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
     #     value: "postgresql+psycopg2://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+    redis:
+      persistence:
+        storageClassName: data-hub-gp3
+    triggerer:
+      persistence:
+        storageClassName: data-hub-gp3
+    workers:
+      persistence:
+        storageClassName: data-hub-gp3
     ingress:
       web:
         enabled: true
