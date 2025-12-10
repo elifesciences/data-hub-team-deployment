@@ -170,13 +170,12 @@ kubernetesPipelines:
         value: "100"
     volumeMounts:
       - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
-        value: /dag_secret_files/gmail_production/gmail_credentials.json
-    volumes:
-      - name: gmail-production-secret-volume
         mountPath: /dag_secret_files/gmail_production/
         readOnly: true
-          secret:
-            secretName: gmail-credentials
+    volumes:
+      - name: gmail-production-secret-volume
+        secret:
+          secretName: gmail-credentials
 
   - dataPipelineId: 'Materialize_BigQuery_Views_Pipeline_Kubernetes'
     airflow:
