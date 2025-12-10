@@ -168,8 +168,10 @@ kubernetesPipelines:
         value: "/dag_config_files/gmail-data-pipeline.config.yaml"
       - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
         value: "100"
-    volumeMounts:
       - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
+        value: /dag_secret_files/gmail_production/gmail_credentials.json
+    volumeMounts:
+      - name: gmail-production-secret-volume
         mountPath: /dag_secret_files/gmail_production/
         readOnly: true
     volumes:
