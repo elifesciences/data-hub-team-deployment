@@ -61,6 +61,13 @@ spec:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
         readOnly: true
+    tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+    nodeSelector:
+      data-hub-workload: "services"
     redis:
       persistence:
         storageClassName: data-hub-gp3
