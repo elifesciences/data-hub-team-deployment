@@ -178,6 +178,11 @@ kubernetesPipelines:
       - name: gmail-production-secret-volume
         secret:
           secretName: gmail-credentials
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: 100m
+        ephemeral-storage: 1Gi
 
   - dataPipelineId: 'Materialize_BigQuery_Views_Pipeline_Kubernetes'
     airflow:
