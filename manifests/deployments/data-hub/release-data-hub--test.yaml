@@ -43,6 +43,8 @@ spec:
     #   - secretRef:
     #       name: data-hub-airflow-db-secret--test
     extraEnv: |
+      - name: DEPLOYMENT_ENV
+        value: test
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
       - name: S3_CSV_CONFIG_FILE_PATH
