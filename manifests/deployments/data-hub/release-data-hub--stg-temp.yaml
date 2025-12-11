@@ -41,7 +41,7 @@ spec:
       metadataSecretName: data-hub-airflow-db-secret--stg
     extraEnv: |
       - name: DEPLOYMENT_ENV
-        value: stg
+        value: staging
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
       - name: S3_CSV_CONFIG_FILE_PATH
@@ -65,6 +65,8 @@ spec:
         effect: NoSchedule
     nodeSelector:
       data-hub-workload: "services"
+
+    # service specific config...
     redis:
       persistence:
         storageClassName: data-hub-gp3
