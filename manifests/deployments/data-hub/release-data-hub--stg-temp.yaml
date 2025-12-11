@@ -1,12 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: data-hub--test
+  name: data-hub--stg-temp
   namespace: data-hub
 spec:
   interval: 16m
   timeout: 15m
-  releaseName: data-hub--test
+  releaseName: data-hub--stg-temp
   chart:
     spec:
       chart: airflow
@@ -38,13 +38,10 @@ spec:
     postgresql:
       enabled: false
     data:
-      metadataSecretName: data-hub-airflow-db-secret--test
-    # extraEnvFrom: |
-    #   - secretRef:
-    #       name: data-hub-airflow-db-secret--test
+      metadataSecretName: data-hub-airflow-db-secret--stg
     extraEnv: |
       - name: DEPLOYMENT_ENV
-        value: test
+        value: stg
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
       - name: S3_CSV_CONFIG_FILE_PATH
@@ -130,15 +127,15 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
           cert-manager.io/cluster-issuer: "letsencrypt"
         hosts:
-          - name: data-hub--flux--test.elifesciences.org
+          - name: data-hub--flux--stg-temp.elifesciences.org
             tls:
               enabled: true
-              secretName: "data-hub--flux--test.elifesciences.org-tls"
+              secretName: "data-hub--flux--stg-temp.elifesciences.org-tls"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: data-hub-airflow-db--test
+  name: data-hub-airflow-db--stg
   namespace: data-hub
 spec:
   interval: 15m
@@ -151,7 +148,7 @@ spec:
   targetNamespace: data-hub
   postBuild:
     substitute:
-      instance_name: data-hub-airflow-db-test
+      instance_name: data-hub-airflow-db-stg
       instance_storage: "20"
       instance_class: db.t3.small
       engine: postgres
@@ -161,7 +158,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: data-hub-airflow-db-secret--test
+  name: data-hub-airflow-db-secret--stg
   namespace: data-hub
 spec:
   interval: 1m0s
@@ -173,11 +170,11 @@ spec:
   prune: true
   targetNamespace: data-hub
   dependsOn:
-  - name: data-hub-airflow-db--test
+  - name: data-hub-airflow-db--stg
   postBuild:
     substitute:
-      external_secret_name: data-hub-airflow-db-secret--test
-      kubernetes_secret_name: data-hub-airflow-db-secret--test # Target secret name
+      external_secret_name: data-hub-airflow-db-secret--stg
+      kubernetes_secret_name: data-hub-airflow-db-secret--stg # Target secret name
     substituteFrom:
     - kind: Secret
-      name: data-hub-airflow-db-test-connection-values
+      name: data-hub-airflow-db-stg-connection-values
