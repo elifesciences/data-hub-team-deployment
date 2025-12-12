@@ -23,6 +23,18 @@ spec:
     remediation:
       retries: 3
   values:
+    executor: "KubernetesExecutor"
+    config:
+      AIRFLOW__KUBERNETES__NAMESPACE: data-hub
+      AIRFLOW__KUBERNETES__DELETE_WORKER_PODS: "True"
+      AIRFLOW__KUBERNETES__WORKER_PODS_CREATION_BATCH_SIZE: "20"
+      AIRFLOW__KUBERNETES__RUN_AS_USER: "50000"
+    kubernetesPodTemplate:
+      enabled: true
+    workers:
+      enabled: false
+    redis:
+      enabled: false
     images:
       airflow:
         repository: docker.io/elifesciences/data-hub-core-dags_unstable
@@ -65,15 +77,6 @@ spec:
         effect: NoSchedule
     nodeSelector:
       data-hub-workload: "services"
-
-    # service specific config...
-    redis:
-      persistence:
-        storageClassName: data-hub-gp3
-      resources:
-        requests:
-          memory: 500Mi
-          cpu: 100m
     triggerer:
       persistence:
         storageClassName: data-hub-gp3
@@ -83,6 +86,12 @@ spec:
           memory: 1200Mi
           cpu: 400m
     scheduler:
+      k8sSidecar:
+        enabled: true
+        resources:
+          requests:
+            cpu: 50m
+            memory: 200Mi
       resources:
         requests:
           memory: 500Mi
@@ -93,16 +102,6 @@ spec:
         requests:
           memory: 500Mi
           cpu: 100m
-    workers:
-      persistence:
-        storageClassName: data-hub-gp3
-      resources:
-        requests:
-          memory: 2500Mi
-          cpu: 400m
-          ephemeral-storage: 10Gi
-        limits:
-          memory: 2500Mi
     apiServer:
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
