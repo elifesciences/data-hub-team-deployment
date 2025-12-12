@@ -25,16 +25,14 @@ spec:
   values:
     executor: "KubernetesExecutor"
     config:
-      AIRFLOW__KUBERNETES__NAMESPACE: data-hub
-      AIRFLOW__KUBERNETES__DELETE_WORKER_PODS: "True"
-      AIRFLOW__KUBERNETES__WORKER_PODS_CREATION_BATCH_SIZE: "20"
-      AIRFLOW__KUBERNETES__RUN_AS_USER: "50000"
+      kubernetes:
+        in_cluster: true
+        namespace: data-hub
+        delete_worker_pods: true
+        worker_pods_creation_batch_size: 20
+        run_as_user: 50000
     kubernetesPodTemplate:
       enabled: true
-    workers:
-      enabled: false
-    redis:
-      enabled: false
     images:
       airflow:
         repository: docker.io/elifesciences/data-hub-core-dags_unstable
@@ -86,12 +84,6 @@ spec:
           memory: 1200Mi
           cpu: 400m
     scheduler:
-      k8sSidecar:
-        enabled: true
-        resources:
-          requests:
-            cpu: 50m
-            memory: 200Mi
       resources:
         requests:
           memory: 500Mi
