@@ -33,6 +33,17 @@ spec:
         run_as_user: 50000
     kubernetesPodTemplate:
       enabled: true
+      podTemplate:
+        spec:
+          containers:
+            - name: base
+              resources:
+                requests:
+                  cpu: "10m"
+                  memory: "300Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "500Mi"
     images:
       airflow:
         repository: docker.io/elifesciences/data-hub-core-dags_unstable
