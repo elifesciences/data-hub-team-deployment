@@ -43,6 +43,31 @@ defaultConfig:
 
 kubernetesPipelines:
 
+  - dataPipelineId: 'Monitor_Data_Hub_Pipeline_Health_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '20 6-21/1 * * *'  # At minute 20 past every hour from 6 through 21
+        tags:
+          - 'Kubernetes'
+          - 'Monitoring'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.monitoring.cli'
+    env:
+      - name: MONITORING_CONFIG_FILE_PATH
+        value: /dag_config_files/monitoring.config.yaml
+      - name: HEALTH_CHECK_URL
+        valueFrom:
+          secretKeyRef:
+            name: monitoring-urls--prod
+            key: health_check_url
+      - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
+        valueFrom:
+          secretKeyRef:
+            name: monitoring-urls--prod
+            key: slack_webhook_url
+
   - dataPipelineId: 'Elife_Article_Xml_Pipeline_Kubernetes'
     airflow:
       dagParameters:
