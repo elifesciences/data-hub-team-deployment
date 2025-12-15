@@ -47,6 +47,9 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '20 6-21/1 * * *'  # At minute 20 past every hour from 6 through 21
+        tags:
+          - 'Kubernetes'
+          - 'Monitoring'
     arguments:
       - 'python'
       - '-m'
