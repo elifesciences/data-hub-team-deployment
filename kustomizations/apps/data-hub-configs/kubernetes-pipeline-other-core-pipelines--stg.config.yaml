@@ -253,6 +253,21 @@ kubernetesPipelines:
       - name: SCHEDULED_QUERIES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/scheduled-queries-metrics-pipelines--stg.config.yaml
 
+  - dataPipelineId: 'Semantic_Scholar_Data_Import_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 10 * * *'  # At 10:00, every day
+        tags:
+          - 'Kubernetes'
+          - 'Semantic Scholar'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.semantic_scholar.cli_semantic_scholar'
+    env:
+      - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
+        value: /dag_config_files/semantic-scholar.config.yaml
+
   - dataPipelineId: 'Finance_Data_Pipeline_RP_Site_Kubernetes'
 
     arguments:
