@@ -53,7 +53,7 @@ kubernetesPipelines:
     arguments:
       - 'python'
       - '-m'
-      - 'data_pipeline.elife_article_xml.cli'
+      - 'data_pipeline.monitoring.cli'
     env:
       - name: MONITORING_CONFIG_FILE_PATH
         value: /dag_config_files/monitoring.config.yaml
