@@ -67,14 +67,6 @@ kubernetesPipelines:
           secretKeyRef:
             name: monitoring-urls--stg
             key: slack_webhook_url
-    volumeMounts:
-      - name: monitoring-urls-volume
-        mountPath: /dag_secret_files/monitoring_urls/
-        readOnly: true
-    volumes:
-      - name: monitoring-urls-volume
-        secret:
-          secretName: monitoring-urls--stg
 
   - dataPipelineId: 'Elife_Article_Xml_Pipeline_Kubernetes'
     airflow:
