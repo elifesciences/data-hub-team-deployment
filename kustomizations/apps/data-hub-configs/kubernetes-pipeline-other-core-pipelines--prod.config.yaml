@@ -283,6 +283,31 @@ kubernetesPipelines:
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_CONFIG_FILE_PATH
         value: /dag_config_files/semantic-scholar-recommendation.config.yaml
 
+  - dataPipelineId: 'SurveyMonkey_Data_Import_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@monthly'
+        tags:
+          - 'Kubernetes'
+          - 'SurveyMonkey'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.surveymonkey.cli'
+    env:
+      - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
+        value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+      - name: SURVEYMONKEY_SECRET_FILE
+        value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
+    volumeMounts:
+      - name: surveymonkey-secret-volume
+        mountPath: /dag_secret_files/surveymonkey/
+        readOnly: true
+    volumes:
+      - name: surveymonkey-secret-volume
+        secret:
+          secretName: surveymonkey
+
   - dataPipelineId: 'Finance_Data_Pipeline_RP_Site_Kubernetes'
 
     arguments:
