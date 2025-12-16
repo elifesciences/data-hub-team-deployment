@@ -26,6 +26,10 @@ spec:
         base_path: data-hub/opensearch/staging
     ##
     # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+    additionalConfig:
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
+      AWS_ROLE_ARN: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
+      AWS_WEB_IDENTITY_TOKEN_FILE: /usr/share/opensearch/config/aws-iam-token
     additionalVolumes:
     - name: sa-aws-iam-token
       path: /usr/share/opensearch/config/aws-iam-token
@@ -36,12 +40,13 @@ spec:
             audience: sts.amazonaws.com
             expirationSeconds: 2592000 # 60s*60m*24h*30d
             path: token
-    additionalConfig:
-      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token
-      AWS_ROLE_ARN: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
-      AWS_WEB_IDENTITY_TOKEN_FILE: /usr/share/opensearch/config/aws-iam-token
     ##
-
+  security:
+    tls:
+      transport:
+        generate: true
+      http:
+        generate: true
   dashboards:
     image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.10.0
     version: 2.10.0
