@@ -89,8 +89,6 @@ spec:
         value: /dag_config_files/europepmc-labslink.config.yaml
       - name: GMAIL_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/gmail-data-pipeline.config.yaml
-      - name: CROSSREF_CONFIG_FILE_PATH
-        value: /dag_config_files/crossref-event-data-pipeline.config.yaml
       - name: SPREADSHEET_CONFIG_FILE_PATH
         value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
       - name: WEB_API_CONFIG_FILE_PATH
