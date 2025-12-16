@@ -144,16 +144,6 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
-    - host: sciety-labs.elifesciences.org
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: sciety-labs--prod
-                port:
-                  number: 8000
     - host: labs.sciety.org
       http:
         paths:
@@ -164,20 +154,8 @@ spec:
                 name: sciety-labs--prod
                 port:
                   number: 8000
-    # Temporarily also include previously used sciety-discovery host
-    - host: sciety-discovery.elifesciences.org
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: sciety-labs--prod
-                port:
-                  number: 8000
+
   tls:
     - hosts:
-        - sciety-labs.elifesciences.org
-        - sciety-discovery.elifesciences.org
         - labs.sciety.org
       secretName: sciety-labs-prod-tls
