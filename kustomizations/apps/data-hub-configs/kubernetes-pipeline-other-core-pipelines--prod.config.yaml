@@ -231,7 +231,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@weekly'
-
     arguments:
       - 'python'
       - '-m'
@@ -244,7 +243,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@daily'
-
     arguments:
       - 'python'
       - '-m'
@@ -309,12 +307,10 @@ kubernetesPipelines:
           secretName: surveymonkey
 
   - dataPipelineId: 'Finance_Data_Pipeline_RP_Site_Kubernetes'
-
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.finance_data.cli'
-
     env:
       - name: FINANCE_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/finance-data.config.yaml
