@@ -145,7 +145,7 @@ metadata:
       location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
 spec:
   rules:
-    - host: sciety-labs--stg.elifesciences.org
+    - host: labs--stg.sciety.org
       http:
         paths:
           - pathType: Prefix
@@ -157,5 +157,5 @@ spec:
                   number: 8000
   tls:
     - hosts:
-        - sciety-labs--stg.elifesciences.org
-      secretName: sciety-labs-stg-tls
+        - labs--stg.sciety.org
+      secretName: labs--stg.sciety.org-tls
