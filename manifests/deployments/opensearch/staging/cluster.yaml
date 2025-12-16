@@ -45,10 +45,10 @@ spec:
     tls:
       transport:
         generate: true
-        enable: false
+        enabled: false
       http:
         generate: true
-        enable: false
+        enabled: false
   dashboards:
     image: public.ecr.aws/opensearchproject/opensearch-dashboards:2.10.0
     version: 2.10.0
