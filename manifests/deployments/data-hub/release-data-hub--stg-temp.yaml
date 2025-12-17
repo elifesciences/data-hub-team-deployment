@@ -103,10 +103,17 @@ spec:
     dagProcessor:
       resources:
         requests:
-          memory: 500Mi
+          memory: 1014Mi
           cpu: 100m
+        limits:
+          memory: 1014Mi
+          cpu: 1000m
       livenessProbe:
         timeoutSeconds: 60
+      logGroomerSidecar:
+        resources:
+          requests:
+            memory: 3072Ki
     apiServer:
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
