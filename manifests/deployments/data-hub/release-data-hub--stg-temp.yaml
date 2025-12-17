@@ -105,6 +105,8 @@ spec:
         requests:
           memory: 500Mi
           cpu: 100m
+      livenessProbe:
+        timeoutSeconds: 60
     apiServer:
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
