@@ -9,6 +9,7 @@ configMapGenerator:
   - bigquery-to-opensearch--stg.yaml
   - bigquery-to-opensearch-ecr--prod.yaml
   - bigquery-to-opensearch-ecr--stg.yaml
+  - bigquery-to-opensearch-reviewer--stg.yaml
   - ejp-xml-data-pipeline.config.yaml
   - ejp-xml-data-pipeline--test.config.yaml
   - elife-article-xml.config.yaml
