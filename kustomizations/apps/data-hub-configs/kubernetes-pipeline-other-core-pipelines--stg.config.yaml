@@ -94,6 +94,9 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
+        tags:
+          - 'Kubernetes'
+          - 'OpenSearch'
     arguments:
       - 'python'
       - '-m'
@@ -118,6 +121,9 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 4 * * *'  # At 04:00, every day
+        tags:
+          - 'Kubernetes'
+          - 'OpenSearch'
     arguments:
       - 'python'
       - '-m'
@@ -142,6 +148,9 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null  # manual
+        tags:
+          - 'Kubernetes'
+          - 'OpenSearch'
     arguments:
       - 'python'
       - '-m'
