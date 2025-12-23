@@ -25,6 +25,10 @@ spec:
   values:
     executor: "KubernetesExecutor"
     config:
+      logging:
+        remote_logging: "True"
+        remote_base_log_folder: "s3://staging-elife-data-pipeline/airflow-logs"
+        remote_log_conn_id: "aws_default"
       kubernetes:
         in_cluster: true
         namespace: data-hub
