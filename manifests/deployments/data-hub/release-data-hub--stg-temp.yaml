@@ -69,6 +69,8 @@ spec:
         value: staging
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
+      - name: AIRFLOW_CONN_AWS_DEFAULT
+        value: "aws://"
     volumes:
       - name: data-hub-config-volume
         configMap:
