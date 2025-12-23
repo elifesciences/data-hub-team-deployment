@@ -65,10 +65,6 @@ spec:
         value: staging
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
         value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
-      - name: S3_CSV_CONFIG_FILE_PATH
-        value: /dag_config_files/s3-csv-data-pipeline.config.yaml
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumes:
       - name: data-hub-config-volume
         configMap:
