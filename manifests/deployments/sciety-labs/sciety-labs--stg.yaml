@@ -131,6 +131,7 @@ spec:
     app: sciety-labs--stg
   ports:
   - port: 8000
+  trafficDistribution: PreferClose
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
