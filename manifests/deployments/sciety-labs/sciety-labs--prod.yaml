@@ -120,7 +120,7 @@ spec:
                 storageClassName: sciety-gp3
                 resources:
                   requests:
-                    storage: 50Gi
+                    storage: 100Gi
 ---
 apiVersion: v1
 kind: Service
