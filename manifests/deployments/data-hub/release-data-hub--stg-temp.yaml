@@ -121,6 +121,7 @@ spec:
           requests:
             memory: 3072Ki
     apiServer:
+      replicas: 2
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
           value: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
