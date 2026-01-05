@@ -1,0 +1,200 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: data-hub--prod-temp
+  namespace: data-hub
+spec:
+  interval: 16m
+  timeout: 15m
+  releaseName: data-hub--prod-temp
+  chart:
+    spec:
+      chart: airflow
+      version: 1.18.0
+      sourceRef:
+        kind: HelmRepository
+        name: apache-airflow
+        namespace: data-hub
+      interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    executor: "KubernetesExecutor"
+    config:
+      logging:
+        remote_logging: "True"
+        remote_base_log_folder: "s3://prod-elife-data-pipeline/airflow-logs"
+        remote_log_conn_id: "aws_default"
+      kubernetes:
+        in_cluster: true
+        namespace: data-hub
+        delete_worker_pods: true
+        worker_pods_creation_batch_size: 20
+        run_as_user: 50000
+    kubernetesPodTemplate:
+      enabled: true
+      podTemplate:
+        spec:
+          containers:
+            - name: base
+              resources:
+                requests:
+                  cpu: "10m"
+                  memory: "300Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "500Mi"
+    images:
+      airflow:
+        repository: docker.io/elifesciences/data-hub-core-dags_unstable
+        tag: airflow3-04af0e59-20260105.1038
+    # https://airflow.apache.org/docs/helm-chart/stable/index.html#installing-the-chart-with-argo-cd-flux-rancher-or-terraform
+    # Required when using Flux/Argo/etc.
+    createUserJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    migrateDatabaseJob:
+      useHelmHooks: false
+      applyCustomEnv: false
+    postgresql:
+      enabled: false
+    data:
+      metadataSecretName: data-hub-airflow-db-secret--prod
+    extraEnv: |
+      - name: DEPLOYMENT_ENV
+        value: prod
+      - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
+        value: /dag_config_files/kubernetes-pipeline--prod.config.yaml
+      - name: AIRFLOW_CONN_AWS_DEFAULT
+        value: "aws://"
+    volumes:
+      - name: data-hub-config-volume
+        configMap:
+          name: data-hub-configs
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
+    volumeMounts:
+      - name: data-hub-config-volume
+        mountPath: /dag_config_files/
+        readOnly: true
+      - name: aws-secret-volume
+        mountPath: /home/airflow/.aws
+        readOnly: true
+    tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+    nodeSelector:
+      data-hub-workload: "services"
+    triggerer:
+      persistence:
+        storageClassName: data-hub-gp3
+      resources:
+        requests:
+          ephemeral-storage: "50Mi"
+          memory: 1200Mi
+          cpu: 400m
+    scheduler:
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 200m
+          ephemeral-storage: "50Mi"
+    dagProcessor:
+      resources:
+        requests:
+          memory: 1014Mi
+          cpu: 100m
+        limits:
+          memory: 1014Mi
+          cpu: 1000m
+      livenessProbe:
+        timeoutSeconds: 60
+      logGroomerSidecar:
+        resources:
+          requests:
+            memory: 3072Ki
+    apiServer:
+      replicas: 2
+      env:
+        - name: AIRFLOW__CORE__AUTH_MANAGER
+          value: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+        - name: AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS
+          value: 'true'
+      startupProbe:
+        initialDelaySeconds: 15 # observed slow startup and failing startup probe
+        failureThreshold: 60
+      resources:
+        requests:
+          memory: 1167Mi
+          cpu: 50m
+          ephemeral-storage: "100Mi"
+    databaseCleanup:
+      enabled: true
+      schedule: "0 * * * *"
+      retentionDays: 30
+    ingress:
+      apiServer:
+        enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          cert-manager.io/cluster-issuer: "letsencrypt"
+        hosts:
+          - name: data-hub--flux--prod-temp.elifesciences.org
+            tls:
+              enabled: true
+              secretName: "data-hub--flux--prod-temp.elifesciences.org-tls"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data-hub-airflow-db--prod
+  namespace: data-hub
+spec:
+  interval: 15m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/utils/rds-dbinstance
+  prune: true
+  targetNamespace: data-hub
+  postBuild:
+    substitute:
+      instance_name: data-hub-airflow-db-prod
+      instance_storage: "20"
+      instance_class: db.t3.small
+      engine: postgres
+      engine_version: "\"18.1\""
+      project: data-hub
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data-hub-airflow-db-secret--prod
+  namespace: data-hub
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/utils/rds-pg-external-secret
+  prune: true
+  targetNamespace: data-hub
+  dependsOn:
+  - name: data-hub-airflow-db--prod
+  postBuild:
+    substitute:
+      external_secret_name: data-hub-airflow-db-secret--prod
+      kubernetes_secret_name: data-hub-airflow-db-secret--prod # Target secret name
+    substituteFrom:
+    - kind: Secret
+      name: data-hub-airflow-db-prod-connection-values
