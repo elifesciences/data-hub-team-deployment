@@ -5,3 +5,16 @@ metadata:
   name: data-hub
   annotations:
     elifesciences.org/default-project: data-hub
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: default-memory
+  namespace: data-hub
+spec:
+  limits:
+  - default:
+      memory: 100Mi
+    defaultRequest:
+      memory: 50Mi
+    type: Container
