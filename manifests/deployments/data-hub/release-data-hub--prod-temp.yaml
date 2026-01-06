@@ -74,14 +74,14 @@ spec:
       - name: aws-secret-volume
         mountPath: /home/airflow/.aws
         readOnly: true
-    tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
-    nodeSelector:
-      data-hub-workload: "services"
     triggerer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       persistence:
         storageClassName: data-hub-gp3
       resources:
@@ -90,12 +90,26 @@ spec:
           memory: 1200Mi
           cpu: 400m
     scheduler:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 500Mi
           cpu: 200m
           ephemeral-storage: "50Mi"
     dagProcessor:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 1014Mi
@@ -110,6 +124,13 @@ spec:
           requests:
             memory: 3072Ki
     apiServer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       replicas: 2
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
@@ -124,6 +145,14 @@ spec:
           memory: 1167Mi
           cpu: 50m
           ephemeral-storage: "100Mi"
+    statsd:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
     workers:
       resources:
         requests:
