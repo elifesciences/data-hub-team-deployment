@@ -27,6 +27,8 @@ spec:
     apiSecretKeySecretName: airflow-auth--stg
     jwtSecretName: airflow-auth--stg
     config:
+      core:
+        dagbag_import_timeout: 300
       logging:
         remote_logging: "True"
         remote_base_log_folder: "s3://staging-elife-data-pipeline/airflow-logs"
