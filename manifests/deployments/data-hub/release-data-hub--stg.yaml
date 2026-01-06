@@ -24,6 +24,8 @@ spec:
       retries: 3
   values:
     executor: "KubernetesExecutor"
+    apiSecretKeySecretName: airflow-auth--stg
+    jwtSecretName: airflow-auth--stg
     config:
       logging:
         remote_logging: "True"
