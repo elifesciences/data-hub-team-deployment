@@ -156,7 +156,7 @@ spec:
     workers:
       resources:
         requests:
-          cpu: "10m"
+          cpu: "100m"
           memory: "300Mi"
         limits:
           cpu: "500m"
