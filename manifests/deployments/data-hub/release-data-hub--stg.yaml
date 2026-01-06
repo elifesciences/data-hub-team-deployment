@@ -94,10 +94,10 @@ spec:
       data-hub-workload: "services"
     triggerer:
       tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       persistence:
@@ -109,10 +109,10 @@ spec:
           cpu: 400m
     scheduler:
       tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -122,10 +122,10 @@ spec:
           ephemeral-storage: "50Mi"
     dagProcessor:
       tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -143,10 +143,10 @@ spec:
             memory: 3072Ki
     apiServer:
       tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       replicas: 2
@@ -154,7 +154,7 @@ spec:
         - name: AIRFLOW__CORE__AUTH_MANAGER
           value: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
         - name: AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS
-          value: 'true'
+          value: "true"
       startupProbe:
         initialDelaySeconds: 15 # observed slow startup and failing startup probe
         failureThreshold: 60
@@ -165,10 +165,10 @@ spec:
           ephemeral-storage: "100Mi"
     statsd:
       tolerations:
-      - key: workload
-        operator: Equal
-        value: "services"
-        effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
     databaseCleanup:
@@ -208,7 +208,7 @@ spec:
       instance_storage: "20"
       instance_class: db.t3.small
       engine: postgres
-      engine_version: "\"18.1\""
+      engine_version: '"18.1"'
       project: data-hub
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -226,11 +226,11 @@ spec:
   prune: true
   targetNamespace: data-hub
   dependsOn:
-  - name: data-hub-airflow-db--stg
+    - name: data-hub-airflow-db--stg
   postBuild:
     substitute:
       external_secret_name: data-hub-airflow-db-secret--stg
       kubernetes_secret_name: data-hub-airflow-db-secret--stg # Target secret name
     substituteFrom:
-    - kind: Secret
-      name: data-hub-airflow-db-stg-connection-values
+      - kind: Secret
+        name: data-hub-airflow-db-stg-connection-values
