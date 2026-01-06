@@ -26,6 +26,9 @@ spec:
       enabled: false
     primary:
       resourcesPreset: none
+      resources:
+        requests:
+          memory: 170Mi
       tolerations:
       - key: workload
         operator: Equal
@@ -36,6 +39,9 @@ spec:
     replica:
       replicaCount: 2
       resourcesPreset: none
+      resources:
+        requests:
+          memory: 170Mi
       tolerations:
       - key: workload
         operator: Equal
