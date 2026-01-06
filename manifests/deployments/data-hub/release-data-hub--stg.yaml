@@ -105,6 +105,8 @@ spec:
           ephemeral-storage: "50Mi"
           memory: 1200Mi
           cpu: 400m
+        limits:
+          memory: "1500Mi"
     scheduler:
       tolerations:
         - key: workload
