@@ -347,17 +347,17 @@ spec:
         checkDb:
           resources:
             requests:
-              memory: 200Mi
+              memory: 300Mi
               cpu: 20m
             limits:
-              memory: 200Mi
+              memory: 300Mi
         waitForDbMigrations:
           resources:
             requests:
-              memory: 200Mi
+              memory: 300Mi
               cpu: 20m
             limits:
-              memory: 200Mi
+              memory: 300Mi
     workers:
       resources:
         requests:
