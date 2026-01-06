@@ -37,19 +37,6 @@ spec:
         delete_worker_pods: true
         worker_pods_creation_batch_size: 20
         run_as_user: 50000
-    kubernetesPodTemplate:
-      enabled: true
-      podTemplate:
-        spec:
-          containers:
-            - name: base
-              resources:
-                requests:
-                  cpu: "10m"
-                  memory: "300Mi"
-                limits:
-                  cpu: "500m"
-                  memory: "500Mi"
     images:
       airflow:
         repository: docker.io/elifesciences/data-hub-core-dags_unstable
@@ -166,6 +153,15 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+    workers:
+      resources:
+        requests:
+          cpu: "10m"
+          memory: "300Mi"
+        limits:
+          cpu: "500m"
+          memory: "500Mi"
+
     databaseCleanup:
       enabled: true
       schedule: "0 * * * *"
