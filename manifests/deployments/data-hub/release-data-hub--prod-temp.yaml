@@ -48,9 +48,23 @@ spec:
     createUserJob:
       useHelmHooks: false
       applyCustomEnv: false
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "300Mi"
+        limits:
+          cpu: "500m"
+          memory: "500Mi"
     migrateDatabaseJob:
       useHelmHooks: false
       applyCustomEnv: false
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "300Mi"
+        limits:
+          cpu: "500m"
+          memory: "500Mi"
     postgresql:
       enabled: false
     data:
