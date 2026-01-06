@@ -161,6 +161,8 @@ spec:
           memory: 1167Mi
           cpu: 50m
           ephemeral-storage: "100Mi"
+        limits:
+          memory: "1500Mi"
     statsd:
       tolerations:
         - key: workload
