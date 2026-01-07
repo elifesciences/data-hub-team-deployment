@@ -16,6 +16,13 @@ spec:
       memory: 256Mi
     limits:
       memory: 300Mi
+  tolerations:
+  - key: workload
+    operator: Equal
+    value: "services"
+    effect: NoSchedule
+  nodeSelector:
+    data-hub-workload: "services"
   snapshot:
     cron: "* * * * *"
     persistentVolumeClaimSpec:
