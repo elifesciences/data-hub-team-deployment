@@ -2,6 +2,7 @@ apiVersion: dragonflydb.io/v1alpha1
 kind: Dragonfly
 metadata:
   name: data-hub-metrics-api-dragonfly--stg
+  namespace: data-hub
 spec:
   replicas: 2
   args:
