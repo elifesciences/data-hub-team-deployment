@@ -1,0 +1,34 @@
+apiVersion: dragonflydb.io/v1alpha1
+kind: Dragonfly
+metadata:
+  name: data-hub-metrics-api-dragonfly--prod
+  namespace: data-hub
+spec:
+  replicas: 2
+  args:
+  - "--proactor_threads=1"
+  - "--dbfilename=snapshot"
+  - "--cache_mode=false"
+  - "--maxmemory=256M"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 300Mi
+  tolerations:
+  - key: workload
+    operator: Equal
+    value: "services"
+    effect: NoSchedule
+  nodeSelector:
+    data-hub-workload: "services"
+  snapshot:
+    cron: "* * * * *"
+    persistentVolumeClaimSpec:
+      storageClassName: data-hub-gp3
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
