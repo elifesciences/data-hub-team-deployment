@@ -52,6 +52,8 @@ spec:
       requests:
         memory: "280Mi"
         cpu: "200m"
+      limits:
+        memory: "300Mi"
 
   nodePools:
   - component: cluster-managers
