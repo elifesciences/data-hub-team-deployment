@@ -1,12 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: data-hub--prod-temp
+  name: data-hub--prod
   namespace: data-hub
 spec:
   interval: 16m
   timeout: 15m
-  releaseName: data-hub--prod-temp
+  releaseName: data-hub--prod
   chart:
     spec:
       chart: airflow
@@ -197,10 +197,10 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
           cert-manager.io/cluster-issuer: "letsencrypt"
         hosts:
-          - name: data-hub--flux--prod-temp.elifesciences.org
+          - name: data-hub--flux--prod.elifesciences.org
             tls:
               enabled: true
-              secretName: "data-hub--flux--prod-temp.elifesciences.org-tls"
+              secretName: "data-hub-airflow-prod-tls"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
