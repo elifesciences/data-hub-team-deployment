@@ -45,15 +45,14 @@ spec:
         secretName: gcp-credentials
     ingress:
       enabled: "true"
+      ingressClassName: traefik
       hosts:
       - host: peerscout--test.elifesciences.org # this is `--test`, not `--stg` because it was setup this way on the old cluster, and is an external service.
         paths:
         - "/"
       annotations:
         external-dns.alpha.kubernetes.io/controller: "disabled"
-        nginx.ingress.kubernetes.io/auth-type: basic
-        nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--stg
-        nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
+        traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-stg@kubernetescrd
         cert-manager.io/cluster-issuer: "letsencrypt"
       tls:
       - hosts:
