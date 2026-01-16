@@ -50,6 +50,7 @@ spec:
         paths:
         - "/"
       annotations:
+        external-dns.alpha.kubernetes.io/controller: "disabled"
         nginx.ingress.kubernetes.io/auth-type: basic
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--stg
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
@@ -85,7 +86,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-stg@kubernetescrd
   name: peerscout--stg-traefik
