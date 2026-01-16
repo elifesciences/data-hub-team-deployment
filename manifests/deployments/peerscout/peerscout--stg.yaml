@@ -87,7 +87,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: letsencrypt
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth--stg@kubernetescrd
   name: peerscout--stg-traefik
   namespace: peerscout
 spec:
@@ -107,3 +107,14 @@ spec:
   - hosts:
     - peerscout--test.elifesciences.org
     secretName: peerscout-stg-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: peerscout-http-basic-auth--stg
+  namespace: peerscout
+spec:
+  basicAuth:
+    secret: peerscout-http-basic-traefik-auth--stg
+    realm: "Authentication Required"
+    removeHeader: true
