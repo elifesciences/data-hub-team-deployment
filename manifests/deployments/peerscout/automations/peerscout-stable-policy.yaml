@@ -4,6 +4,7 @@ metadata:
   name: peerscout-stable
   namespace: peerscout
 spec:
+  suspend: true
   imageRepositoryRef:
     name: peerscout-stable
     namespace: peerscout
