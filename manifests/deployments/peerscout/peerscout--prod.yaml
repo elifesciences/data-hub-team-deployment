@@ -103,7 +103,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod@kubernetescrd
   name: peerscout--prod-traefik
   namespace: peerscout
