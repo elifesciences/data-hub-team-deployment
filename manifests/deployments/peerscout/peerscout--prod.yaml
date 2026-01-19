@@ -97,3 +97,30 @@ spec:
     secret: peerscout-http-basic-traefik-auth--prod
     realm: "Authentication Required"
     removeHeader: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod@kubernetescrd
+  name: peerscout--prod-traefik
+  namespace: peerscout
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: prod-test--peerscout.elifesciences.org
+    http:
+      paths:
+      - backend:
+          service:
+            name: peerscout--prod
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - prod-test--peerscout.elifesciences.org
+    secretName: peerscout-prod-tls
