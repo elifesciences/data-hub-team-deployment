@@ -46,13 +46,14 @@ spec:
         secretName: gcp-credentials
     ingress:
       enabled: "true"
-      ingressClassName: traefik
       hosts:
       - host: peerscout.elifesciences.org
         paths:
         - "/"
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod@kubernetescrd
+        nginx.ingress.kubernetes.io/auth-type: basic
+        nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--prod
+        nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
         cert-manager.io/cluster-issuer: "letsencrypt"
       tls:
       - hosts:
