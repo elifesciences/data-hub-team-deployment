@@ -55,6 +55,11 @@ spec:
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--prod
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
         cert-manager.io/cluster-issuer: "letsencrypt"
+
+        # Mirror configuration
+        nginx.ingress.kubernetes.io/mirror-target: "https://prod-test--peerscout.elifesciences.org$request_uri"
+        nginx.ingress.kubernetes.io/mirror-host: "prod-test--peerscout.elifesciences.org"
+        nginx.ingress.kubernetes.io/mirror-request-body: "off"
       tls:
       - hosts:
         - peerscout.elifesciences.org
