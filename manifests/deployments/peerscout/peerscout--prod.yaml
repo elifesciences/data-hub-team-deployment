@@ -59,7 +59,7 @@ spec:
         # Mirror configuration
         nginx.ingress.kubernetes.io/mirror-target: "https://prod-test--peerscout.elifesciences.org$request_uri"
         nginx.ingress.kubernetes.io/mirror-host: "prod-test--peerscout.elifesciences.org"
-        nginx.ingress.kubernetes.io/mirror-request-body: "off"
+        nginx.ingress.kubernetes.io/mirror-request-body: "on"
       tls:
       - hosts:
         - peerscout.elifesciences.org
