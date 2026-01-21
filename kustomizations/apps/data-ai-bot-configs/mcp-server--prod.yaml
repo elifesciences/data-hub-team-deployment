@@ -181,7 +181,7 @@ toolDefinitions:
         query:
           type: str
           title: Search Query
-          description: 'The search query to find reviewers.'
+          description: 'The search query to find reviewers. Use keywords or subject areas.'
 
     - name: get_rp_paper_submissions
       description: |-
