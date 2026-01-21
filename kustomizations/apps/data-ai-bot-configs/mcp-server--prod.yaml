@@ -119,6 +119,70 @@ toolDefinitions:
           title: Search Query
           description: 'The search query to find ECRs.'
 
+    - name: search_reviewer
+      description: |-
+        Searches for Reviewers.
+        Use if asked to list or find reviewers.
+      module: py_conf_mcp.tools.sources.web_api
+      className: WebApiTool
+      initParameters:
+        url: 'https://opensearch-prod.data-hub:9200/reviewer_v1/_search'
+        verify_ssl: false
+        basic_auth:
+          username: '{{ read_secret_from_env("OPENSEARCH_USERNAME_FILE_PATH") }}'
+          password: '{{ read_secret_from_env("OPENSEARCH_PASSWORD_FILE_PATH") }}'
+        json_template: |-
+          {
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "multi_match": {
+                      "query": {{ query | tojson }},
+                      "fields": [
+                        "name^3",
+                        "subject_areas^2",
+                        "keywords"
+                      ],
+                      "type": "most_fields",
+                      "fuzziness": "AUTO",
+                      "operator": "or",
+                      "minimum_should_match": 1
+                    }
+                  }
+                ]
+              }
+            },
+            "size": 10
+          }
+        response_template: |-
+          {%- if response_json.hits.total.value > 0 -%}
+            {%- if response_json.hits.total.value == 1 -%}
+          1 reviewer found:
+            {%- else -%}
+          {{ response_json.hits.total.value }} reviewers found:
+            {%- endif -%}
+          {%- else -%}
+            No reviewers found.
+          {%- endif %}
+          {%- if response_json.hits.total.value > 0 %}
+          {%- for hit in response_json.hits.hits %}
+          - {{ hit._source.name }}
+            Email: {{ hit._source.email }}
+            Institution: {{ hit._source.institution }}
+            Subject areas: {{ hit._source.subject_areas }}
+            Keywords: {{ hit._source.keywords }}
+          {%- if hit._source.role_names %}
+            Roles: {{ hit._source.role_names }}
+          {%- endif %}
+          {%- endfor %}
+          {%- endif %}
+      inputs:
+        query:
+          type: str
+          title: Search Query
+          description: 'The search query to find reviewers.'
+
     - name: get_rp_paper_submissions
       description: |-
         Retrieves a list of Reviewed Preprint (RP) paper / manuscript submissions.
@@ -211,4 +275,5 @@ server:
   tools:
     - get_joke_via_web_api
     - search_ecr
+    - search_reviewer
     - get_rp_paper_submissions

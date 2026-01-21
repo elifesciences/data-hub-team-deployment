@@ -171,6 +171,7 @@ toolCollectionDefinitions:
       tools:
         - get_joke_via_web_api
         - search_ecr
+        - search_reviewer
 
 models:
   - model_name: gpt-5-mini
