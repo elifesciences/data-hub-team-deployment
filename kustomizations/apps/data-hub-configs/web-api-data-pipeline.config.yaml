@@ -310,7 +310,11 @@ webApi:
               CONCAT(manuscript_version.preprint_doi, 'v', manuscript_version.preprint_version) AS biorxiv_versioned_doi
             FROM `elife-data-pipeline.{ENV}.mv_docmaps_index`
             JOIN UNNEST(manuscript_versions) AS manuscript_version
-            WHERE STARTS_WITH(manuscript_version.preprint_doi , '10.1101')
+            WHERE
+              (
+                STARTS_WITH(manuscript_version.preprint_doi , '10.1101')
+                OR STARTS_WITH(manuscript_version.preprint_doi, '10.64898')
+              )
               AND manuscript_version.preprint_version IS NOT NULL
       exclude:
         bigQuery:
