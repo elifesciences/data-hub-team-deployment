@@ -57,7 +57,7 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt"
 
         # Mirror configuration
-        nginx.ingress.kubernetes.io/mirror-target: "http://echo-debug-service$request_uri"
+        nginx.ingress.kubernetes.io/mirror-target: "http://echo-debug-service.infra.svc.cluster.local$request_uri"
         nginx.ingress.kubernetes.io/mirror-host: "prod-test--peerscout.elifesciences.org"
         nginx.ingress.kubernetes.io/mirror-request-body: "on"
       tls:
