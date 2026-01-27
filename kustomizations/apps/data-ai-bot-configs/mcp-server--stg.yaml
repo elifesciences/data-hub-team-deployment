@@ -121,8 +121,10 @@ toolDefinitions:
 
     - name: search_reviewer
       description: |-
-        Searches for Reviewers.
-        Use if asked to list or find reviewers.
+        Return curated reviewer candidates as text string matching a short topical query.
+        Call once per distinct topic.
+        Re-rank results as needed.
+        Do NOT use this call for contact or affiliation verification.
       module: py_conf_mcp.tools.sources.web_api
       className: WebApiTool
       initParameters:
@@ -153,7 +155,11 @@ toolDefinitions:
                 ]
               }
             },
-            "size": 10
+            {%- if limit and limit > 0 %}
+            "size": {{ limit }}
+            {%- else %}
+            "size": 20
+            {%- endif %}
           }
         response_template: |-
           {%- if response_json.hits.total.value > 0 -%}
@@ -181,7 +187,11 @@ toolDefinitions:
         query:
           type: str
           title: Search Query
-          description: 'The search query to find reviewers. Use keywords or subject areas.'
+          description: 'Short topical keywords/phrases (methods, organism, dataset type, or subject-area). Do NOT include person names, institutional affiliations, or email addresses.'
+        limit:
+          type: int
+          title: Max number of rows to return
+          default: 20
 
     - name: get_rp_paper_submissions
       description: |-
