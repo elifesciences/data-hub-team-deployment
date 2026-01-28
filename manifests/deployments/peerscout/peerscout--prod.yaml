@@ -117,14 +117,14 @@ spec:
       - Rule:
           Name: "Add Double Padding"
           Header: "Authorization"
-          Type: "RewriteValueRule"
+          Type: "RewriteValue"
           Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{2})$"
           ValueReplace: "Basic $1=="
 
       - Rule:
           Name: "Add Single Padding"
           Header: "Authorization"
-          Type: "RewriteValueRule"
+          Type: "RewriteValue"
           Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{3})$"
           ValueReplace: "Basic $1="
 ---
