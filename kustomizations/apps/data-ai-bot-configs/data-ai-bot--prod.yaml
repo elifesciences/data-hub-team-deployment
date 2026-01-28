@@ -201,6 +201,12 @@ agent:
     Ensure to answer accurately.
     Ask follow up question if unsure.
     The final answer should be formatted as simple Markdown (without unnecessary headings).
+
+    When a tool returns an error, empty result, or null:
+    - NEVER substitute information from your training data
+    - Explicitly inform the user that the tool encountered an error
+    - State what information is unavailable
+    - Do NOT provide any data that wasn't returned by the tool
   tools:
     - get_docmap_by_manuscript_id
     - how_to_use_this_tool
