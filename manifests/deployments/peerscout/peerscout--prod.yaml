@@ -103,7 +103,7 @@ kind: Middleware
 metadata:
   name: peerscout-http-basic-auth--prod-fix-ejp
   namespace: peerscout
-  annotation:
+  annotations:
     elifesciences.org/description: |
       eJP uses a BASE64 encoded Auth header that does not present the
       padding required for a strict parser like traefiks
