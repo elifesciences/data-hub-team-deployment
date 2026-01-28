@@ -114,19 +114,17 @@ spec:
   plugin:
     htransformation:
       Rules:
-      - Rule:
-          Name: "Add Double Padding"
-          Header: "Authorization"
-          Type: "RewriteValue"
-          Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{2})$"
-          ValueReplace: "Basic $1=="
+      - Name: "Add Double Padding"
+        Header: "Authorization"
+        Type: "RewriteValueRule"
+        Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{2})$"
+        ValueReplace: "Basic $1=="
 
-      - Rule:
-          Name: "Add Single Padding"
-          Header: "Authorization"
-          Type: "RewriteValue"
-          Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{3})$"
-          ValueReplace: "Basic $1="
+      - Name: "Add Single Padding"
+        Header: "Authorization"
+        Type: "RewriteValueRule"
+        Value: "^Basic\\s+((?:[A-Za-z0-9+/]{4})*[A-Za-z0-9+/]{3})$"
+        ValueReplace: "Basic $1="
 ---
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
