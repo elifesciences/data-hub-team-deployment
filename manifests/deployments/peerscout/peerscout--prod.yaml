@@ -55,6 +55,11 @@ spec:
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--prod
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
         cert-manager.io/cluster-issuer: "letsencrypt"
+
+        # Mirror configuration
+        nginx.ingress.kubernetes.io/mirror-target: "https://prod-test--peerscout.elifesciences.org$request_uri"
+        nginx.ingress.kubernetes.io/mirror-host: "prod-test--peerscout.elifesciences.org"
+        nginx.ingress.kubernetes.io/mirror-request-body: "on"
       tls:
       - hosts:
         - peerscout.elifesciences.org
@@ -143,7 +148,6 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod-fix-ejp@kubernetescrd,peerscout-peerscout-http-basic-auth-prod@kubernetescrd
-    # traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod@kubernetescrd
     traefik.ingress.kubernetes.io/service.serverstransport: peerscout-transport@kubernetescrd
   name: peerscout--prod-traefik
   namespace: peerscout
