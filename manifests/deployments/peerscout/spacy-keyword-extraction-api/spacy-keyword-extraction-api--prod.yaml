@@ -68,6 +68,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     cert-manager.io/cluster-issuer: "letsencrypt"
+    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   rules:
     - host: spacy-keyword-extraction-api.elifesciences.org
@@ -94,7 +95,6 @@ metadata:
     app: spacy-keyword-extraction-api--prod
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
-    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   ingressClassName: traefik
   rules:
