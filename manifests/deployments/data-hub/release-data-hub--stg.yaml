@@ -256,7 +256,7 @@ metadata:
     external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
-  name: data-hub--stg-ingress
+  name: data-hub--stg-ingress-traefik
   namespace: data-hub
 spec:
   ingressClassName: traefik
