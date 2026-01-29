@@ -106,3 +106,33 @@ spec:
     - hosts:
         - data-ai-bot-phoenix--stg.elifesciences.org
       secretName: data-ai-bot-phoenix--stg.elifesciences.org-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: phoenix--stg-traefik
+  namespace: data-ai-bot
+  labels:
+    app: phoenix
+    env: stg
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-ai-bot-phoenix--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: phoenix--stg
+                port:
+                  number: 6006
+  tls:
+    - hosts:
+        - data-ai-bot-phoenix--stg.elifesciences.org
+      secretName: data-ai-bot-phoenix--stg.elifesciences.org-tls
