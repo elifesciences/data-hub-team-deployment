@@ -144,12 +144,13 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: peerscout-peerscout-http-basic-auth-prod-fix-ejp@kubernetescrd,peerscout-peerscout-http-basic-auth-prod@kubernetescrd
     traefik.ingress.kubernetes.io/service.serverstransport: peerscout-transport@kubernetescrd
+    external-dns.alpha.kubernetes.io/controller: "disabled"
   name: peerscout--prod-traefik
   namespace: peerscout
 spec:
   ingressClassName: traefik
   rules:
-  - host: prod-test--peerscout.elifesciences.org
+  - host: peerscout.elifesciences.org
     http:
       paths:
       - backend:
@@ -161,5 +162,5 @@ spec:
         pathType: ImplementationSpecific
   tls:
   - hosts:
-    - prod-test--peerscout.elifesciences.org
-    secretName: prod-test--peerscout.elifesciences.org-tls
+    - peerscout.elifesciences.org
+    secretName: peerscout-prod-tls
