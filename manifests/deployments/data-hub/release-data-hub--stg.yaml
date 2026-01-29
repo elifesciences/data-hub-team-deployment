@@ -248,29 +248,3 @@ spec:
     substituteFrom:
       - kind: Secret
         name: data-hub-airflow-db-stg-connection-values
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
-  name: data-hub--stg-ingress-traefik
-  namespace: data-hub
-spec:
-  ingressClassName: traefik
-  rules:
-  - host: data-hub--flux--staging.elifesciences.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: data-hub--stg-api-server
-            port:
-              name: api-server
-        path: /
-        pathType: ImplementationSpecific
-  tls:
-  - hosts:
-    - data-hub--flux--staging.elifesciences.org
-    secretName: data-hub-airflow-stg-tls
