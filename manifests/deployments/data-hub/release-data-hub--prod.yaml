@@ -248,29 +248,3 @@ spec:
     substituteFrom:
     - kind: Secret
       name: data-hub-airflow-db-prod-connection-values
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: data-hub--prod-ingress-traefik
-  namespace: data-hub
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
-spec:
-  ingressClassName: traefik
-  rules:
-  - host: data-hub--flux--prod.elifesciences.org
-    http:
-      paths:
-      - backend:
-          service:
-            name: data-hub--prod-api-server
-            port:
-              name: api-server
-        path: /
-        pathType: ImplementationSpecific
-  tls:
-  - hosts:
-    - data-hub--flux--prod.elifesciences.org
-    secretName: data-hub-airflow-prod-tls
