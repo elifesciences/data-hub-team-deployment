@@ -145,6 +145,7 @@ metadata:
     external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  ingressClassName: traefik
   rules:
     - host: labs.sciety.org
       http:
