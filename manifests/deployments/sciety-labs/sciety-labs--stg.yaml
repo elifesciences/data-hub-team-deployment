@@ -141,6 +141,7 @@ metadata:
   labels:
     app: sciety-labs--stg
   annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
@@ -169,7 +170,6 @@ metadata:
   labels:
     app: sciety-labs--stg
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
     traefik.ingress.kubernetes.io/router.middlewares: traefik-deny-robots@kubernetescrd
 spec:
