@@ -193,6 +193,7 @@ spec:
       apiServer:
         enabled: true
         annotations:
+          external-dns.alpha.kubernetes.io/controller: "disabled"
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
           cert-manager.io/cluster-issuer: "letsencrypt"
@@ -253,7 +254,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
   name: data-hub--stg-ingress-traefik
