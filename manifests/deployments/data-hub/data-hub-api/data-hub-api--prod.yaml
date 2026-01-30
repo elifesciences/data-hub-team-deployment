@@ -177,3 +177,89 @@ metadata:
 spec:
   inFlightReq:
     amount: 3
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api--prod-traefik
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api--prod-docmap-index-traefik
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-docmap-index-rate-limit-prod@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/enhanced-preprints/docmaps/v2/index"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api-kotahi--prod-traefik
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-kotahi-basic-auth-prod@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/kotahi"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
