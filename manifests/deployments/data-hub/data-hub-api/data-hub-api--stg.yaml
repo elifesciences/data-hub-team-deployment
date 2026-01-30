@@ -176,7 +176,7 @@ metadata:
   namespace: data-hub
 spec:
   inFlightReq:
-    amount: 6
+    amount: 3
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
