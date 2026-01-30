@@ -82,7 +82,6 @@ metadata:
   labels:
     app: data-hub-api--prod
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   ingressClassName: traefik
@@ -110,7 +109,6 @@ metadata:
   labels:
     app: data-hub-api--prod
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
     traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-docmap-index-rate-limit-prod@kubernetescrd
 spec:
@@ -139,7 +137,6 @@ metadata:
   labels:
     app: data-hub-api--prod
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
     traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-kotahi-basic-auth-prod@kubernetescrd
 spec:
