@@ -85,6 +85,7 @@ metadata:
     external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  ingressClassName: traefik
   rules:
     - host: data-hub-api.elifesciences.org
       http:
@@ -110,11 +111,10 @@ metadata:
     app: data-hub-api--prod
   annotations:
     external-dns.alpha.kubernetes.io/controller: "disabled"
-    nginx.ingress.kubernetes.io/limit-connections: "3"
-    nginx.ingress.kubernetes.io/limit-rps: "3"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
     cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-docmap-index-rate-limit-prod@kubernetescrd
 spec:
+  ingressClassName: traefik
   rules:
     - host: data-hub-api.elifesciences.org
       http:
@@ -140,11 +140,10 @@ metadata:
     app: data-hub-api--prod
   annotations:
     external-dns.alpha.kubernetes.io/controller: "disabled"
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: data-hub-api-kotahi-http-basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Data Hub API Kotahi'
     cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-kotahi-basic-auth-prod@kubernetescrd
 spec:
+  ingressClassName: traefik
   rules:
     - host: data-hub-api.elifesciences.org
       http:
