@@ -168,3 +168,12 @@ spec:
     secret: data-hub-api-kotahi-basic-auth
     realm: "Authentication Required"
     removeHeader: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: data-hub-api-docmap-index-rate-limit--prod
+  namespace: data-hub
+spec:
+  inFlightReq:
+    amount: 3
