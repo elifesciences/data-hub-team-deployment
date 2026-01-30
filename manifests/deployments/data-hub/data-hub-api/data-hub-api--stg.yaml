@@ -181,6 +181,35 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: data-hub-api--stg-docmap-index-traefik
+  namespace: data-hub
+  labels:
+    app: data-hub-api--stg
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-docmap-index-rate-limit-stg@kubernetescrd
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-api--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/enhanced-preprints/docmaps/v2/index"
+            backend:
+              service:
+                name: data-hub-api--stg
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - data-hub-api--stg.elifesciences.org
+      secretName: data-hub-api-stg-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
   name: data-hub-api-kotahi--stg-traefik
   namespace: data-hub
   labels:
