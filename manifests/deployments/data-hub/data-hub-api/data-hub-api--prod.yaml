@@ -157,3 +157,14 @@ spec:
     - hosts:
         - data-hub-api.elifesciences.org
       secretName: data-hub-api-prod-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: data-hub-api-kotahi-basic-auth--prod
+  namespace: data-hub
+spec:
+  basicAuth:
+    secret: data-hub-api-kotahi-basic-auth
+    realm: "Authentication Required"
+    removeHeader: true
