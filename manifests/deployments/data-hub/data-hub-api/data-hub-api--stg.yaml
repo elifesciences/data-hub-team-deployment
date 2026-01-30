@@ -168,3 +168,32 @@ spec:
     secret: data-hub-api-kotahi-basic-auth
     realm: "Authentication Required"
     removeHeader: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api-kotahi--stg-traefik
+  namespace: data-hub
+  labels:
+    app: data-hub-api--stg
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-api-kotahi-basic-auth-stg@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-api--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/kotahi"
+            backend:
+              service:
+                name: data-hub-api--stg
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - data-hub-api--stg.elifesciences.org
+      secretName: data-hub-api-stg-tls
