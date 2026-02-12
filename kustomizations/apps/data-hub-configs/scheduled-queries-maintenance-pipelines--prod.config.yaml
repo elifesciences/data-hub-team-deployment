@@ -143,7 +143,7 @@ scheduledQueries:
     bigQuery:
       projectName: 'elife-data-pipeline'
       sqlQuery: |-
-        DELETE FROM `elife-data-pipeline.development.779_datascience_reviewer_info_all` AS t_delete
+        DELETE FROM `elife-data-pipeline.{ENV}.779_datascience_reviewer_info_all` AS t_delete
         WHERE EXISTS (
           SELECT 1
           FROM (
@@ -162,7 +162,7 @@ scheduledQueries:
                 imported_timestamp,
               FROM (
                 SELECT *
-                FROM `elife-data-pipeline.development.779_datascience_reviewer_info_all`
+                FROM `elife-data-pipeline.{ENV}.779_datascience_reviewer_info_all`
               ) AS t_data
             )
             GROUP BY key
