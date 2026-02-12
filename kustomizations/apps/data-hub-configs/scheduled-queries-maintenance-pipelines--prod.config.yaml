@@ -177,3 +177,13 @@ scheduledQueries:
             )) = t_source.key
             AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
         )
+
+  - dataPipelineId: remove_old_people_orcid_profile_records
+    bigQuery:
+      projectName: 'elife-data-pipeline'
+      sqlQuery: |-
+        DELETE FROM `elife-data-pipeline.{ENV}.people_orcid_profile`
+        WHERE imported_timestamp < (
+          SELECT MAX(imported_timestamp)
+          FROM `elife-data-pipeline.{ENV}.people_orcid_profile`
+        )
