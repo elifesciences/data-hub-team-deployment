@@ -138,3 +138,42 @@ scheduledQueries:
           WHERE t_delete.email_id = t_source.key
             AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
         )
+
+  - dataPipelineId: remove_old_reviewer_info_records
+    bigQuery:
+      projectName: 'elife-data-pipeline'
+      sqlQuery: |-
+        DELETE FROM `elife-data-pipeline.development.779_datascience_reviewer_info_all` AS t_delete
+        WHERE EXISTS (
+          SELECT 1
+          FROM (
+            SELECT
+              key,
+              MAX(imported_timestamp) AS latest_imported_timestamp
+            FROM (
+              SELECT
+                TO_JSON_STRING((
+                  SELECT AS STRUCT
+                    t_data.manuscript_id,
+                    t_data.manuscript_revision_no,
+                    t_data.long_manuscript_identifier,
+                    t_data.reviewer_person_id
+                )) AS key,
+                imported_timestamp,
+              FROM (
+                SELECT *
+                FROM `elife-data-pipeline.development.779_datascience_reviewer_info_all`
+              ) AS t_data
+            )
+            GROUP BY key
+          ) AS t_source
+          WHERE
+            TO_JSON_STRING((
+              SELECT AS STRUCT
+                t_delete.manuscript_id,
+                t_delete.manuscript_revision_no,
+                t_delete.long_manuscript_identifier,
+                t_delete.reviewer_person_id
+            )) = t_source.key
+            AND t_delete.imported_timestamp < t_source.latest_imported_timestamp
+        )
