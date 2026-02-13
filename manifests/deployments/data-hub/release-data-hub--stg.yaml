@@ -107,6 +107,9 @@ spec:
           cpu: 400m
         limits:
           memory: "1500Mi"
+      annotations:
+        # reload when selected secret is updated (e.g. RDS external secret)
+        reloader.stakater.com/search: "true"
     scheduler:
       tolerations:
         - key: workload
@@ -122,6 +125,9 @@ spec:
           ephemeral-storage: "50Mi"
         limits:
           memory: "1000Mi"
+      annotations:
+        # reload when selected secret is updated (e.g. RDS external secret)
+        reloader.stakater.com/search: "true"
     dagProcessor:
       tolerations:
         - key: workload
@@ -145,6 +151,9 @@ spec:
             memory: 3072Ki
           limits:
             memory: "100Mi"
+      annotations:
+        # reload when selected secret is updated (e.g. RDS external secret)
+        reloader.stakater.com/search: "true"
     apiServer:
       tolerations:
         - key: workload
@@ -169,6 +178,9 @@ spec:
           ephemeral-storage: "100Mi"
         limits:
           memory: "1500Mi"
+      annotations:
+        # reload when selected secret is updated (e.g. RDS external secret)
+        reloader.stakater.com/search: "true"
     statsd:
       tolerations:
         - key: workload
@@ -177,6 +189,9 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+      annotations:
+        # reload when selected secret is updated (e.g. RDS external secret)
+        reloader.stakater.com/search: "true"
     workers:
       resources:
         requests:
