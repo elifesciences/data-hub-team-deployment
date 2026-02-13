@@ -260,7 +260,7 @@ spec:
     substitute:
       external_secret_name: data-hub-airflow-db-secret--stg
       kubernetes_secret_name: data-hub-airflow-db-secret--stg # Target secret name
-      reloader_support: "true"
+      reloader_support: "\"true\""
     substituteFrom:
       - kind: Secret
         name: data-hub-airflow-db-stg-connection-values
