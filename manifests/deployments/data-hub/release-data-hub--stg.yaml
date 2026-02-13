@@ -107,7 +107,7 @@ spec:
           cpu: 400m
         limits:
           memory: "1500Mi"
-      annotations:
+      podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     scheduler:
@@ -125,7 +125,7 @@ spec:
           ephemeral-storage: "50Mi"
         limits:
           memory: "1000Mi"
-      annotations:
+      podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     dagProcessor:
@@ -151,7 +151,7 @@ spec:
             memory: 3072Ki
           limits:
             memory: "100Mi"
-      annotations:
+      podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     apiServer:
@@ -178,7 +178,7 @@ spec:
           ephemeral-storage: "100Mi"
         limits:
           memory: "1500Mi"
-      annotations:
+      podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     statsd:
@@ -189,7 +189,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
-      annotations:
+      podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     workers:
