@@ -47,6 +47,8 @@ spec:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
+        - name: DATA_HUB_API_INCLUDE_DATA_HUB_CONTENT_MANUSCRIPT_ID_REGEX
+          value: '85111'
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
