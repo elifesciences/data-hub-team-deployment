@@ -47,8 +47,6 @@ spec:
           value: /root/.gcp/credentials.json
         - name: DOCMAP_BASEPATH
           value: https://data-hub-api--stg.elifesciences.org/
-        - name: DATA_HUB_API_INCLUDE_DATA_HUB_CONTENT_MANUSCRIPT_ID_REGEX
-          value: '.*'
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
