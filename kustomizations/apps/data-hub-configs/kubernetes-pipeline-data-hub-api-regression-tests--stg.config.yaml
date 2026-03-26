@@ -24,6 +24,8 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Regression Test'
+      taskParameters:
+        retries: 0
     arguments:
       - 'python'
       - '-m'
