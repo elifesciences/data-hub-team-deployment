@@ -1,0 +1,34 @@
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: null
+      max_active_runs: 1
+      tags:
+        - 'Kubernetes'
+        - 'Regression Test'
+  image: '${data_hub_api_unstable_image}'
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      memory: 512Mi
+      cpu: 100m
+
+kubernetesPipelines:
+
+  - dataPipelineId: 'Data_Hub_API_Regression_Tests_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 8 * * *'  # At 08:00, every day
+        tags:
+          - 'Kubernetes'
+          - 'Regression Test'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'pytest'
+      - 'tests/regression_tests'
+    env:
+      - name: DATA_HUB_API_REGRESSION_TEST_URL_PREFIX
+        value: 'https://data-hub-api--stg.elifesciences.org'

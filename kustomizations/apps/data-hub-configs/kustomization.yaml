@@ -33,6 +33,7 @@ configMapGenerator:
   - kubernetes-pipeline-google-spreadsheet-pipelines--prod.config.yaml
   - kubernetes-pipeline-google-spreadsheet-pipelines--stg.config.yaml
   - kubernetes-pipeline-other-core-pipelines--stg.config.yaml
+  - kubernetes-pipeline-data-hub-api-regression-tests--stg.config.yaml
   - kubernetes-pipeline-web-api-pipelines--stg.config.yaml
   - kubernetes-pipeline-csv-pipelines--stg.config.yaml
   - monitoring.config.yaml
