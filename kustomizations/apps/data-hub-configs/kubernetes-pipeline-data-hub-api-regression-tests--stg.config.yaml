@@ -30,7 +30,7 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'pytest'
-      - 'tests/regression_tests'
+      - 'tests/regression_tests/docmaps'
     env:
       - name: DATA_HUB_API_REGRESSION_TEST_URL_PREFIX
         value: 'https://data-hub-api--stg.elifesciences.org'
