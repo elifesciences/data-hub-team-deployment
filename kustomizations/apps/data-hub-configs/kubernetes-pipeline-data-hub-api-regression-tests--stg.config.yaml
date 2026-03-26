@@ -30,7 +30,7 @@ kubernetesPipelines:
       - 'sh'
       - '-c'
       - |
-        python -m pytest tests/regression_tests/docmaps --exit-zero -v 2>&1 | tee /tmp/pytest_output.txt
+        python -m pytest tests/regression_tests/docmaps -v 2>&1 | tee /tmp/pytest_output.txt
         python -c '
         import os, json
         from urllib import request as url_req
