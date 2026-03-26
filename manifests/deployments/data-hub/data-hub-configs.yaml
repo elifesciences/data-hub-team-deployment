@@ -31,4 +31,4 @@ spec:
       data_hub_ejp_xml_pipeline_unstable_image_repo: docker.io/elifesciences/data-hub-ejp-xml-pipeline_unstable # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:name"}
       data_hub_ejp_xml_pipeline_unstable_image_tag: HEAD-5872d8d5-20260317.2043 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:tag"}
       data_hub_metrics_api_unstable_image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-1be01465-20260204.0801 # {"$imagepolicy": "data-hub:data-hub-metrics-api-unstable"}
-      data_hub_api_unstable_image: ghcr.io/elifesciences/data-hub-api_unstable:develop-ba36d3d9-20260318.1506 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
+      data_hub_api_unstable_image: ghcr.io/elifesciences/data-hub-api_unstable:develop-8648ae87-20260320.1103 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
