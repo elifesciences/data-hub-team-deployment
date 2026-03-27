@@ -6,3 +6,4 @@ importFilesFrom:
   - kubernetes-pipeline-csv-pipelines--prod.config.yaml
   - kubernetes-pipeline-data-hub-metrics-api-pipelines--prod.config.yaml
   - kubernetes-pipeline-google-spreadsheet-pipelines--prod.config.yaml
+  - kubernetes-pipeline-data-hub-api-regression-tests--prod.config.yaml

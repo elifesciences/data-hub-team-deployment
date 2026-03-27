@@ -1,0 +1,59 @@
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: null
+      max_active_runs: 1
+      tags:
+        - 'Kubernetes'
+        - 'Regression Test'
+  image: '${data_hub_api_stable_image}'
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      memory: 512Mi
+      cpu: 100m
+
+kubernetesPipelines:
+
+  - dataPipelineId: 'Data_Hub_API_Regression_Tests_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 8 * * *'  # At 08:00, every day
+        tags:
+          - 'Kubernetes'
+          - 'Regression Test'
+      taskParameters:
+        retries: 0
+    arguments:
+      - 'sh'
+      - '-c'
+      - |
+        python -m pytest tests/regression_tests/docmaps -v 2>&1 | tee /tmp/pytest_output.txt
+        python -c '
+        import os, json
+        from urllib import request as url_req
+        output = open("/tmp/pytest_output.txt").read()
+        lines = output.splitlines()
+        failed_lines = [l for l in lines if l.startswith("FAILED")]
+        summary_lines = [l for l in lines if "passed" in l or "failed" in l or "error" in l.lower()]
+        has_failures = bool(failed_lines) or any("failed" in l or "error" in l.lower() for l in summary_lines[-3:])
+        if has_failures:
+            webhook_url = os.environ.get("DATA_HUB_MONITORING_SLACK_WEBHOOK_URL", "")
+            if webhook_url:
+                failed_list = "\n".join(failed_lines[:30]) or "(no FAILED lines found)"
+                summary = "\n".join(lines[-5:])
+                msg = "*Data Hub API Regression Tests (Prod)*\n:x: Test failures detected\n*Failed tests:*\n```" + failed_list + "```\n*Summary:*\n```" + summary + "```"
+                payload = json.dumps({"text": msg}).encode()
+                req = url_req.Request(webhook_url, data=payload, headers={"Content-Type": "application/json"})
+                url_req.urlopen(req)
+        '
+    env:
+      - name: DATA_HUB_API_REGRESSION_TEST_URL_PREFIX
+        value: 'https://data-hub-api.elifesciences.org'
+      - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
+        valueFrom:
+          secretKeyRef:
+            name: monitoring-urls--prod
+            key: slack_webhook_url
