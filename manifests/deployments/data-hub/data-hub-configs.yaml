@@ -32,4 +32,4 @@ spec:
       data_hub_ejp_xml_pipeline_unstable_image_tag: HEAD-9cf0c5cb-20260330.2031 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:tag"}
       data_hub_metrics_api_unstable_image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-1be01465-20260204.0801 # {"$imagepolicy": "data-hub:data-hub-metrics-api-unstable"}
       data_hub_api_unstable_image: ghcr.io/elifesciences/data-hub-api_unstable:develop-dd6d8462-20260407.1028 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
-      data_hub_api_stable_image: ghcr.io/elifesciences/data-hub-api:1.1.57 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
+      data_hub_api_stable_image: ghcr.io/elifesciences/data-hub-api:1.1.58 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
