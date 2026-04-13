@@ -29,7 +29,7 @@ spec:
       data_hub_peerscout_dags_unstable_image_repo: docker.io/elifesciences/peerscout-dags_unstable # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-unstable:name"}
       data_hub_peerscout_dags_unstable_image_tag: HEAD-97338d07-20241029.0909 # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-unstable:tag"}
       data_hub_ejp_xml_pipeline_unstable_image_repo: docker.io/elifesciences/data-hub-ejp-xml-pipeline_unstable # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:name"}
-      data_hub_ejp_xml_pipeline_unstable_image_tag: HEAD-8740fec5-20260413.2018 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:tag"}
+      data_hub_ejp_xml_pipeline_unstable_image_tag: HEAD-ebc29e9d-20260413.2021 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:tag"}
       data_hub_metrics_api_unstable_image: ghcr.io/elifesciences/data-hub-metrics-api_unstable:main-1be01465-20260204.0801 # {"$imagepolicy": "data-hub:data-hub-metrics-api-unstable"}
       data_hub_api_unstable_image: ghcr.io/elifesciences/data-hub-api_unstable:develop-dd6d8462-20260407.1028 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
       data_hub_api_stable_image: ghcr.io/elifesciences/data-hub-api:1.1.58 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
