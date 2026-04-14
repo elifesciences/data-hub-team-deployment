@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: airflow
-      version: 1.18.0
+      version: 1.19.0
       sourceRef:
         kind: HelmRepository
         name: apache-airflow
@@ -202,7 +202,7 @@ spec:
           memory: "500Mi"
     databaseCleanup:
       enabled: true
-      schedule: "0 * * * *"
+      schedule: "0 0 * * *"
       retentionDays: 30
     ingress:
       apiServer:
