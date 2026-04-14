@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: airflow
-      version: 1.19.0
+      version: 1.20.0
       sourceRef:
         kind: HelmRepository
         name: apache-airflow
@@ -193,13 +193,14 @@ spec:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
     workers:
-      resources:
-        requests:
-          cpu: "100m"
-          memory: "300Mi"
-        limits:
-          cpu: "500m"
-          memory: "500Mi"
+      kubernetes:
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "300Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
     databaseCleanup:
       enabled: true
       schedule: "0 0 * * *"
