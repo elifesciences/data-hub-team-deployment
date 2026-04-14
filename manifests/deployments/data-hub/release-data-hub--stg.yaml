@@ -205,6 +205,12 @@ spec:
       enabled: true
       schedule: "0 0 * * *"
       retentionDays: 30
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "100m"
+        limits:
+          memory: "1Gi"
     ingress:
       apiServer:
         enabled: true
