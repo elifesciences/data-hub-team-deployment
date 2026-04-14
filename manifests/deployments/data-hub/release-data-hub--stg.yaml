@@ -206,7 +206,14 @@ spec:
       schedule: "0 0 * * *"
       retentionDays: 30
       # Exclude dag_version due to FK constraint bug with task_instance in Airflow 3.x
-      args: ["--tables", "task_instance_history,xcom,task_instance,trigger,job,deadline,dag_run"]
+      tables:
+        - task_instance_history
+        - xcom
+        - task_instance
+        - trigger
+        - job
+        - deadline
+        - dag_run
       resources:
         requests:
           memory: "512Mi"
