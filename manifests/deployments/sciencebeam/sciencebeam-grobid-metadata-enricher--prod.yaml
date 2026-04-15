@@ -141,6 +141,7 @@ metadata:
     app: sciencebeam-grobid-metadata-enricher--prod
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
