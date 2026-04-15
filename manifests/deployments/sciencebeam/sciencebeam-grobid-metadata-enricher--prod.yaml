@@ -168,6 +168,9 @@ metadata:
 spec:
   type: ExternalName
   externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+  ports:
+  - port: 8080
+    targetPort: 8080
 ---
 apiVersion: http.keda.sh/v1alpha1
 kind: HTTPScaledObject
