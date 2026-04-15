@@ -112,10 +112,7 @@ spec:
               name: openai-api
               key: openai_api_key
         - name: OPENAI_MODEL
-          valueFrom:
-            secretKeyRef:
-              name: openai-api
-              key: openai_model
+          value: gpt-4o-mini
         resources:
           requests:
             cpu: 100m
