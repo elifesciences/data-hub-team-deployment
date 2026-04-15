@@ -152,10 +152,57 @@ spec:
             path: "/"
             backend:
               service:
-                name: sciencebeam-grobid-metadata-enricher--prod
+                name: sciencebeam-grobid-metadata-enricher--prod-scaler
                 port:
-                  number: 8000
+                  number: 8080
   tls:
     - hosts:
         - sciencebeam-grobid-metadata-enricher.elifesciences.org
       secretName: sciencebeam-grobid-metadata-enricher.elifesciences.org-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciencebeam-grobid-metadata-enricher--prod-scaler
+  namespace: sciencebeam
+spec:
+  type: ExternalName
+  externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+---
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
+metadata:
+  name: sciencebeam-grobid-metadata-enricher--prod
+  namespace: sciencebeam
+spec:
+  hosts:
+  - sciencebeam-grobid-metadata-enricher.elifesciences.org
+  pathPrefixes:
+  - /
+  scaleTargetRef:
+    name: sciencebeam-grobid-metadata-enricher--prod
+    kind: Deployment
+    apiVersion: apps/v1
+    service: sciencebeam-grobid-metadata-enricher--prod
+    port: 8000
+  replicas:
+    min: 0
+    max: 1
+  scaledownPeriod: 900
+  targetPendingRequests: 5
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: grobid--prod
+  namespace: sciencebeam
+spec:
+  scaleTargetRef:
+    name: grobid--prod
+  minReplicaCount: 0
+  maxReplicaCount: 1
+  triggers:
+  - type: kubernetes-workload
+    metadata:
+      podSelector: 'app=sciencebeam-grobid-metadata-enricher--prod'
+      value: '1'
