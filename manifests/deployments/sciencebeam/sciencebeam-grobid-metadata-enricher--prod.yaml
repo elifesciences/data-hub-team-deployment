@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grobid--prod
+  labels:
+    app: grobid--prod
+  namespace: sciencebeam
+spec:
+  selector:
+    matchLabels:
+      app: grobid--prod
+  template:
+    metadata:
+      labels:
+        app: grobid--prod
+    spec:
+      containers:
+      - name: grobid
+        image: lfoppiano/grobid:0.9.0-crf
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8070
+          protocol: TCP
+        startupProbe:
+          httpGet:
+            path: /api/isalive
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+          failureThreshold: 20
+        livenessProbe:
+          httpGet:
+            path: /api/isalive
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/isalive
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grobid--prod
+  namespace: sciencebeam
+spec:
+  selector:
+    app: grobid--prod
+  ports:
+  - port: 8070
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sciencebeam-grobid-metadata-enricher--prod
+  labels:
+    app: sciencebeam-grobid-metadata-enricher--prod
+  namespace: sciencebeam
+spec:
+  selector:
+    matchLabels:
+      app: sciencebeam-grobid-metadata-enricher--prod
+  template:
+    metadata:
+      labels:
+        app: sciencebeam-grobid-metadata-enricher--prod
+    spec:
+      containers:
+      - name: sciencebeam-grobid-metadata-enricher
+        image: ghcr.io/elifepathways/sciencebeam-grobid-metadata-enricher:0.0.1 # {"$imagepolicy": "sciencebeam:sciencebeam-grobid-metadata-enricher-stable"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 10
+          failureThreshold: 12
+        env:
+        - name: GROBID_URL
+          value: http://grobid--prod:8070/api
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-api
+              key: openai_api_key
+        - name: OPENAI_MODEL
+          valueFrom:
+            secretKeyRef:
+              name: openai-api
+              key: openai_model
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciencebeam-grobid-metadata-enricher--prod
+  namespace: sciencebeam
+spec:
+  selector:
+    app: sciencebeam-grobid-metadata-enricher--prod
+  ports:
+  - port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sciencebeam-grobid-metadata-enricher--prod
+  namespace: sciencebeam
+  labels:
+    app: sciencebeam-grobid-metadata-enricher--prod
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: sciencebeam-grobid-metadata-enricher.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciencebeam-grobid-metadata-enricher--prod
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - sciencebeam-grobid-metadata-enricher.elifesciences.org
+      secretName: sciencebeam-grobid-metadata-enricher.elifesciences.org-tls
