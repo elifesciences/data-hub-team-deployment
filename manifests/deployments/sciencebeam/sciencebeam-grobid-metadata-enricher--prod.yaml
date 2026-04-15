@@ -78,7 +78,7 @@ spec:
     spec:
       containers:
       - name: sciencebeam-grobid-metadata-enricher
-        image: ghcr.io/elifepathways/sciencebeam-grobid-metadata-enricher:0.0.1 # {"$imagepolicy": "sciencebeam:sciencebeam-grobid-metadata-enricher-stable"}
+        image: ghcr.io/elifepathways/sciencebeam-grobid-metadata-enricher:0.0.2 # {"$imagepolicy": "sciencebeam:sciencebeam-grobid-metadata-enricher-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
