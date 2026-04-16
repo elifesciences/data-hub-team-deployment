@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: grobid--prod-cache
+  name: sciencebeam-parser--prod-cache
   namespace: sciencebeam
 spec:
   accessModes:
@@ -14,21 +14,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grobid--prod
+  name: sciencebeam-parser--prod
   labels:
-    app: grobid--prod
+    app: sciencebeam-parser--prod
   namespace: sciencebeam
 spec:
   selector:
     matchLabels:
-      app: grobid--prod
+      app: sciencebeam-parser--prod
   template:
     metadata:
       labels:
-        app: grobid--prod
+        app: sciencebeam-parser--prod
     spec:
       containers:
-      - name: grobid
+      - name: sciencebeam-parser
         image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
         imagePullPolicy: IfNotPresent
         ports:
@@ -67,16 +67,16 @@ spec:
       volumes:
       - name: cache
         persistentVolumeClaim:
-          claimName: grobid--prod-cache
+          claimName: sciencebeam-parser--prod-cache
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: grobid--prod
+  name: sciencebeam-parser--prod
   namespace: sciencebeam
 spec:
   selector:
-    app: grobid--prod
+    app: sciencebeam-parser--prod
   ports:
   - port: 8070
 ---
@@ -125,7 +125,7 @@ spec:
           failureThreshold: 12
         env:
         - name: GROBID_URL
-          value: http://grobid--prod:8070/api
+          value: http://sciencebeam-parser--prod:8070/api
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
@@ -217,11 +217,11 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: grobid--prod
+  name: sciencebeam-parser--prod
   namespace: sciencebeam
 spec:
   scaleTargetRef:
-    name: grobid--prod
+    name: sciencebeam-parser--prod
   minReplicaCount: 0
   maxReplicaCount: 1
   triggers:
