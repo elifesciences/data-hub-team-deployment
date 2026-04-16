@@ -1,0 +1,21 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: sciencebeam-parser-stable
+  namespace: sciencebeam
+spec:
+  interval: 5m
+  image: ghcr.io/elifepathways/sciencebeam-parser
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: sciencebeam-parser-stable
+  namespace: sciencebeam
+spec:
+  imageRepositoryRef:
+    name: sciencebeam-parser-stable
+    namespace: sciencebeam
+  policy:
+    semver:
+      range: '*'

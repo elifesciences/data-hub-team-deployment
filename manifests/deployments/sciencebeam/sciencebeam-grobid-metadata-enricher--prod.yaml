@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: grobid
-        image: lfoppiano/grobid:0.9.0-crf
+        image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
