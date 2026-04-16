@@ -125,7 +125,7 @@ spec:
           failureThreshold: 12
         env:
         - name: GROBID_URL
-          value: http://sciencebeam-parser--prod:8070/api
+          value: http://sciencebeam-parser--prod-scaler:8080/api
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
@@ -214,18 +214,65 @@ spec:
   scaledownPeriod: 900
   targetPendingRequests: 5
 ---
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciencebeam-parser--prod-scaler
+  namespace: sciencebeam
+spec:
+  type: ExternalName
+  externalName: keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sciencebeam-parser--prod
+  namespace: sciencebeam
+  labels:
+    app: sciencebeam-parser--prod
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: sciencebeam-parser.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciencebeam-parser--prod-scaler
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - sciencebeam-parser.elifesciences.org
+      secretName: sciencebeam-parser.elifesciences.org-tls
+---
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
 metadata:
   name: sciencebeam-parser--prod
   namespace: sciencebeam
 spec:
+  hosts:
+  - sciencebeam-parser.elifesciences.org
+  - sciencebeam-parser--prod-scaler
+  pathPrefixes:
+  - /
   scaleTargetRef:
     name: sciencebeam-parser--prod
-  minReplicaCount: 0
-  maxReplicaCount: 1
-  triggers:
-  - type: kubernetes-workload
-    metadata:
-      podSelector: 'app=sciencebeam-grobid-metadata-enricher--prod'
-      value: '1'
+    kind: Deployment
+    apiVersion: apps/v1
+    service: sciencebeam-parser--prod
+    port: 8070
+  replicas:
+    min: 0
+    max: 1
+  scaledownPeriod: 900
+  targetPendingRequests: 5
