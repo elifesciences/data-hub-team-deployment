@@ -126,6 +126,8 @@ spec:
         env:
         - name: GROBID_URL
           value: http://sciencebeam-parser--prod-scaler:8080/api
+        - name: GROBID_TIMEOUT
+          value: "300"
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
