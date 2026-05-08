@@ -42,7 +42,7 @@ spec:
     images:
       airflow:
         repository: docker.io/elifesciences/data-hub-core-dags_unstable # {"$imagepolicy": "data-hub:data-hub-core-dags-unstable:name"}
-        tag: HEAD-387d7bb2-20260507.1624 # {"$imagepolicy": "data-hub:data-hub-core-dags-unstable:tag"}
+        tag: HEAD-7f6f7b9e-20260508.1543 # {"$imagepolicy": "data-hub:data-hub-core-dags-unstable:tag"}
     # https://airflow.apache.org/docs/helm-chart/stable/index.html#installing-the-chart-with-argo-cd-flux-rancher-or-terraform
     # Required when using Flux/Argo/etc.
     createUserJob:
