@@ -177,10 +177,23 @@ spec:
                 name: sciencebeam-grobid-metadata-enricher--prod-scaler
                 port:
                   number: 8080
+    - host: enricher.sciencebeam.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciencebeam-grobid-metadata-enricher--prod-scaler
+                port:
+                  number: 8080
   tls:
     - hosts:
         - sciencebeam-grobid-metadata-enricher.elifesciences.org
       secretName: sciencebeam-grobid-metadata-enricher.elifesciences.org-tls
+    - hosts:
+        - enricher.sciencebeam.org
+      secretName: enricher.sciencebeam.org-tls
 ---
 apiVersion: v1
 kind: Service
@@ -202,6 +215,7 @@ metadata:
 spec:
   hosts:
   - sciencebeam-grobid-metadata-enricher.elifesciences.org
+  - enricher.sciencebeam.org
   pathPrefixes:
   - /
   scaleTargetRef:
