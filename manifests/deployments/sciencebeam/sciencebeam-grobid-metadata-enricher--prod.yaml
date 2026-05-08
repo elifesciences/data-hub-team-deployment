@@ -215,6 +215,9 @@ spec:
     max: 1
   scaledownPeriod: 900
   targetPendingRequests: 5
+  # parser cold-start (600s) + enricher cold-start (120s) + processing headroom
+  timeouts:
+    responseHeader: 900s
 ---
 apiVersion: v1
 kind: Service
@@ -278,3 +281,6 @@ spec:
     max: 1
   scaledownPeriod: 900
   targetPendingRequests: 5
+  # startup probe allows up to 600s (20 * 30s) for cold start
+  timeouts:
+    responseHeader: 600s
