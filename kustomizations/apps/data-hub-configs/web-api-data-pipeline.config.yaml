@@ -356,7 +356,7 @@ webApi:
       itemsKeyFromResponseRoot:
         - collection
       totalItemsCountKeyFromResponseRoot:
-        - message
+        - messages
         - total
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
@@ -397,7 +397,7 @@ webApi:
       itemsKeyFromResponseRoot:
         - collection
       totalItemsCountKeyFromResponseRoot:
-        - message
+        - messages
         - total
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
