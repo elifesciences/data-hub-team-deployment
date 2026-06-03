@@ -46,6 +46,7 @@ spec:
     # https://airflow.apache.org/docs/helm-chart/stable/index.html#installing-the-chart-with-argo-cd-flux-rancher-or-terraform
     # Required when using Flux/Argo/etc.
     createUserJob:
+      enabled: false
       useHelmHooks: false
       applyCustomEnv: false
       resources:
