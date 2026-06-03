@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: airflow
-      version: 1.20.0
+      version: 1.21.0
       sourceRef:
         kind: HelmRepository
         name: apache-airflow
