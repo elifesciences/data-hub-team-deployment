@@ -48,6 +48,7 @@ spec:
     createUserJob:
       useHelmHooks: false
       applyCustomEnv: false
+      ttlSecondsAfterFinished: 300
       resources:
         requests:
           cpu: "100m"
