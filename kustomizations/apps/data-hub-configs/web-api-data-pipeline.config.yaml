@@ -348,7 +348,7 @@ webApi:
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/details/biorxiv
       configurableParameters:
-        defaultPageSize: 100
+        defaultPageSize: 30
         dateFormat: '%Y-%m-%d'
         defaultStartDate: '2013-11-06+00:00'
         daysDiffFromStartTillEnd: 15
