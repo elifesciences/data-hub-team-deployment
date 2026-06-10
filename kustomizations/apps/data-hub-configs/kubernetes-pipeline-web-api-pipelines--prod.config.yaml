@@ -255,6 +255,17 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=updated_reviewed_preprint_vor'
 
+  - dataPipelineId: 'Web_API_elife_search_api_reviewed_preprint_assessment'
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_search_api_reviewed_preprint_assessment'
+
   - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
     airflow:
       dagParameters:
