@@ -576,6 +576,43 @@ webApi:
           - 'Web API'
           - 'DocMaps'
 
+  # get eLife search api article assessment detail (significance/strength)
+  - dataPipelineId: elife_search_api_reviewed_preprint_assessment
+    dataset: '{ENV}'
+    table: elife_search_api_reviewed_preprint_assessment
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-elife-search-api-reviewed-preprint-assessment-state.json'
+    dataUrl:
+      urlExcludingConfigurableParameters: 'https://api.elifesciences.org/search?type[]=reviewed-preprint&sort=date&order=asc&use-date=default'
+      configurableParameters:
+        pageParameterName: page
+        pageSizeParameterName: per-page
+        defaultPageSize: 100
+        fromDateParameterName: start-date
+        toDateParameterName: end-date
+        dateFormat: '%Y-%m-%d'
+        defaultStartDate: '2022-01-01+00:00'
+        daysDiffFromStartTillEnd: 30
+    response:
+      itemsKeyFromResponseRoot:
+        - items
+      totalItemsCountKeyFromResponseRoot:
+        - total
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - statusDate
+      fieldsToReturn:
+        - id
+        - version
+        - status
+        - statusDate
+        - elifeAssessment
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+
   # get updated RP VORs from journal
   - dataPipelineId: updated_reviewed_preprint_vor
     dataset: '{ENV}'
