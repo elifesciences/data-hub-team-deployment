@@ -584,7 +584,7 @@ webApi:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-elife-search-api-reviewed-preprint-assessment-state.json'
     dataUrl:
-      urlExcludingConfigurableParameters: 'https://api.elifesciences.org/search?type[]=reviewed-preprint&sort=date&order=asc&use-date=default'
+      urlExcludingConfigurableParameters: 'https://api.elifesciences.org/search?sort=date&order=asc&use-date=default'
       configurableParameters:
         pageParameterName: page
         pageSizeParameterName: per-page
