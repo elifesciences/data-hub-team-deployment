@@ -584,7 +584,12 @@ webApi:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-elife-search-api-reviewed-preprint-assessment-state.json'
     dataUrl:
-      urlExcludingConfigurableParameters: 'https://api.elifesciences.org/search?sort=date&order=asc&use-date=default'
+      # Restrict to peer-reviewed research types. These are the only types that carry an
+      # elifeAssessment AND that have a statusDate (the record timestamp we track). The magazine/
+      # blog types (blog-article, podcast-episode, collection, interview, labs-post) have no
+      # statusDate and would raise "record timestamp not found". A reviewed-preprint keeps its
+      # assessment when its VOR is published under any of these article types, so all are included.
+      urlExcludingConfigurableParameters: 'https://api.elifesciences.org/search?sort=date&order=asc&use-date=default&type[]=reviewed-preprint&type[]=research-article&type[]=short-report&type[]=tools-resources&type[]=research-advance&type[]=review-article&type[]=replication-study&type[]=registered-report&type[]=research-communication&type[]=scientific-correspondence'
       configurableParameters:
         pageParameterName: page
         pageSizeParameterName: per-page
