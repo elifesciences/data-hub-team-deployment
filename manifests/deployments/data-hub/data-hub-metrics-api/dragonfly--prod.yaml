@@ -9,13 +9,13 @@ spec:
   - "--proactor_threads=1"
   - "--dbfilename=snapshot"
   - "--cache_mode=false"
-  - "--maxmemory=256M"
+  - "--maxmemory=1G"
   resources:
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 1Gi
     limits:
-      memory: 300Mi
+      memory: 1280Mi
   tolerations:
   - key: workload
     operator: Equal
