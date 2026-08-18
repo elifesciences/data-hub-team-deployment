@@ -99,6 +99,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+        topology.kubernetes.io/zone: us-east-1c
       persistence:
         storageClassName: data-hub-gp3
       resources:
@@ -119,6 +120,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+        topology.kubernetes.io/zone: us-east-1c
       resources:
         requests:
           memory: 500Mi
@@ -137,6 +139,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+        topology.kubernetes.io/zone: us-east-1c
       resources:
         requests:
           memory: 1014Mi
@@ -163,6 +166,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+        topology.kubernetes.io/zone: us-east-1c
       replicas: 2
       env:
         - name: AIRFLOW__CORE__AUTH_MANAGER
@@ -190,6 +194,7 @@ spec:
           effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
+        topology.kubernetes.io/zone: us-east-1c
       podAnnotations:
         # reload when selected secret is updated (e.g. RDS external secret)
         reloader.stakater.com/search: "true"
