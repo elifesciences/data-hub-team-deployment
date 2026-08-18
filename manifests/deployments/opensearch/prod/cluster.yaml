@@ -69,6 +69,7 @@ spec:
       effect: NoSchedule
     nodeSelector:
       data-hub-workload: "services"
+      topology.kubernetes.io/zone: us-east-1c
     roles:
     - "cluster_manager"
     diskSize: 10Gi
