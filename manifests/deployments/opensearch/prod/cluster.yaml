@@ -105,6 +105,7 @@ spec:
       effect: NoSchedule
     nodeSelector:
       data-hub-workload: "services"
+      topology.kubernetes.io/zone: us-east-1c
     probes:
       startup:
         initialDelaySeconds: 30
