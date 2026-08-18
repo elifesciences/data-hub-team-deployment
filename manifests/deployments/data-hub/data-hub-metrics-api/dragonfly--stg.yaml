@@ -32,3 +32,5 @@ spec:
       resources:
         requests:
           storage: 2Gi
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1c
