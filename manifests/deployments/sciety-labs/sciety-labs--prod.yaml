@@ -21,6 +21,8 @@ spec:
         app.kubernetes.io/instance: sciety-labs--prod
         app.kubernetes.io/component: web
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1c
       containers:
         - name: sciety-labs
           image: ghcr.io/sciety/sciety-labs:0.0.101 # {"$imagepolicy": "data-hub:sciety-labs-stable"}
