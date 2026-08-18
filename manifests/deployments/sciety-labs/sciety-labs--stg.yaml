@@ -20,6 +20,8 @@ spec:
         app.kubernetes.io/instance: sciety-labs--stg
         app.kubernetes.io/component: web
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1c
       containers:
       - name: sciety-labs
         image: ghcr.io/sciety/sciety-labs_unstable:main-e98fe575-20260812.0948 # {"$imagepolicy": "data-hub:sciety-labs-unstable"}
