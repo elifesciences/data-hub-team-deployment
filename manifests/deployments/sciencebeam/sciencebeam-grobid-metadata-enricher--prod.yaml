@@ -27,6 +27,8 @@ spec:
       labels:
         app: sciencebeam-parser--prod
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1c
       containers:
       - name: sciencebeam-parser
         image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
