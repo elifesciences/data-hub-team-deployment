@@ -128,7 +128,7 @@ spec:
           - ReadWriteOnce
 
   - component: ingest
-    replicas: 1
+    replicas: 3
     resources:
       requests:
         memory: "3Gi"
