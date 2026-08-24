@@ -37,6 +37,8 @@ spec:
         app: phoenix
         env: prod
     spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1c
       initContainers:
       - name: init-data-permissions
         image: busybox
