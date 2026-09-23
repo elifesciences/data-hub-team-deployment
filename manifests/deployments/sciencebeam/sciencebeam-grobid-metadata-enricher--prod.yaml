@@ -31,7 +31,8 @@ spec:
         topology.kubernetes.io/zone: us-east-1c
       containers:
       - name: sciencebeam-parser
-        image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
+        # image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
+        image: ghcr.io/elifepathways/sciencebeam-parser_unstable:main-b8c71d1f-20260922.0859
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
