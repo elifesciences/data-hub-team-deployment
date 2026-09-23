@@ -267,7 +267,7 @@ metadata:
     app: sciencebeam-parser--prod
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: sciencebeam-sciencebeam-parser-basic-auth-prod@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
