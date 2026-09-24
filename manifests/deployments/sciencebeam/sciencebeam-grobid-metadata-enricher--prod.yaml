@@ -64,6 +64,9 @@ spec:
           limits:
             cpu: 2000m
             memory: 4Gi
+        env:
+        - name: SCIENCEBEAM_PARSER__SELECTABLE_PROFILES
+          value: 'all'
         volumeMounts:
         - name: cache
           mountPath: /root/.cache
