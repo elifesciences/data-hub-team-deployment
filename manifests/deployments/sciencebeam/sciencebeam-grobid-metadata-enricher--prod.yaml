@@ -43,8 +43,10 @@ spec:
             path: /api/isalive
             port: http
           timeoutSeconds: 5
-          periodSeconds: 30
-          failureThreshold: 20
+          # 5s x 120 keeps the same 600s startup ceiling as 30s x 20, but
+          # detects a started pod within 5s instead of up to 30s late.
+          periodSeconds: 5
+          failureThreshold: 120
         livenessProbe:
           httpGet:
             path: /api/isalive
@@ -56,7 +58,9 @@ spec:
             path: /api/isalive
             port: http
           timeoutSeconds: 5
-          periodSeconds: 30
+          # Readiness only starts probing once startupProbe succeeds, so this
+          # interval is added to the cold start on top of the startup probe's.
+          periodSeconds: 5
         resources:
           requests:
             cpu: 500m
@@ -132,8 +136,11 @@ spec:
         env:
         - name: GROBID_URL
           value: http://sciencebeam-parser--prod-scaler:8080/api
+        # Bounds the enricher's whole call to the parser: the parser's
+        # conditionWait (300s) plus conversion. Must stay above that wait, or a
+        # cold parser consumes the entire budget before any work happens.
         - name: GROBID_TIMEOUT
-          value: "300"
+          value: "600"
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
@@ -235,8 +242,11 @@ spec:
     max: 1
   scaledownPeriod: 900
   targetPendingRequests: 5
-  # parser cold-start (600s) + enricher cold-start (120s) + processing headroom
   timeouts:
+    # See the parser's HTTPScaledObject below for what each phase covers.
+    # A cold enricher hit the same 90s default as the parser did.
+    conditionWait: 300s
+    # enricher cold-start + parser cold-start + processing headroom
     responseHeader: 900s
 ---
 apiVersion: v1
@@ -312,6 +322,13 @@ spec:
     max: 1
   scaledownPeriod: 900
   targetPendingRequests: 5
-  # startup probe allows up to 600s (20 * 30s) for cold start
   timeouts:
+    # conditionWait: how long the interceptor holds a request while scaling
+    # from zero, BEFORE forwarding it. responseHeader below times a different
+    # phase (after the request has been forwarded) and cannot cover a cold
+    # start -- that confusion is what made every first request fail.
+    # 300s: the AWS NLB in front of Traefik drops idle flows at 350s, and that
+    # budget covers this wait plus the parser's processing -- so the NLB, not
+    # the startup probe's 600s, is the ceiling.
+    conditionWait: 300s
     responseHeader: 600s
