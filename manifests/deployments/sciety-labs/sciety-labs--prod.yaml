@@ -25,7 +25,7 @@ spec:
         topology.kubernetes.io/zone: us-east-1c
       containers:
         - name: sciety-labs
-          image: ghcr.io/sciety/sciety-labs:0.0.101 # {"$imagepolicy": "data-hub:sciety-labs-stable"}
+          image: ghcr.io/sciety/sciety-labs:0.0.102 # {"$imagepolicy": "data-hub:sciety-labs-stable"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
