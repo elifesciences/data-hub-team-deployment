@@ -17,7 +17,11 @@ spec:
     name: sciencebeam-parser-unstable
     namespace: sciencebeam
   filterTags:
-    pattern: '^main-[a-fA-F0-9]+-(?P<ts>.*)'
+    # The timestamp must be anchored and strictly numeric: this repository also
+    # publishes the computer-vision variant as <branch>-<sha>-<timestamp>-cv,
+    # which an unanchored '.*' would capture as a non-numeric value and break
+    # ordering for every tag.
+    pattern: '^main-[a-fA-F0-9]+-(?P<ts>[0-9]{8}\.[0-9]{4})$'
     extract: '$ts'
   policy:
     numerical:
