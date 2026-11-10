@@ -144,12 +144,14 @@ spec:
         requests:
           memory: 1014Mi
           cpu: 100m
+          ephemeral-storage: "5Gi"
         limits:
           memory: 1014Mi
           cpu: 1000m
       livenessProbe:
         timeoutSeconds: 60
       logGroomerSidecar:
+        retentionDays: 3
         resources:
           requests:
             memory: 3072Ki
