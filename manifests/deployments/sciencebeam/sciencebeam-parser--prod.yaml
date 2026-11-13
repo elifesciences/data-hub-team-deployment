@@ -144,10 +144,23 @@ spec:
                 name: sciencebeam-parser--prod-scaler
                 port:
                   number: 8080
+    - host: api.sciencebeam.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciencebeam-parser--prod-scaler
+                port:
+                  number: 8080
   tls:
     - hosts:
         - sciencebeam-parser.elifesciences.org
       secretName: sciencebeam-parser.elifesciences.org-tls
+    - hosts:
+        - api.sciencebeam.org
+      secretName: api.sciencebeam.org-tls
 ---
 apiVersion: http.keda.sh/v1alpha1
 kind: HTTPScaledObject
@@ -157,6 +170,7 @@ metadata:
 spec:
   hosts:
   - sciencebeam-parser.elifesciences.org
+  - api.sciencebeam.org
   - sciencebeam-parser--prod-scaler
   pathPrefixes:
   - /
