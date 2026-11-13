@@ -75,6 +75,10 @@ spec:
         env:
         - name: SCIENCEBEAM_PARSER__SELECTABLE_PROFILES
           value: 'all'
+        # Word conversion runs LibreOffice over the upload; off until the
+        # image and the pod are hardened for untrusted documents.
+        - name: SCIENCEBEAM_PARSER__DOC_TO_PDF__ENABLED
+          value: 'false'
         volumeMounts:
         - name: cache
           mountPath: /root/.cache
