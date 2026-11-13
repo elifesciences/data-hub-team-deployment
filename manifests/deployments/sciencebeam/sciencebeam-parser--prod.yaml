@@ -29,6 +29,8 @@ spec:
     spec:
       nodeSelector:
         topology.kubernetes.io/zone: us-east-1c
+      # the parser does not call the Kubernetes API
+      automountServiceAccountToken: false
       containers:
       - name: sciencebeam-parser
         # image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
