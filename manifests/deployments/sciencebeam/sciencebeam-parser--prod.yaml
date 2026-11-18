@@ -170,6 +170,8 @@ spec:
   - sciencebeam-parser.elifesciences.org
   - api.sciencebeam.org
   - sciencebeam-parser--prod-scaler
+  # the website preview forwards its /api here
+  - preview.sciencebeam.org
   pathPrefixes:
   - /
   scaleTargetRef:

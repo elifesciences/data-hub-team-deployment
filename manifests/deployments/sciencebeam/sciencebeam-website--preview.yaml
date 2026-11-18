@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sciencebeam-website--preview
+  labels:
+    app: sciencebeam-website--preview
+  namespace: sciencebeam
+spec:
+  selector:
+    matchLabels:
+      app: sciencebeam-website--preview
+  template:
+    metadata:
+      labels:
+        app: sciencebeam-website--preview
+    spec:
+      # the site does not call the Kubernetes API
+      automountServiceAccountToken: false
+      containers:
+      - name: sciencebeam-website
+        image: ghcr.io/elifepathways/sciencebeam-website_unstable:main-a73bf8e5-20261118.1024 # {"$imagepolicy": "sciencebeam:sciencebeam-website-unstable"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          timeoutSeconds: 5
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+          limits:
+            memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciencebeam-website--preview
+  namespace: sciencebeam
+spec:
+  selector:
+    app: sciencebeam-website--preview
+  ports:
+  - port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sciencebeam-website--preview
+  namespace: sciencebeam
+  labels:
+    app: sciencebeam-website--preview
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: sciencebeam-sciencebeam-parser-basic-auth-prod@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: preview.sciencebeam.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/api"
+            backend:
+              service:
+                name: sciencebeam-parser--prod-scaler
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciencebeam-website--preview
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - preview.sciencebeam.org
+      secretName: preview.sciencebeam.org-tls
