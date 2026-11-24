@@ -18,7 +18,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: sciencebeam-website
-        image: ghcr.io/elifepathways/sciencebeam-website_unstable:main-a73bf8e5-20261118.1024 # {"$imagepolicy": "sciencebeam:sciencebeam-website-unstable"}
+        image: ghcr.io/elifepathways/sciencebeam-website_unstable:main-2252134b-20261124.1356 # {"$imagepolicy": "sciencebeam:sciencebeam-website-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
