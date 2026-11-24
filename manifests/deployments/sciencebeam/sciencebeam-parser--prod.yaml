@@ -34,7 +34,7 @@ spec:
       containers:
       - name: sciencebeam-parser
         # image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
-        image: ghcr.io/elifepathways/sciencebeam-parser_unstable:main-001e1e78-20261118.1338 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-unstable"}
+        image: ghcr.io/elifepathways/sciencebeam-parser_unstable:main-f0e48f42-20261124.1233 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -66,11 +66,11 @@ spec:
         resources:
           requests:
             cpu: 500m
-            memory: 2Gi
+            memory: 4Gi
             ephemeral-storage: 512Mi
           limits:
             cpu: 2000m
-            memory: 4Gi
+            memory: 6Gi
             ephemeral-storage: 2Gi
         env:
         # Word conversion runs LibreOffice over the upload; off until the
