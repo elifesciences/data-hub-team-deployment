@@ -390,7 +390,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_digest_sub_article_info
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_digest_sub_article_info_001.json"
@@ -408,7 +408,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_press_info
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_press_info_001.json"
@@ -426,7 +426,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_published_stage_history
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_history_001.json"
@@ -444,7 +444,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_published_stage_summary
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_summary_001.json"
@@ -462,7 +462,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_wip_stage_summary
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_summary_001.json"
@@ -480,7 +480,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_wip_stage_history
-    tableWriteAppend: False
+    tableWriteAppend: True
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_history_001.json"
