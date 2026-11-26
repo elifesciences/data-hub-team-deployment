@@ -34,7 +34,7 @@ spec:
       containers:
       - name: sciencebeam-parser
         # image: ghcr.io/elifepathways/sciencebeam-parser:0.1.18 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-stable"}
-        image: ghcr.io/elifepathways/sciencebeam-parser_unstable:main-da914766-20261126.0737 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-unstable"}
+        image: ghcr.io/elifepathways/sciencebeam-parser_unstable:main-3105ece7-20261126.0907 # {"$imagepolicy": "sciencebeam:sciencebeam-parser-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
