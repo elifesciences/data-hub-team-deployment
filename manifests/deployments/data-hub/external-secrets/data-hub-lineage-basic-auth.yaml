@@ -19,7 +19,7 @@ spec:
     template:
       engineVersion: v2
       data:
-        usersFile: "{{ htpasswd .username .password }}"
+        usersFile: '{{ htpasswd .username .password "bcrypt" }}'
   dataFrom:
   - extract:
       key: data-team/data-hub/data-hub-lineage-basic-auth
