@@ -1,7 +1,7 @@
 ---
 # Pull secret for the private ghcr.io/elifesciences/data-hub-lineage image,
 # used by the Deployment (imagePullSecrets) and the Flux ImageRepository (secretRef).
-# AWS Secrets Manager secret data-team/data-hub-lineage/ghcr-pull:
+# AWS Secrets Manager secret data-team/data-hub/data-hub-lineage-ghcr-pull:
 #   {"username": "<GitHub user>", "token": "<classic token with read:packages>"}
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
@@ -23,4 +23,4 @@ spec:
         .dockerconfigjson: '{"auths":{"ghcr.io":{"username":"{{ .username }}","password":"{{ .token }}","auth":"{{ printf "%s:%s" .username .token | b64enc }}"}}}'
   dataFrom:
   - extract:
-      key: data-team/data-hub-lineage/ghcr-pull
+      key: data-team/data-hub/data-hub-lineage-ghcr-pull
