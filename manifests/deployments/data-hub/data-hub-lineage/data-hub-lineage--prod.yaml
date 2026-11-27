@@ -1,0 +1,106 @@
+# Data Lineage Explorer prototype: a static page built nightly by
+# https://github.com/elifesciences/data-hub-lineage (private image, behind basic auth).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-hub-lineage--prod
+  labels:
+    app: data-hub-lineage--prod
+  namespace: data-hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-hub-lineage--prod
+  template:
+    metadata:
+      labels:
+        app: data-hub-lineage--prod
+    spec:
+      imagePullSecrets:
+      - name: data-hub-lineage-ghcr-pull
+      containers:
+      - name: data-hub-lineage
+        image: ghcr.io/elifesciences/data-hub-lineage:latest # {"$imagepolicy": "data-hub:data-hub-lineage"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 64Mi
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-hub-lineage--prod
+  namespace: data-hub
+spec:
+  selector:
+    app: data-hub-lineage--prod
+  ports:
+  - port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-lineage--prod
+  namespace: data-hub
+  labels:
+    app: data-hub-lineage--prod
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: data-hub-data-hub-lineage-basic-auth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: data-hub-lineage.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: data-hub-lineage--prod
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - data-hub-lineage.elifesciences.org
+      secretName: data-hub-lineage-prod-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: data-hub-lineage-basic-auth
+  namespace: data-hub
+spec:
+  basicAuth:
+    secret: data-hub-lineage-basic-auth
+    realm: "Data Lineage Explorer"
+    removeHeader: true

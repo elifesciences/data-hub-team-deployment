@@ -1,0 +1,25 @@
+---
+# Login for data-hub-lineage.elifesciences.org.
+# AWS Secrets Manager secret data-team/data-hub-lineage/basic-auth:
+#   {"username": "<login name>", "password": "<password>"}
+# The template turns them into the bcrypt htpasswd line that Traefik expects.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: data-hub-lineage-basic-auth
+  namespace: data-hub
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secret-store
+    kind: ClusterSecretStore
+  target:
+    name: data-hub-lineage-basic-auth
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        usersFile: "{{ htpasswd .username .password }}"
+  dataFrom:
+  - extract:
+      key: data-team/data-hub-lineage/basic-auth
