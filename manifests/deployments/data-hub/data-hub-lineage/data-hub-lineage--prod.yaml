@@ -21,7 +21,7 @@ spec:
       - name: data-hub-lineage-ghcr-pull
       containers:
       - name: data-hub-lineage
-        image: ghcr.io/elifesciences/data-hub-lineage:main-e71bcce6-20261127.2237 # {"$imagepolicy": "data-hub:data-hub-lineage"}
+        image: ghcr.io/elifesciences/data-hub-lineage:main-e71bcce6-20261128.0511 # {"$imagepolicy": "data-hub:data-hub-lineage"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
